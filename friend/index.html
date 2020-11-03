@@ -6,7 +6,8 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>归档</title>
+    
+    <title>友情链接</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
@@ -17,66 +18,140 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
-<meta name="generator" content="Hexo 5.2.0"></head>
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">友情链接</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text Chinese"></p>
+                    <p class="article-info-text English"></p>                  
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        
-    <div class="articles">
-        
-        
-            
+        <div id="article">
+            <div class="article-body">
                 
-                    
-                    <div class="archives-wrap">      
-                        <div class="archive-year-wrap">
-                            <a href="/archive/2020" class="archive-year">
-                                2020
-                            </a>
-                        </div>
-                        <div class="archives">
-            
-                            <div class="archive">
-                                <div class="article">
-                                    <a href="javascript:;">
-                                        <span>11/03</span>
-                                    </a>
-                                    <h2>
-                                        <a class="article-title" href="/2020/11/03/hello-world/">Hello World</a> 
-                                    </h2>
-                                </div>
-                            </div>     
+<style type="text/css">
+    .friends .friend-content .friend-card:hover .friend-left .avatar {
+        box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.1), 0 4px 8px 0px rgba(0, 0, 0, 0.1), 0 8px 16px 0px rgba(0, 0, 0, 0.1);
+        transform: scale(1.2) rotate(12deg)
+    }
+</style>
+
+
+
+    <div class="friends">
         
-        
+            <div class="friend-head">
+                <span>特别鸣谢</span>
             </div>
-        </div>
         
-    </div>   
+        
+        <div class="friend-content">
+            
+                <a class="friend-card" target="_blank" href="https://hexo.io/zh-cn/">
+                    <div class="friend-left">
+                        <img class="avatar" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg" data-original="https://www.notes.worstone.cn/image/hexo.png"> 
+                    </div>
+                    <div class="friend-right">
+                        <p class="friend-name">Hexo</p>
+                        <div class="friend-about">
+                            <p>简洁、高效的博客框架</p>
+                        </div>
+                    </div>
+                </a>
+            
+                <a class="friend-card" target="_blank" href="https://blog.dbnuo.com/">
+                    <div class="friend-left">
+                        <img class="avatar" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg" data-original="https://blog.dbnuo.com/images/avatar.gif"> 
+                    </div>
+                    <div class="friend-right">
+                        <p class="friend-name">BNDong</p>
+                        <div class="friend-about">
+                            <p>SimpleMemory 作者</p>
+                        </div>
+                    </div>
+                </a>
+            
+                <a class="friend-card" target="_blank" href="https://notes.iissnan.com/">
+                    <div class="friend-left">
+                        <img class="avatar" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg" data-original="https://notes.iissnan.com/uploads/m3.jpg"> 
+                    </div>
+                    <div class="friend-right">
+                        <p class="friend-name">IIssNan</p>
+                        <div class="friend-about">
+                            <p>Hexo-NexT 作者</p>
+                        </div>
+                    </div>
+                </a>
+            
+                <a class="friend-card" target="_blank" href="https://volantis.js.org/">
+                    <div class="friend-left">
+                        <img class="avatar" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg" data-original="https://www.notes.worstone.cn/image/volantis.png"> 
+                    </div>
+                    <div class="friend-right">
+                        <p class="friend-name">Volantis</p>
+                        <div class="friend-about">
+                            <p>Hexo-Volantis 主题</p>
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
 
+    <div class="friends">
+        
+            <div class="friend-head">
+                <span>友情链接</span>
+            </div>
+        
+        
+        <div class="friend-content">
+            
+                <a class="friend-card" target="_blank" href="https://notes.worstone.cn">
+                    <div class="friend-left">
+                        <img class="avatar" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg" data-original="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/sidebar/avatar.jpg"> 
+                    </div>
+                    <div class="friend-right">
+                        <p class="friend-name">WorstOne</p>
+                        <div class="friend-about">
+                            <p>Live For Code 作者</p>
+                        </div>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
 
+                <blockquote>
+<p>欢迎各位朋友前来交换友链，本站友链接受以下类型的网站：</p>
+<ul>
+<li>个人博客</li>
+<li>公益组织等非盈利性网站</li>
+<li>不接受广告、商业性网站，特殊情况除外</li>
+</ul>
+</blockquote>
+
+            </div>
+                    
+        </div>
     </div>
 </div>
     <div id="footer"></div>
@@ -138,14 +213,14 @@
 </div>
     <script>
     window.config = {
-        GitHubUserName     : 'first19326',
-        GitHubRepositories : 'Hexo-LiveForCode',
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
 
-        BlogUser      : 'Live For Code',
-        BlogAvatar    : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/sidebar/avatar.jpg',
-        BlogStartDate : '2020-01-01',
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
 
-        WebsiteTitleBlur         : '(◍´꒳`◍) Hi, Live For Code',
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
         WebsiteTitleBlurTimeOut  : 500,
         WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
         WebsiteTitleFocusTimeOut : 1000,
@@ -337,7 +412,7 @@
             
                 {
                     icon : 'icon-weibo', 
-                    url  : ''
+                    url  : 'https://weibo.com/u/5687785291'
                 },
             
                 {
@@ -352,7 +427,7 @@
             
                 {
                     icon : 'icon-github', 
-                    url  : 'https://github.com/first19326'
+                    url  : 'https://github.com/Lzz1027'
                 },
             
         ],
@@ -360,8 +435,8 @@
         FooterStyle : 2,
         BottomText  : {
             icon    : 'like-fill',
-            left    : '人生若只如初见',
-            right   : '何事秋风悲画扇'
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
         },
         ThemeInfo   : true,
 
@@ -398,8 +473,8 @@
         Donate : {
             paypal  : '',
             bitcoin : '',
-            alipay  : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/donate/alipay.png',
-            wechat  : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/donate/wechat.png'
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png'
         },
 
         Code : {
@@ -407,9 +482,9 @@
         },  
 
         Search : {
-            applicationID : '010C3EANT8',
-            apiKey        : 'c7abab9f11b79102b9aff7fe6d41447d',
-            indexName     : 'Notes',
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
             hits          : {
                 page : 10
             },
