@@ -6,7 +6,7 @@
   <link href="https://www.notes.worstone.cn/atom.xml" rel="self"/>
   
   <link href="https://www.notes.worstone.cn/"/>
-  <updated>2020-11-03T06:09:50.883Z</updated>
+  <updated>2020-11-03T16:16:01.957Z</updated>
   <id>https://www.notes.worstone.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>A* 寻路算法</title>
+    <link href="https://www.notes.worstone.cn/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/"/>
+    <id>https://www.notes.worstone.cn/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/</id>
+    <published>2020-11-03T16:15:57.000Z</published>
+    <updated>2020-11-03T16:16:01.957Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="A-寻路算法"><a href="#A-寻路算法" class="headerlink" title="A* 寻路算法"></a>A* 寻路算法</h1><h2 id="搜索区域-（The-Search-Area）"><a href="#搜索区域-（The-Search-Area）" class="headerlink" title="搜索区域 （The Search Area）"></a>搜索区域 （The Search Area）</h2><p>假设现在要从绿点移动到红点，中间有蓝色的墙隔开</p><p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image001.jpg" alt="image001.jpg"></p><p>首先将搜索区域划分为正方形的格子来简化搜索区域——简化为二维数组，数组的每一项代表一个格子，状态有两种：walkable和unwalkable。计算从绿点到红点经过了哪些格子就能找到路径。</p><p>每个格子的中心点成为节点（nodes），（不称为方格是因为在划分时也可以划分为其它形状如六边形、矩形等）</p><h2 id="开始搜索-（Starting-the-Search）"><a href="#开始搜索-（Starting-the-Search）" class="headerlink" title="开始搜索 （Starting the Search）"></a>开始搜索 （Starting the Search）</h2><p>A*算法的思路是，从起点开始，检查临近的方格，再向四周扩展，直到找到目标。</p><p>具体寻路路径如下：</p><ol><li>从起点A开始，将A加入到一个由格子节点组成的open list中，open list中的节点是路径可能经过的（有可能不经过），即一个待检测的节点列表；</li><li>查看临近方格，将所有可走或可到达的格子加入到open list中，把A设置为这些节点的父节点（parent node）；</li><li>将A从open list中移除，然后加入到close list（封闭列表）中，close list表示现在无需关注的节点列表；</li><li>从open list中选择一个与A相邻的方格，重复之前的步骤n次，选择方格时需要选择F值最小的。</li></ol><p>而F值是什么呢？</p><h2 id="路径排序-（Path-Sorting）"><a href="#路径排序-（Path-Sorting）" class="headerlink" title="路径排序 （Path Sorting）"></a>路径排序 （Path Sorting）</h2><p>计算路径的关键是下面的公式：</p><p>​        F = G + H</p><p>其中，G代表从A到指定方格的移动代价， H代表从指定的方格到B的估算成本（由于此时，真正的路径仍未确定，所以仅仅是估算成本）；</p><p>之后反复遍历open list 选择F值最小的方格，就能得到最终的路径。</p><p><strong>这里使用Manhattan方法估算H值：</strong></p><p>忽略路径中的障碍物，从当前方格到目标方格，只使用横向或纵向移动的方式，将移动数乘上移动的代价，就得到了H值。</p><p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image003.jpg" alt="image003.jpg"></p><h2 id="继续搜索-（Continuing-the-Search）"><a href="#继续搜索-（Continuing-the-Search）" class="headerlink" title="继续搜索 （Continuing the Search）"></a>继续搜索 （Continuing the Search）</h2><p>当F值计算完毕后，对所选的方格进行如下操作：</p><ol start="5"><li>从open list中取出，放入close list中；</li><li>检查与其临近的方格，忽略不可走的和已经在close list中的方格，如果方格不在open list中，则将其加入open list中，并将当前方格设置为新增方格的父节点；</li><li>如果相邻方格已经在open list中，则检测从当前方格到相邻方格的G值，如果大于当前方格G值，则不改变，如果G值小于当前G值，则将这个方格的父亲设置为当前方格，重新计算这个方格的F和G值。</li><li>再次遍历open list，选择F值最小的，如果有相同的F值，则选择后加入open list的方格（这样更快）</li><li>不断重复，直到将重点加入open list中</li></ol><p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image006.jpg" alt="image006.jpg"></p><p>此时，从重点按箭头方向即为实际路径：</p><p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image007.jpg" alt="image007.jpg"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;A-寻路算法&quot;&gt;&lt;a href=&quot;#A-寻路算法&quot; class=&quot;headerlink&quot; title=&quot;A* 寻路算法&quot;&gt;&lt;/a&gt;A* 寻路算法&lt;/h1&gt;&lt;h2 id=&quot;搜索区域-（The-Search-Area）&quot;&gt;&lt;a href=&quot;#搜索区域-（The-Sea</summary>
+      
+    
+    
+    
+    <category term="Note" scheme="https://www.notes.worstone.cn/category/Note/"/>
+    
+    
+    <category term="AI" scheme="https://www.notes.worstone.cn/tag/AI/"/>
+    
+    <category term="Note" scheme="https://www.notes.worstone.cn/tag/Note/"/>
+    
+  </entry>
   
   <entry>
     <title>iGraph 学习笔记（1）</title>

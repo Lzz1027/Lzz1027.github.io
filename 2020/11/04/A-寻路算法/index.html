@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>归档</title>
+    <title>A* 寻路算法</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
@@ -17,90 +17,135 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
 <link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">A* 寻路算法</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-11-04
+                        </span>
+                        
+                            <span id="/2020/11/04/A-寻路算法/" class="leancloud_visitors" data-flag-title="A* 寻路算法">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/04/A-寻路算法/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        
-    <div class="articles">
-        
-        
-            
-                
-                    
-                    <div class="archives-wrap">      
-                        <div class="archive-year-wrap">
-                            <a href="/archive/2020" class="archive-year">
-                                2020
-                            </a>
-                        </div>
-                        <div class="archives">
-            
-                            <div class="archive">
-                                <div class="article">
-                                    <a href="javascript:;">
-                                        <span>11/04</span>
-                                    </a>
-                                    <h2>
-                                        <a class="article-title" href="/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/">A* 寻路算法</a> 
-                                    </h2>
-                                </div>
-                            </div>     
-        
-            
-                            <div class="archive">
-                                <div class="article">
-                                    <a href="javascript:;">
-                                        <span>11/03</span>
-                                    </a>
-                                    <h2>
-                                        <a class="article-title" href="/2020/11/03/iGraph%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">iGraph 学习笔记（1）</a> 
-                                    </h2>
-                                </div>
-                            </div>     
-        
-            
-                            <div class="archive">
-                                <div class="article">
-                                    <a href="javascript:;">
-                                        <span>11/03</span>
-                                    </a>
-                                    <h2>
-                                        <a class="article-title" href="/2020/11/03/my-first-blog/">第一篇Blog</a> 
-                                    </h2>
-                                </div>
-                            </div>     
-        
-        
-            </div>
-        </div>
-        
-    </div>   
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="A-寻路算法"><a href="#A-寻路算法" class="headerlink" title="A* 寻路算法"></a>A* 寻路算法</h1><h2 id="搜索区域-（The-Search-Area）"><a href="#搜索区域-（The-Search-Area）" class="headerlink" title="搜索区域 （The Search Area）"></a>搜索区域 （The Search Area）</h2><p>假设现在要从绿点移动到红点，中间有蓝色的墙隔开</p>
+<p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image001.jpg" alt="image001.jpg"></p>
+<p>首先将搜索区域划分为正方形的格子来简化搜索区域——简化为二维数组，数组的每一项代表一个格子，状态有两种：walkable和unwalkable。计算从绿点到红点经过了哪些格子就能找到路径。</p>
+<p>每个格子的中心点成为节点（nodes），（不称为方格是因为在划分时也可以划分为其它形状如六边形、矩形等）</p>
+<h2 id="开始搜索-（Starting-the-Search）"><a href="#开始搜索-（Starting-the-Search）" class="headerlink" title="开始搜索 （Starting the Search）"></a>开始搜索 （Starting the Search）</h2><p>A*算法的思路是，从起点开始，检查临近的方格，再向四周扩展，直到找到目标。</p>
+<p>具体寻路路径如下：</p>
+<ol>
+<li>从起点A开始，将A加入到一个由格子节点组成的open list中，open list中的节点是路径可能经过的（有可能不经过），即一个待检测的节点列表；</li>
+<li>查看临近方格，将所有可走或可到达的格子加入到open list中，把A设置为这些节点的父节点（parent node）；</li>
+<li>将A从open list中移除，然后加入到close list（封闭列表）中，close list表示现在无需关注的节点列表；</li>
+<li>从open list中选择一个与A相邻的方格，重复之前的步骤n次，选择方格时需要选择F值最小的。</li>
+</ol>
+<p>而F值是什么呢？</p>
+<h2 id="路径排序-（Path-Sorting）"><a href="#路径排序-（Path-Sorting）" class="headerlink" title="路径排序 （Path Sorting）"></a>路径排序 （Path Sorting）</h2><p>计算路径的关键是下面的公式：</p>
+<p>​        F = G + H</p>
+<p>其中，G代表从A到指定方格的移动代价， H代表从指定的方格到B的估算成本（由于此时，真正的路径仍未确定，所以仅仅是估算成本）；</p>
+<p>之后反复遍历open list 选择F值最小的方格，就能得到最终的路径。</p>
+<p><strong>这里使用Manhattan方法估算H值：</strong></p>
+<p>忽略路径中的障碍物，从当前方格到目标方格，只使用横向或纵向移动的方式，将移动数乘上移动的代价，就得到了H值。</p>
+<p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image003.jpg" alt="image003.jpg"></p>
+<h2 id="继续搜索-（Continuing-the-Search）"><a href="#继续搜索-（Continuing-the-Search）" class="headerlink" title="继续搜索 （Continuing the Search）"></a>继续搜索 （Continuing the Search）</h2><p>当F值计算完毕后，对所选的方格进行如下操作：</p>
+<ol start="5">
+<li>从open list中取出，放入close list中；</li>
+<li>检查与其临近的方格，忽略不可走的和已经在close list中的方格，如果方格不在open list中，则将其加入open list中，并将当前方格设置为新增方格的父节点；</li>
+<li>如果相邻方格已经在open list中，则检测从当前方格到相邻方格的G值，如果大于当前方格G值，则不改变，如果G值小于当前G值，则将这个方格的父亲设置为当前方格，重新计算这个方格的F和G值。</li>
+<li>再次遍历open list，选择F值最小的，如果有相同的F值，则选择后加入open list的方格（这样更快）</li>
+<li>不断重复，直到将重点加入open list中</li>
+</ol>
+<p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image006.jpg" alt="image006.jpg"></p>
+<p>此时，从重点按箭头方向即为实际路径：</p>
+<p><img src="http://www.cppblog.com/images/cppblog_com/christanxw/image007.jpg" alt="image007.jpg"></p>
 
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/" target="_blank">A* 寻路算法</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/AI/">AI</a>
+                
+                    <a href="/tag/Note/">Note</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+            
+                <a href="/2020/11/03/iGraph%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/03/iGraph%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="发布于 2020-11-03 02:08">iGraph 学习笔记（1）</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
 
     </div>
 </div>
