@@ -94,4 +94,34 @@
     
   </entry>
   
+  <entry>
+    <title>计算机图形学笔记——Mesh 网格体</title>
+    <link href="https://www.notes.worstone.cn/2020/11/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Mesh-%E7%BD%91%E6%A0%BC%E4%BD%93/"/>
+    <id>https://www.notes.worstone.cn/2020/11/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Mesh-%E7%BD%91%E6%A0%BC%E4%BD%93/</id>
+    <published>2020-11-02T05:39:00.000Z</published>
+    <updated>2020-11-04T03:12:20.628Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Mesh-网格体"><a href="#Mesh-网格体" class="headerlink" title="Mesh 网格体"></a>Mesh 网格体</h1><h2 id="Source-of-Mesh-网格体来源："><a href="#Source-of-Mesh-网格体来源：" class="headerlink" title="Source of Mesh 网格体来源："></a>Source of Mesh 网格体来源：</h2><h3 id="Manual-generation-人为生成"><a href="#Manual-generation-人为生成" class="headerlink" title="Manual generation 人为生成"></a>Manual generation 人为生成</h3><p>​    Input a mesh file meanually</p><h3 id="Using-modeling-software-使用建模软件"><a href="#Using-modeling-software-使用建模软件" class="headerlink" title="Using modeling     software 使用建模软件"></a>Using modeling     software 使用建模软件</h3><p>​    Maya solidworks, 3dsmax等建模软件</p><h3 id="3D-scanning-三维扫描"><a href="#3D-scanning-三维扫描" class="headerlink" title="3D scanning 三维扫描"></a>3D scanning 三维扫描</h3><p>​    Photogrammetry 摄影扫描学（多张照片拍摄测量，不接触实物，只要能拍照就能建模）</p><p>​    Laser scanning 激光扫描（激光三维扫描仪，不接触被测物，用激光测距得到物体形状）</p><h2 id="Mesh-Processing-网格操作："><a href="#Mesh-Processing-网格操作：" class="headerlink" title="Mesh Processing 网格操作："></a>Mesh Processing 网格操作：</h2><h3 id="Mesh-refinement（网格细分）"><a href="#Mesh-refinement（网格细分）" class="headerlink" title="Mesh refinement（网格细分）"></a>Mesh refinement（网格细分）</h3><p>为mesh增加更多面 </p><p>Level of details（LOD） 多层次细节：当物体距离较远时，使用低精度的模型</p><p>Subdivision：</p><p>Interpolation subdivision surface 插值细分曲面</p><p>旧的点不会移动</p><p>Approximation subdivision surface 渐进细分曲面</p><p>所有的点都会移动</p><p>Loop subdivision （只针对三角面网格体）</p><p>创建更多的三角面，每个顶点位置都会变化</p><p>每次细分，在每个边上新增加一个顶点，并更新原顶点位置</p><p>将一个三角面更新为四个小三角面，并根据顶点权值更新顶点位置</p><p>新的顶点的坐标由3/8的左右顶点+1/8上下顶点的坐标确定</p><p>旧的顶点1-n*u n是定点的度， 如果n=3，u=3/16，如n！=3，u=3/8n</p><p>Catmull-Clark subdivision（针对规则四面网格体）</p><p>添加face point，edge point， vertex point；</p><p>连接face point 和 edge point；</p><p>连接vertex point 和 edge point；</p><p>Face point 每个面新增一个，用面的四个顶点坐标之和除以4</p><p>Edge point 每条边上新增一个，用（边的两顶点坐标）加上（边所在的两个面上的Face point 坐标）再除以4；</p><p>Vertex point 顶点坐标根据四个face point 加上双倍的中点坐标加上四倍旧顶点坐标之和除以16得到新的顶点坐标</p><p>Catmull-Clark subdivision （普遍的网格体）</p><p>度不为4的点 称作奇异点；</p><p>原来有几个非四边形面，就会增加几个奇异点；</p><p>新增奇异点的度和之前非四边形面的边数相等；</p><p>经过一次细分后，所有非四边形面都被替换为四边形面，奇异点数量不再增加</p><p>F = average of surrounding vertices;</p><p>E = (f1 + f2 + v1 + v2) / 4</p><p>V = f平均/n + 2m平均/n + p(n-3)/n</p><p>p(旧顶点坐标)</p><h3 id="Mesh-simplification-（网格简化）"><a href="#Mesh-simplification-（网格简化）" class="headerlink" title="Mesh simplification （网格简化）"></a>Mesh simplification （网格简化）</h3><p>减少mesh的面片数</p><p>Vertex decimation 顶点删除</p><p>删除顶点，再对删除后形成的“空洞”进行三角剖分</p><p>Face contraction 面片收缩</p><p>删除面后（连带相邻的三角形），重新进行三角剖分</p><p>Edge contraction 边收缩</p><p>每次移除一个“应该被移除”的边</p><p>​    adjacent planes: 二次度量误差:取边上两点，计算这两点到各自相邻的三个面的距离平方和，计算得到误差值，对误差值进行排序，取最小误差的边收缩，再将收缩后受影响的边重新计算误差，再排序，取最小误差的边收缩，如此往复</p><h3 id="Mesh-regularization-（网格重划分）"><a href="#Mesh-regularization-（网格重划分）" class="headerlink" title="Mesh regularization （网格重划分）"></a>Mesh regularization （网格重划分）</h3><p>​    提升网格质量，将面片划分的更加均匀</p><p>​    好的Mesh（一般情况下）：三角形更加规则（接近正三角形），每个顶点有六个度</p><p><strong>解决方法：</strong></p><pre><code>        1. 翻转边：通过翻转边改变顶点的度           2. 调整顶点位置：将周围顶点取平均值，获得中心顶点的位置</code></pre><p><strong>Isotropic Remeshing Algorithm</strong>各向同性算法</p><p>包含的操作：</p><ol><li>边的坍缩</li><li>边的分裂</li><li>边的翻转</li><li>顶点</li></ol><p>执行过程：指定理想边长L，判断网格中的边长，</p><ol><li>如果大于4/3倍L，就分裂</li><li>如果小于4/5倍L，则坍缩</li><li>然后翻转边，让顶点的度更加满足理想情况</li><li>最后调整顶点位置</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Mesh-网格体&quot;&gt;&lt;a href=&quot;#Mesh-网格体&quot; class=&quot;headerlink&quot; title=&quot;Mesh 网格体&quot;&gt;&lt;/a&gt;Mesh 网格体&lt;/h1&gt;&lt;h2 id=&quot;Source-of-Mesh-网格体来源：&quot;&gt;&lt;a href=&quot;#Source-o</summary>
+      
+    
+    
+    
+    <category term="Note" scheme="https://www.notes.worstone.cn/category/Note/"/>
+    
+    
+    <category term="Note" scheme="https://www.notes.worstone.cn/tag/Note/"/>
+    
+    <category term="计算机图形学" scheme="https://www.notes.worstone.cn/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    <category term="OpenGL" scheme="https://www.notes.worstone.cn/tag/OpenGL/"/>
+    
+    <category term="Mesh" scheme="https://www.notes.worstone.cn/tag/Mesh/"/>
+    
+  </entry>
+  
 </feed>
