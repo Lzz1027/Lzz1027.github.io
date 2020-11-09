@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>Live For Code</title>
+    <title>人工智能期末复习 （二）</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
@@ -17,170 +17,172 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
 <link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">人工智能期末复习 （二）</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-11-07
+                        </span>
+                        
+                            <span id="/2020/11/07/人工智能期末复习笔记（二）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （二）">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/07/人工智能期末复习笔记（二）/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        <div class="articles">
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%85%89%E7%85%A7/">计算机图形学笔记——Mesh 网格体</a>
-                
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="Chapter-4、6-More-search："><a href="#Chapter-4、6-More-search：" class="headerlink" title="Chapter 4、6 More search："></a>Chapter 4、6 More search：</h1><h2 id="Search-where-the-path-doesn’t-matter："><a href="#Search-where-the-path-doesn’t-matter：" class="headerlink" title="Search where the path doesn’t matter："></a>Search where the path doesn’t matter：</h2><p>​    到目前为止，我们解决的问题都是“路径就是解决方法”，</p>
+<p>​            在图中寻找旅行路径</p>
+<p>​            8-puzzle</p>
+<p>​    然而，在很多问题中，我们只是要找到一个最终状态，而不关心通过什么路径找到它</p>
+<h2 id="Queens-puzzle-皇后谜题"><a href="#Queens-puzzle-皇后谜题" class="headerlink" title="Queens puzzle 皇后谜题"></a>Queens puzzle 皇后谜题</h2><p>在一个国际象棋棋盘上放置八个皇后棋子（可以吃掉同行、列以及斜方向的棋子），使她们不会相互攻击</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201107212346526.png" alt="image-20201107212346526"></p>
+<h3 id="皇后谜题的搜索公式-1"><a href="#皇后谜题的搜索公式-1" class="headerlink" title="皇后谜题的搜索公式-1"></a>皇后谜题的搜索公式-1</h3><p>后继节点：所有在棋盘上增加皇后的有效方式</p>
+<p>目标状态：放置八个皇后</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201107212717180.png" alt="image-20201107212717180"></p>
+<p>可以想象一下，如果将整个状态树绘制出来，每个节点都会有很多的叶子节点。</p>
+<h3 id="皇后谜题的搜索公式-2"><a href="#皇后谜题的搜索公式-2" class="headerlink" title="皇后谜题的搜索公式-2"></a>皇后谜题的搜索公式-2</h3><p>后继节点：所有在下一列放置皇后的有效方式有效方式</p>
+<p>目标状态：放置八个皇后</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201107213010666.png" alt="image-20201107213010666"></p>
+<p>这样，每个节点的子节点数明显减少，单步操作也变得简单</p>
+<h3 id="约束满足问题-CSPs"><a href="#约束满足问题-CSPs" class="headerlink" title="约束满足问题(CSPs)"></a>约束满足问题(CSPs)</h3><p>由以下定义:<br>    一组变量x1、x2、…、xn</p>
+<p>​    对于每个变量Xi都有一个域名Di</p>
+<p>​    约束c1，c2, … , cm</p>
+<p>约束由以下规定：</p>
+<p>​    变量的子集(通常是两个)</p>
+<p>​    所有对这些变量允许的联合赋值</p>
+<p>目标：找到一项完整、一致的赋值</p>
+<h4 id="皇后问题："><a href="#皇后问题：" class="headerlink" title="皇后问题："></a>皇后问题：</h4><p>​    xi在{1，…，8}中表示在第i列的哪一行放置一个皇后</p>
+<p>​    例如，x1和x2的约束 {(1,3), (1,4), (1,5), (1,6), (1,7), (1,8), (2,4), (2,5), …, (3,1), (3,5), … …}</p>
+<h4 id="会议安排问题："><a href="#会议安排问题：" class="headerlink" title="会议安排问题："></a>会议安排问题：</h4><p>​    会议A, B, C，…需要安排在M, Tu, W, Th, F</p>
+<p>​    A和B不能安排在同一天</p>
+<p>​    B至少要比C早两天安排</p>
+<p>​    C不能安排在Th或F</p>
+<p>​    我们如何将其建模为CSP?</p>
+<h4 id="图着色问题"><a href="#图着色问题" class="headerlink" title="图着色问题"></a>图着色问题</h4><p>​    颜色数量固定;任何两个相邻节点不能共享一种颜色</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201109105436642.png" alt="image-20201109105436642"></p>
+<h4 id="可满足性问题："><a href="#可满足性问题：" class="headerlink" title="可满足性问题："></a>可满足性问题：</h4><p>​    合取范式公式：(x1 OR x2 OR NOT(x4 )) AND (NOT(x2 ) OR NOT(x3 )) AND …<br>​    标记每个变量xj为真或假，使公式成为真</p>
+<p>​    约束超图:每个超边代表一个约束：</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201109105738986.png" alt="image-20201109105738986"></p>
+<h3 id="解决csp的通用方法"><a href="#解决csp的通用方法" class="headerlink" title="解决csp的通用方法"></a>解决csp的通用方法</h3><p>状态:一些变量已赋值，另一些未赋值</p>
+<p>定义:任何给未赋值变量赋值的方法都会产生一个后继节点</p>
+<p>​    当展开时，可以检查一致性</p>
+<p>​    最坏情况下有多少个叶节点?</p>
+<p>csp满足可交换性:动作应用的顺序无关紧要</p>
+<p>更好的想法:一次只考虑一个变量的赋值</p>
+<p>​    有几片叶子?</p>
+<p>选择变量分支仍是灵活的!</p>
+<p>​    eg：每个变量A, B, C的值为{0,1}</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201109110236284.png" alt="image-20201109110236284"></p>
+<h3 id="一种通用递归搜索算法-部分赋值"><a href="#一种通用递归搜索算法-部分赋值" class="headerlink" title="一种通用递归搜索算法 (部分赋值)"></a>一种通用递归搜索算法 (部分赋值)</h3><p>Search(assignment, constraints)</p>
+<p>​    如果赋值完成，则返回assignment</p>
+<p>​    选择一个未赋值的变量x</p>
+<p>​    对于x定义域中的每一个值v，如果赋值时将x设为v不违反约束条件:</p>
+<p>​        在赋值中将x设为v</p>
+<p>​        result = 搜索(赋值，约束)   #这里递归了</p>
+<p>​        如果result != 失败，返回result</p>
+<p>​        在赋值中不赋值x</p>
+<p>返回失败</p>
+<h3 id="跟踪剩余的可能值"><a href="#跟踪剩余的可能值" class="headerlink" title="跟踪剩余的可能值"></a>跟踪剩余的可能值</h3><p>对于每个变量，跟踪哪些值仍然是可能的</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201109111116107.png" alt="image-20201109111116107"></p>
+<p>最后一列只有一种可能          -&gt;             现在剩下的两列只剩下一列        -&gt;          完成!(不需要真正的分支!)</p>
+<p>一般启发式：对保留最小值的变量进行分支</p>
+<h3 id="弧的一致性"><a href="#弧的一致性" class="headerlink" title="弧的一致性"></a>弧的一致性</h3><p>用一个约束连接两个变量</p>
+<p>对于第一个变量的每一个剩余值d，存在另一个变量的某个值d ‘满足约束条件，这是真的吗?</p>
+<p>​    如果是这样，我们说从第一个变量到第二个变量的弧是一致的</p>
+<p>​    如果不是，可以删除值d</p>
+<p>一般概念：约束传播</p>
+<p>​    <img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201109115609671.png" alt="image-20201109115609671"></p>
+<p>​    第五列到第八列的弧线是否一致?</p>
+<p>​    那么从第八列到第五列的弧线呢?</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
             </div>
-            <div class="article-abstract">
-                
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank">人工智能期末复习 （二）</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-09
-                </span>
-                
-                    <span id="/2020/11/09/计算机图形学笔记——光照/" class="leancloud_visitors" data-flag-title="计算机图形学笔记——Mesh 网格体">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/09/计算机图形学笔记——光照/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+            <div style="clear: both;"></div>
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">人工智能期末复习 （二）</a>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
                 
             </div>
-            <div class="article-abstract">
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/AI/">AI</a>
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/Review/">Review</a>
                 
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-07
-                </span>
-                
-                    <span id="/2020/11/07/人工智能期末复习笔记（二）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （二）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/07/人工智能期末复习笔记（二）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%85%89%E7%85%A7/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%85%89%E7%85%A7/" title="发布于 2020-11-09 01:30">计算机图形学笔记——Mesh 网格体</a>
+                <br>
+            
+            
+                <a href="/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/" title="发布于 2020-11-04 12:15">A* 寻路算法</a>
+            
         </div>
+    </div>
     
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/">A* 寻路算法</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-04
-                </span>
-                
-                    <span id="/2020/11/04/A-寻路算法/" class="leancloud_visitors" data-flag-title="A* 寻路算法">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/04/A-寻路算法/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/03/iGraph%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">iGraph 学习笔记（1）</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-03
-                </span>
-                
-                    <span id="/2020/11/03/iGraph学习笔记/" class="leancloud_visitors" data-flag-title="iGraph 学习笔记（1）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/03/iGraph学习笔记/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        <div class="comments-content">
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/03/my-first-blog/">第一篇Blog</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-03
-                </span>
-                
-                    <span id="/2020/11/03/my-first-blog/" class="leancloud_visitors" data-flag-title="第一篇Blog">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/03/my-first-blog/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
-        </div>
-    
-    
-        <div class="pagination-bottom">
-            <div class="pagination">
-                
-                    <a href="/page/2/">下一页</a>
-                
-            </div>
-        </div>
-    
+    </div>
+
 </div>
 
     </div>

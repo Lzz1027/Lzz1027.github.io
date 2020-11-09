@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>Live For Code</title>
+    <title>计算机图形学笔记——Mesh 网格体</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
@@ -17,170 +17,153 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
 <link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">计算机图形学笔记——Mesh 网格体</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-11-09
+                        </span>
+                        
+                            <span id="/2020/11/09/计算机图形学笔记——光照/" class="leancloud_visitors" data-flag-title="计算机图形学笔记——Mesh 网格体">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/09/计算机图形学笔记——光照/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        <div class="articles">
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%85%89%E7%85%A7/">计算机图形学笔记——Mesh 网格体</a>
-                
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="Global-Illumination-全局光照"><a href="#Global-Illumination-全局光照" class="headerlink" title="Global Illumination 全局光照"></a>Global Illumination 全局光照</h1><p>Global illumination = Direction illumination(直接光照) + Indirect illumination(其他反射的光照)</p>
+<p>局部光照模型无法表现光的折射、反射、阴影</p>
+<h2 id="Whitted-illumination-model"><a href="#Whitted-illumination-model" class="headerlink" title="Whitted illumination model"></a>Whitted illumination model</h2><p>I = I(direct) + I(reflect)+ I(transmitted)</p>
+<p>光源直接照射：I(direct) = Ia * Ka + Ip * Kd * (L * N) + Ip * Ks * (R * V)的n次方</p>
+<p>镜面反射光：I(reflect) = Ir * Kr</p>
+<p>投射环境光：I(transmitted) = It * Kt</p>
+<h2 id="Ray-Tracing-光线追踪"><a href="#Ray-Tracing-光线追踪" class="headerlink" title="Ray Tracing 光线追踪"></a>Ray Tracing 光线追踪</h2><p>原理：通过从眼睛（摄像机）中生成光线，还原光线反射路线，模拟光照效果</p>
+<h3 id="Step-1：Ray-Casting-光线投射"><a href="#Step-1：Ray-Casting-光线投射" class="headerlink" title="Step 1：Ray Casting 光线投射"></a>Step 1：Ray Casting 光线投射</h3><p>透过眼睛（摄像机）从每个像素点投出一条射线，遇到的第一个物体，计算应有的颜色该像素点</p>
+<p>​    计算颜色时，也需要从计算的点向光源生成射线（shadow ray），来计算最后的颜色</p>
+<p>​    shadow ray：如果该点到光源的射线上有其他物体遮挡，则会形成阴影，所以修改原方程，增加参数A(shadow)</p>
+<p>​        原方程修改为：I(direct) = Ia * Ka + Ip * Kd * (L * N) + Ip * Ks * (R * V)的n次方 * A(shadow)</p>
+<p>​        如果被遮挡，则A(shadow) = 0, 否则，A(shadow) = 1；</p>
+<h3 id="Step-2：Ray-Tracing-光线追踪"><a href="#Step-2：Ray-Tracing-光线追踪" class="headerlink" title="Step 2：Ray Tracing 光线追踪"></a>Step 2：Ray Tracing 光线追踪</h3><p>在光线投射基础上增加了其他物体光的反射</p>
+<ol>
+<li>计算直接反射光，从每个像素点投出射线，找到与场景中物体的第一个交点（primary ray 一级光线），根据局部光照模型，计算颜色</li>
+<li>从交点做出后续的反射光线、折射光线和shadow rays，不断迭代</li>
+</ol>
+<p>终止条件：</p>
+<pre><code>1. 光线与当前场景的任意场景都不在相交
+ 2. 光线衰减，对颜色贡献较小
+ 3. 递归次数过多，不再迭代</code></pre>
+<p>优点：</p>
+<ol>
+<li>可以绘制更加真实的场景</li>
+<li>可以绘制透明、多次反射的物体</li>
+</ol>
+<p>缺点：</p>
+<pre><code>1. 计算量太大，算力消耗过高
+ 2. 计算时间长，实时渲染难度大</code></pre>
+<p>应用场景更适合电影、动画等非时间敏感型的应用</p>
+<p>反射光方向：R = d + 2N * cosθ                N（法线方向）</p>
+<p>折射光方向：斯奈尔定律 ηi sinθi = ηt sinθt                  η（折射率）</p>
+<p>全反射现象：入射角到达某个角度时，折射角变成九十度，入射角更大时，全反射；            或者入射光线所在的介质折射率更大时，也会出现全反射？</p>
+<h3 id="Ray-Sphere-Intersection-射线和球体相交"><a href="#Ray-Sphere-Intersection-射线和球体相交" class="headerlink" title="Ray-Sphere Intersection 射线和球体相交"></a>Ray-Sphere Intersection 射线和球体相交</h3><p>Ray：P(t) = P + t*d</p>
+<p>Sphere：x² + y² + z² = 0</p>
+<p>联立求解</p>
+<h3 id="Ray-Plane-Intersection-射线和平面相交"><a href="#Ray-Plane-Intersection-射线和平面相交" class="headerlink" title="Ray-Plane Intersection 射线和平面相交"></a>Ray-Plane Intersection 射线和平面相交</h3><p>Ray：P(t) = P + t*d</p>
+<p>Plane：P(t) * N + k =0</p>
+<p>联立求解</p>
+<h3 id="Ray-Triangle-Intersection-射线和三角面相交"><a href="#Ray-Triangle-Intersection-射线和三角面相交" class="headerlink" title="Ray-Triangle Intersection 射线和三角面相交"></a>Ray-Triangle Intersection 射线和三角面相交</h3><p>先计算和平面的焦点，再判断是否在三角形内部</p>
+<h4 id="Inside-Triangle-Test："><a href="#Inside-Triangle-Test：" class="headerlink" title="Inside-Triangle Test："></a>Inside-Triangle Test：</h4><p>Method1：半平面测试？？？？？</p>
+<p>Method2：重心坐标表示法，如果计算得到的α、β、γ都符合条件，则在三角形中。</p>
+<h3 id="Other-Ray-Primitive-Intersection-射线和其他图形相交"><a href="#Other-Ray-Primitive-Intersection-射线和其他图形相交" class="headerlink" title="Other Ray-Primitive Intersection 射线和其他图形相交"></a>Other Ray-Primitive Intersection 射线和其他图形相交</h3><p>Cone，cylinder，ellipsoid 列方程联立</p>
+<p>Box</p>
+<p>Convex polygon 与三角形相似</p>
+<p>Concave polygon</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
             </div>
-            <div class="article-abstract">
-                
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%85%89%E7%85%A7/" target="_blank">计算机图形学笔记——Mesh 网格体</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-09
-                </span>
-                
-                    <span id="/2020/11/09/计算机图形学笔记——光照/" class="leancloud_visitors" data-flag-title="计算机图形学笔记——Mesh 网格体">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/09/计算机图形学笔记——光照/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+            <div style="clear: both;"></div>
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">人工智能期末复习 （二）</a>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
                 
             </div>
-            <div class="article-abstract">
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+                
+                    <a href="/tag/OpenGL/">OpenGL</a>
+                
+                    <a href="/tag/illumination/">illumination</a>
                 
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-07
-                </span>
-                
-                    <span id="/2020/11/07/人工智能期末复习笔记（二）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （二）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/07/人工智能期末复习笔记（二）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        
+        <div class="article-prev-next">
+            
+            
+                <a href="/2020/11/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="发布于 2020-11-07 09:17">人工智能期末复习 （二）</a>
+            
         </div>
+    </div>
     
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/04/A-%E5%AF%BB%E8%B7%AF%E7%AE%97%E6%B3%95/">A* 寻路算法</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-04
-                </span>
-                
-                    <span id="/2020/11/04/A-寻路算法/" class="leancloud_visitors" data-flag-title="A* 寻路算法">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/04/A-寻路算法/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/03/iGraph%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">iGraph 学习笔记（1）</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-03
-                </span>
-                
-                    <span id="/2020/11/03/iGraph学习笔记/" class="leancloud_visitors" data-flag-title="iGraph 学习笔记（1）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/03/iGraph学习笔记/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        <div class="comments-content">
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/03/my-first-blog/">第一篇Blog</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-03
-                </span>
-                
-                    <span id="/2020/11/03/my-first-blog/" class="leancloud_visitors" data-flag-title="第一篇Blog">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/03/my-first-blog/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
-        </div>
-    
-    
-        <div class="pagination-bottom">
-            <div class="pagination">
-                
-                    <a href="/page/2/">下一页</a>
-                
-            </div>
-        </div>
-    
+    </div>
+
 </div>
 
     </div>

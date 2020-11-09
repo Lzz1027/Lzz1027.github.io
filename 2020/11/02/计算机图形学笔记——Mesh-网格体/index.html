@@ -102,8 +102,11 @@
 <h3 id="Mesh-regularization-（网格重划分）"><a href="#Mesh-regularization-（网格重划分）" class="headerlink" title="Mesh regularization （网格重划分）"></a>Mesh regularization （网格重划分）</h3><p>​    提升网格质量，将面片划分的更加均匀</p>
 <p>​    好的Mesh（一般情况下）：三角形更加规则（接近正三角形），每个顶点有六个度</p>
 <p><strong>解决方法：</strong></p>
-<pre><code>        1. 翻转边：通过翻转边改变顶点的度
-           2. 调整顶点位置：将周围顶点取平均值，获得中心顶点的位置</code></pre>
+<ol>
+<li><p>翻转边：通过翻转边改变顶点的度</p>
+<pre><code>        2. 调整顶点位置：将周围顶点取平均值，获得中心顶点的位置</code></pre>
+</li>
+</ol>
 <p><strong>Isotropic Remeshing Algorithm</strong>各向同性算法</p>
 <p>包含的操作：</p>
 <ol>
