@@ -123,7 +123,29 @@
 <p>​    第五列到第八列的弧线是否一致?</p>
 <p>​    那么从第八列到第五列的弧线呢?</p>
 <h3 id="Tree-structured-constraint-graphs-树形结构约束图"><a href="#Tree-structured-constraint-graphs-树形结构约束图" class="headerlink" title="Tree-structured constraint graphs 树形结构约束图"></a>Tree-structured constraint graphs 树形结构约束图</h3><p>假设我们只有成对的约束，并且图是一棵树(或者forest，即多个不相交树)</p>
-<p><img src="https://lzz1027.github.io/image/MD_Image/image-20201109155133060.png" alt="image-20201109155133060"></p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.assets/image-20201109160535642.png" alt="image-20201109160535642"></p>
+<p>解决这个问题的动态程序 (线性在 #变量)：</p>
+<p>​    从叶节点开始向上，对于每个节点x，计算所有x的值使得根为x的子树可以被解出来</p>
+<p>​        相等地：从底部开始，对每个父结点到子结点应用弧一致性</p>
+<p>​    如果没有定义域变成空的，一旦达到顶部，很容易填充解决方案</p>
+<h4 id="例子：用限制的颜色给每个节点填充颜色"><a href="#例子：用限制的颜色给每个节点填充颜色" class="headerlink" title="例子：用限制的颜色给每个节点填充颜色"></a>例子：用限制的颜色给每个节点填充颜色</h4><h4 id=""><a href="#" class="headerlink" title=""></a><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.assets/image-20201109160936097.png" alt="image-20201109160936097"></h4><p>阶段1:向上移动，删除不能与该节点下的子树一起工作的值</p>
+<p>阶段2:如果一个值仍然在根位置，则有一个解：向下选择一个解</p>
+<h3 id="另一种方法：optimization-优化"><a href="#另一种方法：optimization-优化" class="headerlink" title="另一种方法：optimization 优化"></a>另一种方法：optimization 优化</h3><p>假设在棋盘上放8个皇后(每列一个)的所有方法都是可行的</p>
+<p>现在我们引入一个目标：最小化互相攻击的皇后对的数量</p>
+<p>​    更一般地，尽量减少违反约束的数量</p>
+<p>纯优化</p>
+<h3 id="局部搜索：爬山"><a href="#局部搜索：爬山" class="headerlink" title="局部搜索：爬山"></a>局部搜索：爬山</h3><p>从一个完整的状态开始</p>
+<p>转移到目标价值最好(或至少更好)的继任者</p>
+<p>​    后继节点：在队列中移动一个皇后</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.assets/image-20201109161447558.png" alt="image-20201109161447558"></p>
+<p>但局部搜索可能会陷入局部最优</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89.assets/image-20201109161633266.png" alt="image-20201109161633266"></p>
+<h4 id="避免陷入局部搜索"><a href="#避免陷入局部搜索" class="headerlink" title="避免陷入局部搜索"></a>避免陷入局部搜索</h4><p>随机重启:如果你的爬山搜索失败(或返回的结果可能不是最佳的)，则在搜索空间中的一个随机点重新启动</p>
+<p>​    生成随机状态并不总是容易的<br>​    但最终会成功(为什么?)</p>
+<p>模拟退火:</p>
+<p>​    生成一个随机的后继(可能比当前状态差)</p>
+<p>​    有一定的可能性转移到后继节点，这将大大减少当前状态的坏处</p>
+<p>​    而且，随着时间的推移，随着“温度的降低”，坏棋的概率也会降低</p>
 
         <p class="suffix-end">__END__</p>
         <div class="suffix-box">

@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>分类 - Note</title>
+    <title>人工智能期末复习 （九）</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
@@ -17,170 +17,248 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
 <link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">人工智能期末复习 （九）</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-11-12
+                        </span>
+                        
+                            <span id="/2020/11/12/人工智能期末复习笔记（九）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （九）">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/12/人工智能期末复习笔记（九）/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        <div class="articles">
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/12/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89/">人工智能期末复习 （九）</a>
-                
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="Machine-Learning-Intro-机器学习介绍"><a href="#Machine-Learning-Intro-机器学习介绍" class="headerlink" title="Machine Learning Intro 机器学习介绍"></a>Machine Learning Intro 机器学习介绍</h1><h2 id="为什么研究学习？"><a href="#为什么研究学习？" class="headerlink" title="为什么研究学习？"></a>为什么研究学习？</h2><p>被认为是智力的标志</p>
+<p>被视为减少编程负担的方法</p>
+<p>​    世界上没有足够的程序员为所有的问题提供定制的解决方案——即使我们知道怎么做</p>
+<p>​    程序员是昂贵的!</p>
+<p>许多算法假设的参数是很难确定一个准确的先验</p>
+<p>​    过滤垃圾邮件的正确公式是什么?</p>
+<p>​    你的智能恒温器应该什么时候开暖气?</p>
+<h2 id="什么是机器学习？"><a href="#什么是机器学习？" class="headerlink" title="什么是机器学习？"></a>什么是机器学习？</h2><p>学习元素</p>
+<p>​    学习的东西</p>
+<p>性能元素</p>
+<p>​    对进展的客观衡量</p>
+<p>学习就是 学习元素 随着时间的推移(使用数据)来实现 性能元素 指定的任务的能力的增加</p>
+<h2 id="ML-VS-Statistics-机器学习-VS-统计学"><a href="#ML-VS-Statistics-机器学习-VS-统计学" class="headerlink" title="ML VS. Statistics 机器学习 VS. 统计学"></a>ML VS. Statistics 机器学习 VS. 统计学</h2><p>机器学习是</p>
+<p>​    更年轻的</p>
+<p>​    更多经验的</p>
+<p>​    更多算法的</p>
+<p>​    (可以说)更实际的</p>
+<p>​    (可以说)更决策化的</p>
+<p><strong>看看这个很酷的结果!也许稍后有人能解释为什么它会起作用?</strong></p>
+<p>统计学是</p>
+<p>​    更成熟的</p>
+<p>​    (可以说)更正式和严谨的</p>
+<p><strong>让我们对这个情况建模并且证明我们会收敛到一致的答案！</strong></p>
+<h2 id="不同种类的学习…（Feedback反馈）"><a href="#不同种类的学习…（Feedback反馈）" class="headerlink" title="不同种类的学习…（Feedback反馈）"></a>不同种类的学习…（Feedback反馈）</h2><p>监督式学习:</p>
+<p>​    有人给出了例子和正确的答案(标签)</p>
+<p>​    我们必须为看不见的例子预测正确的答案</p>
+<p>无监督学习:</p>
+<p>​    我们看到了一些例子但是没有得到反馈(没有标签)</p>
+<p>​    我们需要从数据中找出规律</p>
+<p>半监督学习:</p>
+<p>​    少量标记数据，大量未标记数据</p>
+<p>强化学习:</p>
+<p>​    我们采取行动并得到回报</p>
+<p>​    必须学会如何获得高回报</p>
+<h2 id="监督学习的类型"><a href="#监督学习的类型" class="headerlink" title="监督学习的类型"></a>监督学习的类型</h2><p>训练输入：</p>
+<p>​    每个基准点datum的特征向量：X1，X2，…，Xn</p>
+<p>​    目标值：y</p>
+<p>分类-分配标签/类</p>
+<p>回归-分配实数</p>
+<h2 id="Features-and-Targets-特性和目标"><a href="#Features-and-Targets-特性和目标" class="headerlink" title="Features and Targets 特性和目标"></a>Features and Targets 特性和目标</h2><p>Features可以是任何事物：</p>
+<p>​    图像、声音、文字</p>
+<p>​    真实的数值（身高、体重）</p>
+<p>​    整数、二进制数</p>
+<p>Targets可以是离散类</p>
+<p>​    无毒蘑菇——有毒蘑菇</p>
+<p>​    恶性——良性</p>
+<p>​    信用好——信用不好</p>
+<p>​    图像的标签</p>
+<p>或者是数字：</p>
+<p>​    房价</p>
+<p>​    平均寿命</p>
+<h2 id="大多数监督学习算法是如何工作的"><a href="#大多数监督学习算法是如何工作的" class="headerlink" title="大多数监督学习算法是如何工作的"></a>大多数监督学习算法是如何工作的</h2><p>主要思路：在测试集合上最小化错误</p>
+<p>如何实现依赖于：</p>
+<p>​    假设空间 Hypothesis space</p>
+<p>​    数据类型</p>
+<p>有些方法使用<strong>正则化器</strong>或在训练集误差和假设空间复杂性之间进行权衡</p>
+<h2 id="多项式的最佳选择是什么"><a href="#多项式的最佳选择是什么" class="headerlink" title="多项式的最佳选择是什么?"></a>多项式的最佳选择是什么?</h2><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150316397.png" alt="image-20201112150316397"></p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150330099.png" alt="image-20201112150330099"></p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150348258.png" alt="image-20201112150348258"></p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150400904.png" alt="image-20201112150400904"></p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150415187.png" alt="image-20201112150415187"></p>
+<h2 id="观察"><a href="#观察" class="headerlink" title="观察"></a>观察</h2><p>度3是与源的最佳匹配</p>
+<p>度9是与样本的最佳匹配</p>
+<p>我们称之为过度拟合</p>
+<p>测试数据性能:</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150520492.png" alt="image-20201112150520492"></p>
+<h2 id="哪里出错了？"><a href="#哪里出错了？" class="headerlink" title="哪里出错了？"></a>哪里出错了？</h2><p>问题是多项式的错误选择吗?</p>
+<p>问题是我们没有足够的数据?</p>
+<p>答:是的</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150604991.png" alt="image-20201112150604991"></p>
+<h2 id="Classification-vs-Regression-分类-VS-回归"><a href="#Classification-vs-Regression-分类-VS-回归" class="headerlink" title="Classification vs. Regression 分类 VS. 回归"></a>Classification vs. Regression 分类 VS. 回归</h2><p>回归试图用我们拟合的函数达到目标值</p>
+<p>分类则试图找到一个分隔类的函数</p>
+<h2 id="Decision-Boundaries-决定边界"><a href="#Decision-Boundaries-决定边界" class="headerlink" title="Decision Boundaries 决定边界"></a>Decision Boundaries 决定边界</h2><p>分类器可以被看作是将输入空间或特征空间X划分为决策区域</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112150836125.png" alt="image-20201112150836125"></p>
+<p>线性阈值单元总是产生线性决策边界。</p>
+<p>可被线性决策边界分离的点集是Linearly separable(线性可分离)的。</p>
+<h2 id="线性可分函数的限制"><a href="#线性可分函数的限制" class="headerlink" title="线性可分函数的限制"></a>线性可分函数的限制</h2><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112152230223.png" alt="image-20201112152230223"></p>
+<p>红色和绿色线性可分离吗？</p>
+<p>圆圈和方块线性可分离吗？</p>
+<h2 id="工程特性"><a href="#工程特性" class="headerlink" title="工程特性"></a>工程特性</h2><p>所有数据都在“特征空间”中表示，“特征空间”是由所有特征的所有可能值所构成的空间</p>
+<p>特征空间在很大程度上是一种选择，就像多项式的次数一样</p>
+<p>如果您不喜欢您的性能，您可以更改特性空间——但是不要忘记过度拟合的危险</p>
+<h2 id="假设我们在一维"><a href="#假设我们在一维" class="headerlink" title="假设我们在一维"></a>假设我们在一维</h2><p>容易找到一个线性分割：</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112152535004.png" alt="image-20201112152535004"></p>
+<p>更难的一维数据集合：</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112152620671.png" alt="image-20201112152620671"></p>
+<h2 id="更难的一维数据集合："><a href="#更难的一维数据集合：" class="headerlink" title="更难的一维数据集合："></a>更难的一维数据集合：</h2><p>还记得允许非线性基函数使线性回归更好吗?</p>
+<p>让我们在这里也允许他们， Φ = (x, x²)</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112152730843.png" alt="image-20201112152730843"></p>
+<p>现在，在这个新的特征空间线性可分离：</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112152858130.png" alt="image-20201112152858130"></p>
+<p>但是，如果正确的特征集合不明显怎么办</p>
+<h2 id="非线性分类器的动机"><a href="#非线性分类器的动机" class="headerlink" title="非线性分类器的动机"></a>非线性分类器的动机</h2><p>线性方法是“弱的”</p>
+<p>​    做出强有力的假设</p>
+<p>​    只能表达相对简单的输入函数</p>
+<p>想出好的功能是很困难的</p>
+<p>​    需要人力投入</p>
+<p>​    领域知识</p>
+<p>神经网络的角色</p>
+<p>​    神经网络最初是单神经元的线性模型</p>
+<p>​    合并最终导致了非线性函数的产生，而这些函数并不需要精心设计特性</p>
+<h2 id="神经网络的动机"><a href="#神经网络的动机" class="headerlink" title="神经网络的动机"></a>神经网络的动机</h2><p>人类的大脑是真正智能的唯一一个已知实例</p>
+<p>单个的神经元又慢，又枯燥</p>
+<p>大脑的成功靠的是大量的并行</p>
+<p>思路：复制这种有效的方法</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112153509163.png" alt="image-20201112153509163"></p>
+<h2 id="神经网络知识"><a href="#神经网络知识" class="headerlink" title="神经网络知识"></a>神经网络知识</h2><p>神经网络已经在Al社区中以一种近乎宗教般的热情被采用（已经有好几次了）</p>
+<p>​    第一个到来:感知器</p>
+<p>​    第二次来临:多层网络</p>
+<p>​    第三次来临(现在):深度网络</p>
+<h2 id="人工神经元-Artificial-Neurons"><a href="#人工神经元-Artificial-Neurons" class="headerlink" title="人工神经元 Artificial Neurons"></a>人工神经元 Artificial Neurons</h2><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112153719420.png" alt="image-20201112153719420"></p>
+<p>h可以是任何函数，但通常是一个平滑的阶跃函数</p>
+<h2 id="阈值函数-threshold-function"><a href="#阈值函数-threshold-function" class="headerlink" title="阈值函数 threshold function"></a>阈值函数 threshold function</h2><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112154008824.png" alt="image-20201112154008824"></p>
+<h2 id="特殊案例：Perceptron-感知器"><a href="#特殊案例：Perceptron-感知器" class="headerlink" title="特殊案例：Perceptron 感知器"></a>特殊案例：Perceptron 感知器</h2><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112154120549.png" alt="image-20201112154120549"></p>
+<p>h是一个简单的阶梯函数（sgn）</p>
+<h2 id="感知器是一个线性的分类器"><a href="#感知器是一个线性的分类器" class="headerlink" title="感知器是一个线性的分类器"></a>感知器是一个线性的分类器</h2><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112154205269.png" alt="image-20201112154205269"></p>
+<h2 id="好消息-坏消息"><a href="#好消息-坏消息" class="headerlink" title="好消息/坏消息"></a>好消息/坏消息</h2><p>好消息：</p>
+<p>​    感知器学习规则可以学习区分任意两个线性可分的类</p>
+<p>​    如果类是可分离的，感知器学习规则将收敛于任何学习速率</p>
+<p>坏消息：</p>
+<p>​    线性可分性是一个<strong>强有力的假设</strong></p>
+<p>​    未能认识到这一点导致过度乐观和第一次神经网络崩溃</p>
+<h2 id="Multilayer-Networks-多层网络"><a href="#Multilayer-Networks-多层网络" class="headerlink" title="Multilayer Networks 多层网络"></a>Multilayer Networks 多层网络</h2><p>一旦人们意识到感知器是多么简单，他们就会在一段时间内对神经网络失去兴趣</p>
+<p>多层网络被证明有更强的表达能力（有一个平滑的步骤函数）。</p>
+<p>​    使用sigmoid，例如，h=tanh(wTx) 或 logistic sigmoid</p>
+<p>​    有2层，可表示任意连续函数</p>
+<p>​    有3层，可表示多个不连续函数</p>
+<p>棘手的部分:如何调整权重</p>
+<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89.assets/image-20201112154705052.png" alt="image-20201112154705052"></p>
+<h2 id="第二次来临的神经网络历史"><a href="#第二次来临的神经网络历史" class="headerlink" title="第二次来临的神经网络历史"></a>第二次来临的神经网络历史</h2><p>对神经网络的第二波兴趣在20世纪90年代失去了研究势头——尽管仍然享有许多实际应用</p>
+<p>神经网络技巧不足以克服竞争方法:</p>
+<p>​    支持向量机</p>
+<p>​    巧妙的包裹在简单或线性方法的特征选择方法</p>
+<p>2000-2010年是线性+特殊酱料的时代</p>
+<p>改变了什么?</p>
+<h2 id="Deep-Network-深度网络"><a href="#Deep-Network-深度网络" class="headerlink" title="Deep Network 深度网络"></a>Deep Network 深度网络</h2><p>不是一种学习算法，而是一系列的技术</p>
+<p>​    改进的训练技术(虽然仍然本质上梯度下降)</p>
+<p>​    巧妙设计的网络结构-卷积网络</p>
+<p>​    一些新的激活函数</p>
+<p>利用巨大的计算能力</p>
+<p>​    并行计算</p>
+<p>​    GPU计算</p>
+<p>​    非常大的数据集(可以减少过拟合)</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
             </div>
-            <div class="article-abstract">
-                
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/12/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B9%9D%EF%BC%89/" target="_blank">人工智能期末复习 （九）</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-12
-                </span>
-                
-                    <span id="/2020/11/12/人工智能期末复习笔记（九）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （九）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/12/人工智能期末复习笔记（九）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+            <div style="clear: both;"></div>
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/11/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89/">人工智能期末复习 （八）</a>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
                 
             </div>
-            <div class="article-abstract">
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/AI/">AI</a>
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/Review/">Review</a>
                 
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-11
-                </span>
-                
-                    <span id="/2020/11/11/人工智能期末复习笔记（八）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （八）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/11/人工智能期末复习笔记（八）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        
+        <div class="article-prev-next">
+            
+            
+                <a href="/2020/11/11/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/11/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89/" title="发布于 2020-11-11 09:49">人工智能期末复习 （八）</a>
+            
         </div>
+    </div>
     
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/11/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%83%EF%BC%89/">人工智能期末复习 （七）</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-11
-                </span>
-                
-                    <span id="/2020/11/11/人工智能期末复习笔记（七）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （七）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/11/人工智能期末复习笔记（七）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/10/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89/">人工智能期末复习 （六）</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-10
-                </span>
-                
-                    <span id="/2020/11/10/人工智能期末复习笔记（六）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （六）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/10/人工智能期末复习笔记（六）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        <div class="comments-content">
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/11/10/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/">人工智能期末复习 （五）</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-11-10
-                </span>
-                
-                    <span id="/2020/11/10/人工智能期末复习笔记（五）/" class="leancloud_visitors" data-flag-title="人工智能期末复习 （五）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/10/人工智能期末复习笔记（五）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
-        </div>
-    
-    
-        <div class="pagination-bottom">
-            <div class="pagination">
-                
-                    <a href="/category/Note/page/2/">下一页</a>
-                
-            </div>
-        </div>
-    
+    </div>
+
 </div>
 
     </div>

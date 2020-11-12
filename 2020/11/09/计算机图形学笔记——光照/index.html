@@ -104,6 +104,41 @@
 <p>Box</p>
 <p>Convex polygon 与三角形相似</p>
 <p>Concave polygon</p>
+<h2 id="Antialiasing-抗锯齿"><a href="#Antialiasing-抗锯齿" class="headerlink" title="Antialiasing 抗锯齿"></a>Antialiasing 抗锯齿</h2><p>产生原因：采样时，对边缘区域的像素点只采样了某一侧的颜色</p>
+<p>对抗方式：对边缘处的像素点进行超采样</p>
+<p>（光线追踪方式）对单个像素点传入多条光线，采样得到多个颜色。</p>
+<p><strong>均匀采样</strong>：均匀的分割像素点，多条光线进行采样，<strong>但光线数较少时仍容易出现锯齿，光线过多时性能消耗更高</strong></p>
+<p><strong>随机采样</strong>：在像素点内发出随机数量光线进行采样，<strong>仍容易出现锯齿</strong></p>
+<p><strong>自适应采样</strong>：自适应的寻找，在哪些像素点需要进行更多的采样；</p>
+<p>​                       当四个角采样的颜色值不同时，细分，射出更多光线，进行更加细致的采样。</p>
+<h2 id="Accelerate-光线追踪的加速"><a href="#Accelerate-光线追踪的加速" class="headerlink" title="Accelerate 光线追踪的加速"></a>Accelerate 光线追踪的加速</h2><p>两个思路：</p>
+<ol>
+<li>减少光线数量</li>
+<li>减少求交的次数</li>
+</ol>
+<h2 id="如何计算光线与模型的交叉"><a href="#如何计算光线与模型的交叉" class="headerlink" title="如何计算光线与模型的交叉"></a>如何计算光线与模型的交叉</h2><h3 id="Bounding-Volumes-包围体"><a href="#Bounding-Volumes-包围体" class="headerlink" title="Bounding Volumes 包围体"></a>Bounding Volumes 包围体</h3><p>简化光线与模型交点的计算</p>
+<ol>
+<li>AABB  Axis Aligned Bounding Box 轴平行包围盒</li>
+<li>OBB Oriented Bouding Box 有向包围盒</li>
+<li>Bounding sphere 包围球</li>
+</ol>
+<p>如果与包围体不相交，则就无需计算与所包围的物体进行计算</p>
+<h3 id="Hierarchical-Bounding-Volume-层次包围体-HBV"><a href="#Hierarchical-Bounding-Volume-层次包围体-HBV" class="headerlink" title="Hierarchical Bounding Volume 层次包围体 HBV"></a>Hierarchical Bounding Volume 层次包围体 HBV</h3><p>将包围体视为叶子节点，将包围体构造为一个树状结构</p>
+<p>对所有的包围体进行分割划区，再进一步分割划区，构造成树状结构</p>
+<p>计算时，从树的根节点向下遍历，判断是否与包围体相交</p>
+<p>但场景中模型数量较少时，建立HBV反而会增加计算开销</p>
+<p>HBV更适用于复杂场景</p>
+<h3 id="Uniform-Partition-均匀格点技术"><a href="#Uniform-Partition-均匀格点技术" class="headerlink" title="Uniform Partition 均匀格点技术"></a>Uniform Partition 均匀格点技术</h3><p>对整个场景进行剖分，分割为三维的格点阵列，将与每个格子相交的面片记录下来，形成一个列表</p>
+<p>再从光线出发的格点开始，对光线经过的格点进行搜索，在判断是否与格点包含的面片相交</p>
+<p>格点划分非常容易构建和遍历，</p>
+<p>但当场景分布不均匀时，均匀的划分格点反而带来而外开销；</p>
+<p>此外，格点数量的确定也很关键，格点数过少导致每个格点包含了太多的面片数，格点数过多又带来更多额外计算开销</p>
+<h4 id="Octree-八叉树"><a href="#Octree-八叉树" class="headerlink" title="Octree 八叉树"></a>Octree 八叉树</h4><p>每个格点被分为八个立方体，在比较复杂的地方，自顶向下的将立方体划分，直到满足一定的终止条件才停止划分。</p>
+<h4 id="BSP-Tree-空间二分树"><a href="#BSP-Tree-空间二分树" class="headerlink" title="BSP Tree 空间二分树"></a>BSP Tree 空间二分树</h4><p>Binary Space Tree </p>
+<p>多边形划分：每次均匀的分割为两部分</p>
+<p>轴平行划分：每次都与坐标轴平行的均匀划分为两部分</p>
+<h4 id="KD-Tree"><a href="#KD-Tree" class="headerlink" title="KD Tree"></a>KD Tree</h4><p>每次都沿着某个坐标轴方向进行划分 </p>
+<p>X →Y→Z，要按一定顺序划分</p>
 <h2 id="PPM-format"><a href="#PPM-format" class="headerlink" title="PPM format"></a>PPM format</h2><p>P3 代表 编码方式</p>
 <p>200，100代表行列数</p>
 <p>255是像素颜色最大值</p>
@@ -153,6 +188,9 @@
             </div>
         
         <div class="article-prev-next">
+            
+                <a href="/2020/11/09/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/11/09/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" title="发布于 2020-11-09 04:19">人工智能期末复习 （三）</a>
+                <br>
             
             
                 <a href="/2020/11/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/07/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="发布于 2020-11-07 09:17">人工智能期末复习 （二）</a>
