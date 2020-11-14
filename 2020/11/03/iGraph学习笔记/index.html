@@ -64,7 +64,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from igraph import *</span><br><span class="line"></span><br><span class="line">*g &#x3D; Graph.Famous(&quot;petersen&quot;)*</span><br><span class="line"></span><br><span class="line">*plot(g)</span><br></pre></td></tr></table></figure>
 
 <p>效果图：</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201102172144213.png" alt="image-20201102172144213"></p>
+<p><img src="https://i.loli.net/2020/11/14/3TV2yBnfe9WgqXv.png" alt="image-20201102172144213"></p>
 <h2 id="2-创建图"><a href="#2-创建图" class="headerlink" title="2.创建图"></a>2.创建图</h2><h3 id="1-创建无顶点-边的无向图："><a href="#1-创建无顶点-边的无向图：" class="headerlink" title="1.创建无顶点/边的无向图："></a>1.创建无顶点/边的无向图：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> igraph</span><br><span class="line">g = igraph.Graph()</span><br><span class="line">print(g)</span><br></pre></td></tr></table></figure>
 
 <p>输出结果：IGRAPH U— 0 0 –     两个0分别表示顶点数和边数，–后应为图形名称（现在还未添加）</p>
@@ -164,7 +164,7 @@
 <p>布局算法可以直接调用，也可以使用常见的布局方法调用 <code>layout()</code>：</p>
 <h4 id="使用布局绘图"><a href="#使用布局绘图" class="headerlink" title="使用布局绘图"></a>使用布局绘图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; layout &#x3D; g.layout(&quot;kk&quot;)</span><br><span class="line">&gt;&gt;&gt; plot(g, layout &#x3D; layout)</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201102185730449.png" alt="image-20201102185730449"></p>
+<p><img src="https://i.loli.net/2020/11/14/qbXzJPyLuTdA6gc.png" alt="image-20201102185730449"></p>
 <p>使用Kamada-Kawai布局算法绘制，效果如图。</p>
 
         <p class="suffix-end">__END__</p>

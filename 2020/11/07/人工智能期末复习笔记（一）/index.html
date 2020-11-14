@@ -143,13 +143,13 @@
 <h3 id="启发式搜索过程"><a href="#启发式搜索过程" class="headerlink" title="启发式搜索过程"></a>启发式搜索过程</h3><p>关键概念：heuristic function——启发式函数h(n)给出了从n到目标距离的估计</p>
 <p>​    目标节点的 h(n) = 0</p>
 <p>例如：直线距离的旅行问题</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201107205423525.png" alt="image-20201107205423525"></p>
+<p><img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20201107205423525.png" alt="image-20201107205423525"></p>
 <p>假定：h (A) = 9, h (B) = 8 h (C) = 9, h (D) = 6, h (E) = 3, h (F) = 0</p>
 <p>我们就给这个问题增加了一些新东西！这样就可以使用“启发式”来决定先扩展哪些节点</p>
 <h2 id="Greedy-best-first-search-贪婪最佳有限搜索"><a href="#Greedy-best-first-search-贪婪最佳有限搜索" class="headerlink" title="Greedy best-first search 贪婪最佳有限搜索"></a>Greedy best-first search 贪婪最佳有限搜索</h2><p>先扩展有最小h值的节点</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201107205923438.png" alt="image-20201107205923438"></p>
+<p><img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20201107205923438.png" alt="image-20201107205923438"></p>
 <p>能够迅速的找到最佳解决方法，但并不总是管用，如下例：</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\image-20201107210002856.png" alt="image-20201107210002856"></p>
+<p><img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20201107210002856.png" alt="image-20201107210002856"></p>
 <p>假定： h(A) = 9, h(B) = 5, h(D) = 6, h(E) = 3, h(F) = 0；</p>
 <p>则会出现问题：贪心算法只计算节点剩余的估计值，而不考虑已经发生的代价</p>
 <h2 id="A-算法"><a href="#A-算法" class="headerlink" title="A*算法"></a>A*算法</h2><p>让g(n)表示已经路径到达n时已经发生的代价</p>
