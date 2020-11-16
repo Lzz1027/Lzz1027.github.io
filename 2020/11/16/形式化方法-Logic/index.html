@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>形式化方法-Logic</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">形式化方法-Logic</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-11-16
+                        </span>
+                        
+                            <span id="/2020/11/16/形式化方法-Logic/" class="leancloud_visitors" data-flag-title="形式化方法-Logic">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/16/形式化方法-Logic/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="形式化方法-Logic"><a href="#形式化方法-Logic" class="headerlink" title="形式化方法-Logic"></a>形式化方法-Logic</h1><h2 id="逻辑是什么"><a href="#逻辑是什么" class="headerlink" title="逻辑是什么?"></a>逻辑是什么?</h2><p>逻辑学是一门规范性 and/or 规定性的科学</p>
+<p>​    逻辑学研究由什么引起什么或由什么引出什么，并旨在确定一组给定前提的正确结论，也就是说，确定哪些论据有效。</p>
+<p>​    对各种争论进行评价是一门规范性科学。</p>
+<p>逻辑不是一门研究思考的科学</p>
+<p>​    这是一个常见的误解，认为进行数学逻辑就是主要从事形式思维。</p>
+<p>​    更重要的是使形式的概念更加精确，从而能够用数学方法对形式系统进行推理。</p>
+<p>​    这为数学增加了一个新的维度。</p>
+<h2 id="Reasoning-Argument-and-Proving"><a href="#Reasoning-Argument-and-Proving" class="headerlink" title="Reasoning, Argument, and Proving"></a>Reasoning, Argument, and Proving</h2><h3 id="Reasoning-推理："><a href="#Reasoning-推理：" class="headerlink" title="Reasoning 推理："></a>Reasoning 推理：</h3><h4 id="什么是推理："><a href="#什么是推理：" class="headerlink" title="什么是推理："></a>什么是推理：</h4><p>推理是得出<strong>新结论</strong>的<strong>过程</strong></p>
+<p>​    推理是从<strong>已知的事实或假设前提</strong>中得出<strong>新结论</strong>的<strong>过程</strong>，为结论提供一些<strong>证据</strong>。</p>
+<p>推理是一个<strong>有序</strong>的过程</p>
+<p>​    一般来说，一个推理是由一些<strong>按一定顺序</strong>的**论证(或推论)**组成的。</p>
+<p>推理是<strong>获取新知识</strong>的一种方式</p>
+<p>​    推理是一个从我们知道的(前提)到我们以前不知道的(新结论)的过程。</p>
+<p>推理是<strong>扩展知识</strong>的一种方式</p>
+<p>​    推理在本质上是扩大化的，也就是说，它具有扩大或扩展某些事物的功能，或者对已知的或假设的东西加以增加。</p>
+<h4 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h4><p>​    1.所有有理数都可用整数之比表示。<br>​    2.π是不能用整数之比表示的。<br>因此,<br>​    3.π不是有理数。<br>​    4.π是一个数字。<br>​    因此,<br>​        5.存在至少一个无理数。</p>
+<h4 id="推理的特点："><a href="#推理的特点：" class="headerlink" title="推理的特点："></a>推理的特点：</h4><p><strong>前提和结论之间的证据关系：</strong></p>
+<p>​    推理的前提应该为该推理的结论提供证据。</p>
+<p>​    虽然一个推理的前提旨在为该推理的结论提供一些证据，但它们实际上并不需要这样做。？？？？？？？？？？？</p>
+<p><strong>新结论：</strong></p>
+<p>​    推理的结论对于推理的前提来说应该是新的。</p>
+<p>​    如何正式而令人满意地定义“新”概念，至今仍是一个难以解决的哲学问题。</p>
+<p><strong>推理的正确性 和/或 有效性：</strong></p>
+<p>​    好的和坏的推理</p>
+<p>​    正确和不正确的推理</p>
+<p>​    合理和无效的推理</p>
+<p><strong>关于推理的基本问题：</strong></p>
+<p>​    什么是好的，正确的，有效的推理，我们如何去做?</p>
+<p>​    人们可以根据什么标准来决定一个推理的结论对于那个推理的前提来说是否真的是新的?</p>
+<p>​    人们判断推理的前提是否为推理的结论提供了证据的标准是什么?</p>
+<p>​    什么是论证(或推理)?</p>
+<h4 id="推理和逻辑："><a href="#推理和逻辑：" class="headerlink" title="推理和逻辑："></a>推理和逻辑：</h4><p><strong>我们在哪里可以找到关于推理的基本问题的解决方案?</strong></p>
+<p>​    在一般理论中，逻辑处理推理的正确性 和/或 有效性。</p>
+<p><strong>推理和逻辑</strong></p>
+<p>​    逻辑主要是关于推理；特别是，它研究什么构成了正确的推理。</p>
+<p>​    逻辑学是研究用于区分好的(正确的)推理和坏的(不正确的)推理的方法和原则。</p>
+<h3 id="Argument-论证"><a href="#Argument-论证" class="headerlink" title="Argument 论证"></a>Argument 论证</h3><h4 id="什么是论证："><a href="#什么是论证：" class="headerlink" title="什么是论证："></a>什么是论证：</h4><p><strong>论证是一组语句：</strong></p>
+<p>​    一个论据是一组陈述(或陈述句)的集合，其中一个陈述作为结论，并调用一个或多个陈述，称为“前提”，旨在提供一些证据。</p>
+<p><strong>论据是证据关系：</strong></p>
+<p>​    论证是与支持证据相关的结论。</p>
+<p>​    在论证中，有一个主张，它的前提和结论之间有某种证据关系；结论应该跟随前提，或者更巧妙地说，前提应该引起结论。</p>
+<h4 id="例子：-1"><a href="#例子：-1" class="headerlink" title="例子："></a>例子：</h4><p>一个夏洛克·福尔摩斯的论证例子：</p>
+<p>前提：</p>
+<p>​    这是一顶大帽子。</p>
+<p>​    有人是这顶帽子的主人。</p>
+<p>​    大帽子的主人是大脑袋的人。</p>
+<p>​    大脑大的人智力高。</p>
+<p>结论：</p>
+<p>​    这顶帽子的主人非常聪明。</p>
+<p><strong>Example1：</strong></p>
+<p>{(1) PRICAI04 is held in Auckland, (2) Auckland is in New Zealand} </p>
+<p>├ (3) PRICAI04 is held in New Zealand</p>
+<p> Note: (1),(2),(3) are true </p>
+<p><strong>Example 2：</strong></p>
+<p>{(1) PRICAI04 is held in Auckland, (2) Auckland is in New Zealand } </p>
+<p>├(3) PRICAI04 is held in China</p>
+<p>Note: (1),(2) are true, but (3) is false. </p>
+<p><strong>Example3：</strong></p>
+<p>{(1) PRICAI04 is held in Auckland,(2) Auckland is in China }</p>
+<p>├ (3) PRICAI04 is held in New Zealand</p>
+<p>Note: (1) is true, but (2),(3) are false. </p>
+<p><strong>Example4：</strong></p>
+<p> { (1) PRICAI04 is held in Auckland, (2) Auckland is in China } </p>
+<p>├ (3) PRICAI04 is held in China </p>
+<p>Note: (1) is true, but (2), (3) are false</p>
+<p><strong>Example 5：</strong></p>
+<p> {(1) PRICAI04 is held in Auckland, (2) Auckland is in New Zealand, (3) 1+1=2} </p>
+<p>├(4) PRICAI04 is held in New Zealand </p>
+<p>Note: (1),(2),(4) are true, (3) is irrelevant（不相干的） to (4) </p>
+<p><strong>Example 6：</strong></p>
+<p> {(1) PRICAI04 is held in Auckland,(2) Auckland is in New Zealand, (3) Auckland is NOT in New Zealand} </p>
+<p>├(4) PRICAI04 is held in New Zealand </p>
+<p>Note: (1),(2),(4) are true, but (3) is false. </p>
+<p><strong>Example 7：</strong></p>
+<p> {(1) PRICAI04 is held in Auckland, (2) Auckland is in China, (3) 1+1=3} </p>
+<p>├(4) PRICAI04 is held in New Zealand </p>
+<p>Note: (1),(4) are true, but (2),(3) are false,(3) is irrelevant to (4) </p>
+<p><strong>Example 8：</strong></p>
+<p> {(1) PRICAI04 is held in Auckland, (2) Auckland is in China, (3) 1+1=3} </p>
+<p>├(4) PRICAI04 is held in China </p>
+<p>Note: (1) is true, but (2),(3),(4) are false, (3) is irrelevant to (4) </p>
+<h4 id="论证的特点："><a href="#论证的特点：" class="headerlink" title="论证的特点："></a>论证的特点：</h4><p><strong>前提和结论之间的证据关系：</strong></p>
+<p>​    论证的前提应该为论证的结论提供证据。</p>
+<p>​    虽然一个论证的前提是要为该论证的结论提供一些证据，但它们实际上并不需要这样做。</p>
+<p><strong>论证的正确性：</strong></p>
+<p>​    论证的正确性是前提和结论之间的联系，关系到前提和结论之间证据关系的强弱。</p>
+<p><strong>论证的正确性和/或有效性：</strong></p>
+<p>​    好的和坏的论点</p>
+<p>​    正误论证</p>
+<p>​    有效和无效论证</p>
+<p><strong>关于论证的基本问题：</strong></p>
+<p>​    什么是正确的论证，我们怎么做?</p>
+<p>​    人们用来决定论点结论是否真的遵循前提的标准是什么?</p>
+<p>​    是只有一个标准，还是有许多标准?</p>
+<p>​    如果有很多标准，它们之间的本质区别是什么?</p>
+<p>​    什么是陈述句?</p>
+<h4 id="论证和逻辑："><a href="#论证和逻辑：" class="headerlink" title="论证和逻辑："></a>论证和逻辑：</h4><p><strong>我们在哪里可以找到关于辩论的基本问题的解决方案?</strong></p>
+<p>​    在一般理论中，逻辑处理论证的正确性和/或有效性。</p>
+<p><strong>论证和逻辑：</strong></p>
+<p>​    逻辑可以被定义为评估论证的有组织的知识体系或科学。</p>
+<p>​    因此，逻辑学作为一门评估论证的科学，其目的在于发展方法和技术，使我们能够区分好的论证和坏的论证。</p>
+<h3 id="Proving-证明"><a href="#Proving-证明" class="headerlink" title="Proving 证明"></a>Proving 证明</h3><h4 id="什么是证明？"><a href="#什么是证明？" class="headerlink" title="什么是证明？"></a>什么是证明？</h4><p><strong>词典中“证明”的定义[牛津英语词典第2版]：</strong></p>
+<p>​    证明是真实的、真实的或有效的证明的行为。</p>
+<p>​    “建立一项要求的行为。”</p>
+<p><strong>证明：</strong></p>
+<p>​    证明是在已知的事实或预先假设的前提下，为一个明确指定的陈述找到证明的过程。</p>
+<p>​    证明是对已找到的证明的描述</p>
+<h4 id="推理与证明-内在区别"><a href="#推理与证明-内在区别" class="headerlink" title="推理与证明:内在区别?"></a>推理与证明:内在区别?</h4><p><strong>自然</strong></p>
+<p>​    推理和证明之间最本质的区别是，前者在本质上是规定性和预测性的，而后者在本质上是描述性和非预测性的。</p>
+<p><strong>目的</strong></p>
+<p>​    推理的目的是发现一些以前未知或未认识到的新事实，而证明的目的则是为一些以前已知或假设的事实找到证明。</p>
+<p><strong>目标</strong></p>
+<p>​    证明有一个明确的目标作为它的目标，而推理没有。</p>
+<p><strong>典型推理模式</strong></p>
+<p>从A, B, C，…，我们能说什么?</p>
+<p>在推理之前，我们不知道我们能从前提中得出什么结论。</p>
+<p><strong>典型证明方式</strong></p>
+<p>从A, B, C，…，我们能说D吗?</p>
+<p>在证明之前，我们确实知道我们要从前提中证明什么。</p>
+<h2 id="Deduction-Induction-and-Abduction"><a href="#Deduction-Induction-and-Abduction" class="headerlink" title="Deduction, Induction and Abduction"></a>Deduction, Induction and Abduction</h2><p>科学发现的逻辑：三种主要途径</p>
+<p>假设-演绎法解释</p>
+<p>归纳-概率解释</p>
+<p>溯因推理解释</p>
+<h3 id="Deduction-演绎"><a href="#Deduction-演绎" class="headerlink" title="Deduction 演绎"></a>Deduction 演绎</h3><p><strong>词典中“演绎”的定义[牛津英语词典第2版]</strong></p>
+<p>​    “从已知或假设的原理推导或得出结论的过程；具体地说，在逻辑学中，由一般推理到具体推理的推理(与归纳相对)。”</p>
+<p><strong>演绎法论证(推理)</strong></p>
+<p>​    演绎论证是一种论证，其中前提旨在为结论提供绝对的支持(证据)。</p>
+<p>​    例:    如果A那么B,     A可以推出B。</p>
+<h3 id="Induction-归纳"><a href="#Induction-归纳" class="headerlink" title="Induction 归纳"></a>Induction 归纳</h3><p><strong>词典中“归纳”的定义[牛津英语词典第2版]</strong></p>
+<p>​    “从特殊事例的观察中推断出一般规律或原则的过程(与演绎相对)”</p>
+<p><strong>归纳法论证(推理)</strong></p>
+<p>​    归纳论证是一种论证，其中前提旨在为结论提供某种程度的支持(证据)。</p>
+<p>​    例：如果A1是B, A2是B，…，An是B，那么所有A都是B。</p>
+<h3 id="abduction-溯因"><a href="#abduction-溯因" class="headerlink" title="abduction 溯因"></a>abduction 溯因</h3><p><strong>词典中“溯因”的定义[牛津英语词典第2版]</strong></p>
+<p>​    “三段论，大前提是确定的，小前提只是可能的，因此结论只有小前提的可能性”</p>
+<p><strong>溯因法论证(推理)</strong></p>
+<p>​    一个外展论证是一个论证，它产生一个假设作为它的最终结果。</p>
+<p>​    令人惊讶的事实C被发现了。但是如果A是真的，C是理所当然的。因此，我们有理由怀疑A是真的。</p>
+<p>​    例：如果A那么C,  C可以推出A。</p>
+<h2 id="Truth-and-Validity"><a href="#Truth-and-Validity" class="headerlink" title="Truth and Validity"></a>Truth and Validity</h2><p><strong>陈述的真实性</strong></p>
+<p>​    真实性是一种陈述的属性，它断定了事实的真相。</p>
+<p>​    真与假是个体陈述的属性。</p>
+<p><strong>演绎论证的有效性</strong></p>
+<p>​    当演绎论证声称它的前提(如果正确)为结论的正确性提供了无可辩驳的理由时，这个主张将是正确的或不正确的。如果它是正确的，这个论证就被称为有效的。</p>
+<p>​    有效性和无效性是演绎论证的属性。</p>
+<h3 id="有效性的经典解释？？？？？？"><a href="#有效性的经典解释？？？？？？" class="headerlink" title="有效性的经典解释？？？？？？"></a>有效性的经典解释？？？？？？</h3><p><strong>经典有效性解释(CAV)</strong></p>
+<p>​    一个演绎论证是有效的，当且仅当它不可能所有的前提为真，而结论为假。</p>
+<p><strong>笔记：</strong></p>
+<p>​    “真”和“假”的含义必须被定义。</p>
+<p>​    “当且仅当”:CAV被定义为充分必要条件。</p>
+<p>​    一个论证结论的真实性，本身就足以证明这个论证的经典有效性。</p>
+<p>​    CAV没有提到，前提和结论是如何相关的。</p>
+<h3 id="一致论证和不一致论证"><a href="#一致论证和不一致论证" class="headerlink" title="一致论证和不一致论证"></a>一致论证和不一致论证</h3><p><strong>参数的一致性</strong></p>
+<p>​    一个论证是一致的，当且仅当，它所有的前提为真，它的结论可能为真，。</p>
+<p><strong>不一致的参数</strong></p>
+<p>​    一个论证是不一致的，当且仅当，它的结论必须为假，而所有前提为真。</p>
+<p><strong>笔记</strong></p>
+<p>​    经典的无效论证可以是一致的，也可以是不一致的。</p>
+<p>​    一致的论点可能是经典有效的，也可能是经典无效的。</p>
+<h3 id="合理和不合理的论点"><a href="#合理和不合理的论点" class="headerlink" title="合理和不合理的论点"></a>合理和不合理的论点</h3><p><strong>合理的参数</strong></p>
+<p>​    一个论证是合理的，当且仅当它有效且所有前提为真。<br><strong>不合理的参数</strong></p>
+<p>​    一个论证是不合理的，当且仅当它是不合理，即，它是无效的或它的前提之一是假的。</p>
+<p><strong>笔记</strong></p>
+<p>​    合理的论点必须是有效的;</p>
+<p>​    无效的论证是站不住脚的。</p>
+<p>​    有效论点可能是合理的，也可能是不合理的。</p>
+<h3 id="保存真理推理"><a href="#保存真理推理" class="headerlink" title="保存真理推理"></a>保存真理推理</h3><p><strong>保证真理推理</strong></p>
+<p>​    对于演绎推理中的任何正确论点，如果论点的所有前提都为真，论点的结论必须为真。</p>
+<p><strong>笔记</strong></p>
+<p>​    “真”一词的含义还有待定义。</p>
+<p>​    上面的“保证真理推理”只说前提和结论的真理，而不考虑其他事情。</p>
+<h3 id="论证形式"><a href="#论证形式" class="headerlink" title="论证形式"></a>论证形式</h3><p><strong>论证形式</strong></p>
+<p>​    论证形式是许多不同论证共有的一种抽象模式。</p>
+<p><strong>例子1</strong></p>
+<p>​    (1)所有H都是m。</p>
+<p>​    (2) S是H。</p>
+<p>​    因此，(3)S是m。</p>
+<p><strong>例子2</strong></p>
+<p>​    (1)如果P，则Q。</p>
+<p>​    (2) P。</p>
+<p>​    因此,(3)Q。</p>
+<h2 id="What-Is-It-All-About-and-Why-Study-It？"><a href="#What-Is-It-All-About-and-Why-Study-It？" class="headerlink" title="What Is It All About and Why Study It？"></a>What Is It All About and Why Study It？</h2><h3 id="Reasoning-and-Logic-推理和逻辑"><a href="#Reasoning-and-Logic-推理和逻辑" class="headerlink" title="Reasoning and Logic 推理和逻辑"></a>Reasoning and Logic 推理和逻辑</h3><p><strong>逻辑效度是任何推理必须依据的唯一一般标准</strong></p>
+<p>​    由于推理没有预先明确定义的目标，它必须根据的唯一一般标准是从其前提推理正确的结论，即逻辑效度标准。</p>
+<p>​    逻辑通常是有效推理的基础。</p>
+<p><strong>什么是正确的逻辑？</strong></p>
+<p>​    对什么正确?</p>
+<p>​    是“唯一的一种逻辑(唯一真实的逻辑)”对任何推理都是正确的，还是“各种逻辑”对各种类型的推理都是正确的?</p>
+<p>​    从应用的观点看，实践是检验任何理论和真理的唯一标准。</p>
+<h2 id="The-Notion-of-a-Conditional-The-Heart-of-Logic"><a href="#The-Notion-of-a-Conditional-The-Heart-of-Logic" class="headerlink" title="The Notion of a Conditional: The Heart of Logic"></a>The Notion of a Conditional: The Heart of Logic</h2><h3 id="Object-Logic-and-Meta-logic-对象逻辑和元逻辑"><a href="#Object-Logic-and-Meta-logic-对象逻辑和元逻辑" class="headerlink" title="Object Logic and Meta-logic 对象逻辑和元逻辑"></a>Object Logic and Meta-logic 对象逻辑和元逻辑</h3><p><strong>对象的逻辑</strong></p>
+<p>​    我们正在研究的逻辑。</p>
+<p><strong>目标语言</strong></p>
+<p>​    对象逻辑的形式语言。</p>
+<p><strong>Meta-logic(观察者的逻辑)</strong></p>
+<p>​    我们用来研究对象逻辑的逻辑。</p>
+<p><strong>元语言(观察者的语言)</strong></p>
+<p>​    我们用来研究对象逻辑的语言。</p>
+<h3 id="The-Notion-of-a-Conditional-条件的概念"><a href="#The-Notion-of-a-Conditional-条件的概念" class="headerlink" title="The Notion of a Conditional 条件的概念"></a>The Notion of a Conditional 条件的概念</h3><p><strong>词典中“条件句”的定义[牛津英语词典第2版]</strong></p>
+<p>​    表示条件的词或从句。</p>
+<p>​    有条件的结合;动词的条件语气。”</p>
+<p>​    条件命题或三段论</p>
+<p><strong>条件句的概念</strong></p>
+<p>​    一个”if…then…”形式的句子。通常被称为条件命题或简单条件命题，它表明句子的“如果”部分(称为先行词)和“那么”部分(称为结果)之间存在充分条件关系。</p>
+<p>​    “……if……”，“……only if……”</p>
+<h3 id="对象逻辑和元逻辑的条件句"><a href="#对象逻辑和元逻辑的条件句" class="headerlink" title="对象逻辑和元逻辑的条件句"></a>对象逻辑和元逻辑的条件句</h3><p><strong>对象逻辑中的条件句</strong></p>
+<p>​    在对象语言中，通常有一个连接词来表示条件句的概念。</p>
+<p>​    证明理论中的逻辑推论关系(通常记为’ |- ‘)和模式理论中的逻辑推论关系(通常记为’ |= ‘)分别可被认为是条件概念的表示。</p>
+<p><strong>元逻辑中的条件句</strong></p>
+<p>​    条件的概念，通常以自然语言的形式，用于定义各种元概念和描述关于对象逻辑的各种元定理。</p>
+<h3 id="条件句的真"><a href="#条件句的真" class="headerlink" title="条件句的真"></a>条件句的真</h3><p><strong>条件句的真</strong></p>
+<p>​    条件句的真理不仅取决于它的先行词和后件的真理，更重要的是取决于它的先行词和后件之间的必然相关的条件关系。</p>
+<p><strong>笔记</strong></p>
+<p>​    一个条件句的后项的真理(或前提的虚妄)本身不足以成为那个条件句的真理。</p>
+<p>​    关于条件概念的讨论在哲学和逻辑上是不断的。</p>
+<p>​    如何定义一个条件的真理(因此蕴涵)是逻辑的一个基本问题。</p>
+<p><strong>例子(相关条件)</strong></p>
+<p>​    如果奥克兰在新西兰，那么奥克兰就在大洋洲。</p>
+<p>​    如果奥克兰在澳大利亚，那么奥克兰在大洋洲。</p>
+<p>​    如果奥克兰在新西兰，那么奥克兰在亚洲。</p>
+<p>​    如果奥克兰在澳大利亚(中国)，那么奥克兰在亚洲。</p>
+<p><strong>例子(无关条件)</strong></p>
+<p>​    如果今天是星期二，那么奥克兰是在大洋洲。</p>
+<p>​    如果今天是星期天，那么奥克兰是在大洋洲。</p>
+<p>​    如果今天是星期二，那么奥克兰在亚洲。</p>
+<p>​    如果今天是星期天，那么奥克兰是在亚洲。</p>
+<h3 id="经验条件和逻辑条件"><a href="#经验条件和逻辑条件" class="headerlink" title="经验条件和逻辑条件"></a>经验条件和逻辑条件</h3><p><strong>经验条件</strong></p>
+<p>​    就逻辑而言，如果一个条件的真值取决于它的前提和结果的内容，因而不能仅以它的抽象形式加以规定，则一个条件称为逻辑的经验条件。</p>
+<p>​    从逻辑的观点看，经验条件的前提与结果之间的相关关系，被认为是经验的，而不是逻辑的。</p>
+<p><strong>例子</strong></p>
+<p>​    A ⇒ B </p>
+<p>​    (A ∧ B) ⇒ C </p>
+<p><strong>逻辑条件</strong></p>
+<p>​    就逻辑而言，如果一个条件的真值只取决于它的抽象形式，而不取决于它的前提和结果的内容，因而便被认作普遍的真或假，则一个条件便称为逻辑的逻辑条件。</p>
+<p>​    从逻辑的观点看，前提条件与结果之间的相关关系，被认为是合乎逻辑的，而不是经验的。</p>
+<p><strong>例子</strong></p>
+<p>​    (A ∧ (A ⇒ B)) ⇒ B </p>
+<p>​    (A ∧ ¬A) ⇒ B </p>
+<p>​    A ⇒ (A ∧ B) </p>
+<h2 id="Formal-Logic-Systems-and-Formal-Theories-？？？"><a href="#Formal-Logic-Systems-and-Formal-Theories-？？？" class="headerlink" title="Formal Logic Systems and Formal Theories ？？？"></a>Formal Logic Systems and Formal Theories ？？？</h2><h3 id="形式化逻辑系统"><a href="#形式化逻辑系统" class="headerlink" title="形式化逻辑系统"></a>形式化逻辑系统</h3><p><strong>形式逻辑系统：</strong></p>
+<p><img src="https://i.loli.net/2020/11/16/NjYvGHmX9BQDJC7.png" alt="image-20201116192613565"></p>
+<p><strong>F(L)：</strong>一种形式语言(称为“对象语言”)，它是L的所有格式良好的公式的集合</p>
+<p>**├L:**F (L)的逻辑推理关系,定义为</p>
+<p><img src="https://i.loli.net/2020/11/16/VK3ajHOkdAC2BWE.png" alt="image-20201116192756425"></p>
+<p>​        对于P⊆F(L)前提和结论C∈F(L)， P ├L C 意味着在L的框架内，C有效遵循P，或者等效地，P有效继承C。</p>
+<p><strong>笔记</strong></p>
+<p>​    ‘├L ‘被解读为下标L的旋转门。</p>
+<p>​    F(L)和├L都必须被详细定义。</p>
+<p><strong>逻辑定理</strong></p>
+<p>​    对于形式逻辑系统(F(L)，├L)， L的逻辑定理T是这样一个公式 ϕ├L T ，其中ϕ是空集。</p>
+<p>​    Th(L): L的所有逻辑定理的集合。</p>
+<p><strong>笔记</strong></p>
+<p>​    Th(L)完全由├L确定。</p>
+<p>​    逻辑L的特征是Th(L)，即如果Th(L) =Th(L’)，那么我们认为L和L’是同一个逻辑系统。</p>
+<h3 id="爆炸性和次一致性逻辑系统"><a href="#爆炸性和次一致性逻辑系统" class="headerlink" title="爆炸性和次一致性逻辑系统"></a>爆炸性和次一致性逻辑系统</h3><p><strong>爆炸逻辑系统</strong></p>
+<p>​    当且仅当{A，¬A}├L B对于任意两种不同的公式A和B, L是爆炸性的。</p>
+<p>​    在爆炸性逻辑系统中，任何东西都有效地跟随有矛盾的前提，或者等价地，有矛盾的前提也有效地包含任何东西。</p>
+<p><strong>次协调逻辑系统</strong></p>
+<p>​    当且仅当L不具有爆炸性时，我们称它为次一致性。</p>
+<h3 id="形式化理论"><a href="#形式化理论" class="headerlink" title="形式化理论"></a>形式化理论</h3><p><strong>有前提P的L-理论</strong></p>
+<p>​    设 (F(L), ├L)是一个形式逻辑系统，且P⊆(L)是一个非空的句子集(即封闭的、格式良好的公式)。<br>以L为基础的有前提P的形式理论，称为有前提P的L-理论，用TL(P)表示，定义为</p>
+<p><img src="https://i.loli.net/2020/11/16/Tw8Zd1BDNWbatGu.png" alt="image-20201116193724490"></p>
+<p>​    Th(L):逻辑部分。</p>
+<p>​    ThLe(P):经验的部分，(P)中的任何元素都被称为经验定理。</p>
+<p>​    P:经验的公理。</p>
+<p><strong>形式理论是什么？</strong></p>
+<p>​    形式理论是现实世界中一个以前提P为特征的区域在以逻辑L为特征的符号世界中的一种表征。</p>
+<p>​    以前提P为特征的现实世界的一个领域，可以用不同的形式理论来表示，以不同的逻辑为特征。</p>
+<p><img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20201116193833523.png" alt="image-20201116193833523"></p>
+<h3 id="一致和不一致的形式理论"><a href="#一致和不一致的形式理论" class="headerlink" title="一致和不一致的形式理论"></a>一致和不一致的形式理论</h3><p><strong>不一致的正式理论</strong></p>
+<p>​    TL(P)是直接不一致的，当且仅当存在L的公式A，使得A∈P和¬A∈P都成立。</p>
+<p>​    TL(P)被认为是间接不一致的当且仅当它不是直接不一致的时候，但是存在一个L的公式A，使得A∈T L(P)且¬A∈T L(P)。</p>
+<p><strong>一致的正式理论</strong></p>
+<p>​    T L(P)是一致的，当且仅当它既不是直接不一致，也不是间接不一致。</p>
+<h3 id="爆炸性的和非一致性的形式理论"><a href="#爆炸性的和非一致性的形式理论" class="headerlink" title="爆炸性的和非一致性的形式理论"></a>爆炸性的和非一致性的形式理论</h3><p><strong>爆炸性的正式理论</strong></p>
+<p>​    对于L的任意公式A，当且仅当A∈T L(P)，我们称T L(P)是爆炸性的。</p>
+<p>​    如果L是爆炸性的，那么任何直接或间接不符合L理论的T L(P)都必须是爆炸性的。</p>
+<p><strong>次一致性的理论</strong></p>
+<p>​    T L(P)当且仅当它不具有爆炸性时，被称为次一致性。</p>
+<h2 id="Model-Theory-and-Proof-Theory"><a href="#Model-Theory-and-Proof-Theory" class="headerlink" title="Model Theory and Proof Theory"></a>Model Theory and Proof Theory</h2><h3 id="Model-Theory-模型理论"><a href="#Model-Theory-模型理论" class="headerlink" title="Model Theory 模型理论"></a>Model Theory 模型理论</h3><p><strong>模型理论是什么？</strong></p>
+<p>​    模式理论是对形式语言及其解释的研究。</p>
+<p><strong>模型理论:这是关于什么的?</strong></p>
+<p>​    有时我们写或说一个句子，既没有表达正确的意思，也没有表达错误的意思，因为一些关键的信息丢失了这些词的意思。</p>
+<p>​    如果我们继续添加这个信息，那么S就表达了一个正确或错误的陈述，我们说我们解释了S，而添加的信息就叫做对S的解释。</p>
+<p>​    如果解释 I 恰好使S的状态为真，我们说 I 是S的一个模型，或者 I 满足S。</p>
+<h4 id="逻辑的语义"><a href="#逻辑的语义" class="headerlink" title="逻辑的语义"></a>逻辑的语义</h4><p><strong>逻辑的语义</strong></p>
+<p>​    逻辑语言中表达式之间的关系可以通过表达式的求值，通过超越语言的属性来确定。</p>
+<p>​    从前提可能真值与结论的关系来谈论证(推理)的效度，就是从语义上描述论证(推理)的效度。</p>
+<p><strong>语义逻辑结果关系</strong></p>
+<p>​    为了定义表达式之间的(语义)逻辑推理关系，我们通常描述一个模型，这个模型是用于评价公式的结构，以及在模型中评价公式的规则。那么有人可能会说，公式C是其他公式P的逻辑结果，或者从P到C的推论在语义上是有效的，只是在每个模型验证P中的每个公式都验证C的情况下</p>
+<p><strong>语义(模型-理论或逻辑)结果关系</strong></p>
+<p>​    设(F(L)，├L)为形式逻辑系统。</p>
+<p>​    对于任意P⊆F(L)和任意C∈F(L)，</p>
+<p>​    P在语义上(模型理论或逻辑上)需要C，或</p>
+<p>​    C在语义上(模型-理论或逻辑)继承自P，或</p>
+<p>​    C是P的语义(模型理论或逻辑)结果，</p>
+<p>​    对于任意模型M(L)的P, iff |=M(L) C。</p>
+<p>​    其中ϕ|= L C表示|= M(L) C对于任何模型M(L)，即C是L的逻辑定理。</p>
+<h4 id="语义-模型理论-演绎定理"><a href="#语义-模型理论-演绎定理" class="headerlink" title="语义(模型理论)演绎定理"></a>语义(模型理论)演绎定理</h4><p><strong>语义(模型理论)演绎定理</strong></p>
+<p>​    设(F(L)，├L)为形式逻辑系统。对于任意P⊆F(L)和任意A, B∈F(L)，</p>
+<p>​    P∪{A} |=L B iff P |=L (A→B)</p>
+<p>​    {A} |=LB iff |=L(A→B)</p>
+<p><strong>有限结果的语义(模型理论)演绎定理</strong></p>
+<p>​    设(F(L)，├L)为形式逻辑系统。 对于任意 P ⊆ F(L) 以及任意 A1, …, An−1, An , B ∈ F(L),</p>
+<p>​    P ∪ {A1, …, An−1, An } |=L B iff </p>
+<p>​    P |=L (A1→(…(An−1→(An →B))…)). </p>
+<p>​    {A1, …, An−1, An } |=L B iff |=L (A1→(…(An−1→(An →B))…)). </p>
+<p>Proof Theory </p>
+<h3 id="证据理论"><a href="#证据理论" class="headerlink" title="证据理论"></a>证据理论</h3><p><strong>证明理论是什么</strong>?</p>
+<p>​    证明理论是研究数学证明的一般结构，以及在逻辑学中遇到的具有演示力的论证。</p>
+<p><strong>证明理论是关于什么的</strong>?</p>
+<p>​    示范等参数的概念,即人的结论,遵循一定的假设,在亚里士多德的中央—Posteriora:演绎科学是围绕一些假设的基本概念理解不需要更多的解释,和一些基本的真理或公理,立即被视为真正的。</p>
+<p>​    通过证明，将定义的概念和定理简化为这两个概念和定理。</p>
+<p><strong>逻辑语法</strong></p>
+<p>​    逻辑语言中表达式之间的关系可以从表达式本身的语法结构来表征。</p>
+<p>​    最重要的关系(句法)逻辑推论关系)是可推导性或可演绎性的关系，即一个表达式可以(句法上)<br>来自他人。</p>
+<p>​    如果C的证明是由满足特定条件的公式组成的，那么C就是由一组公式P推导出来的。<br>在这里，“证明”和“可推导性”必须被理解为相对于一个特定的演绎系统或微积分来决定那些条件。</p>
+<p><strong>句法(理论证明或演绎)结果关系</strong></p>
+<p>​    设(F(L)，├L)为形式逻辑系统。</p>
+<p>​    对于任意P⊆F(L)和任意C∈F(L)，</p>
+<p>​    P在句法上(理论证明或演绎证明)包含C，或</p>
+<p>​    C在句法上(理论证明或演绎法)继承自P，或</p>
+<p>​    C是P的一个句法(理论证明或演绎)的结果，写为P├L C, iff C是演绎从P在L。</p>
+<p>​    其中ϕL C表示C是L的逻辑定理。</p>
+<h4 id="句法-理论证明-演绎定理"><a href="#句法-理论证明-演绎定理" class="headerlink" title="句法(理论证明)演绎定理"></a>句法(理论证明)演绎定理</h4><p><strong>句法(理论证明)演绎定理</strong></p>
+<p>​    设 (F(L),├L )是一个形式化逻辑系统，对于任意 P ⊆ F(L) 和任意 A, B ∈ F(L), P ∪ {A}├L B iff P├L (A→B). {A}├L B iff├L (A→B). </p>
+<p><strong>有限结果的句法(理论证明)演绎定理</strong></p>
+<p>​    设 (F(L),├L )是一个形式化逻辑系统，对于任意 P ⊆ F(L) 和任意A1, …, An−1, An, B ∈ F(L), P ∪ {A1, …, An−1, An}├L B iff P ├L (A1→(…(An−1→(An →B))…)). {A1, …, An−1, An}├L B iff├L (A1→(…(An−1→(An →B))…)). </p>
+<h3 id="模型理论与证明理论的关系"><a href="#模型理论与证明理论的关系" class="headerlink" title="模型理论与证明理论的关系"></a>模型理论与证明理论的关系</h3><p><strong>基本问题</strong></p>
+<p>模型论和证明论、语义逻辑推理关系和句法逻辑推理关系之间的关系是什么?</p>
+<p><strong>有效性</strong></p>
+<p>​    给定有效性的语义规范和语法定义的逻辑L，如果公式C从L的一组公式P推导出来，C是P的语义逻辑结果，我们就</p>
+<p>​    说L在该语义方面是健全的、一致的或正确的。</p>
+<p>​    这意味着逻辑规则永远不会产生无效的推论，也就是说它们不会证明太多东西。</p>
+<p><strong>可靠性定理</strong></p>
+<p>​    定理(合理性):如果├L C then |=L C，对于任意C∈F(L)。</p>
+<p>​    定理(强sound性):如果P sound效果器整理器L C，则P |=L C，对于任意C∈F(L)和任意P基于三角形统计(L)。<br><strong>完整性</strong></p>
+<p>​    给定有效性的语义规范和语法定义的逻辑L，当从一组公式P到一个公式C的推理在语义上有效时，C可以从L中的P推导出来，那么我们就说L在该语义方面是完整的。</p>
+<p>​    这意味着L已经捕获了模型结构中包含的所有内容，这并不是证明得太少。</p>
+<p><strong>完备性定理</strong></p>
+<p>​    定理(完整性):如果|= L C，则├L C，对于任意C∈F(L)。</p>
+<p>​    定理(强完全性):如果P |= L C，则P└L C，对于任意C∈F(L)和任意P基于三角形统计(L)。</p>
+<h2 id="Mathematical-Logic-数理逻辑"><a href="#Mathematical-Logic-数理逻辑" class="headerlink" title="Mathematical Logic 数理逻辑"></a>Mathematical Logic 数理逻辑</h2><p><strong>集合论</strong></p>
+<p>​    集合论是研究无限的数学科学。</p>
+<p>​    集合论研究集合的性质，它是遍及整个现代数学的抽象对象。</p>
+<p>​    集合论的语言，由于它的简单性，是足够普遍的，以形式化所有的数学概念，因此集合论，连同谓词演算，构成了数学的真正基础。</p>
+<p><strong>谓词演算</strong></p>
+<p>​    谓词逻辑，数学逻辑。</p>
+<p>​    谓词逻辑是对数学家进行的推理类型的研究;它提供了形式化的语言来描述数学家工作的结构，以及对他们可用的证明方法。</p>
+<p><strong>模型理论</strong></p>
+<p>​    模式理论是对形式语言及其解释的研究。</p>
+<p><strong>证据理论</strong></p>
+<p>​    证明理论是研究数学证明的一般结构，以及在逻辑学中遇到的具有演示力的论证。</p>
+<p><strong>递归函数</strong></p>
+<p>​    递归函数是对“什么是可计算的”的研究之一。</p>
+<h2 id="Various-Philosophical-Logics-各种哲学逻辑"><a href="#Various-Philosophical-Logics-各种哲学逻辑" class="headerlink" title="Various Philosophical Logics 各种哲学逻辑"></a>Various Philosophical Logics 各种哲学逻辑</h2><p><strong>哲学逻辑是什么?</strong></p>
+<p>​    哲学逻辑学是对逻辑学更具体的哲学方面的研究。</p>
+<p><strong>模态逻辑</strong></p>
+<p>​    模态是一种表达(如“必然的”或“可能的”)，用来限定判断的真实性。</p>
+<p>​    模态逻辑是对“it is necessary that”和“it is possible that”表达的演绎行为的研究。</p>
+<p>​    信仰，知识，时态和其他时间表达，道义(道德)表达，以及许多其他的逻辑。</p>
+<p><strong>其他哲学逻辑</strong></p>
+<p>​    直觉逻辑、多值逻辑、相关(关联)逻辑、次协调逻辑……</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/16/%E5%BD%A2%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95-Logic/" target="_blank">形式化方法-Logic</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/Review/">Review</a>
+                
+                    <a href="/tag/Z%E8%AF%AD%E8%A8%80/">Z语言</a>
+                
+                    <a href="/tag/%E5%BD%A2%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95/">形式化方法</a>
+                
+                    <a href="/tag/Logic/">Logic</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/11/16/%E5%BD%A2%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95-Classical-Propositional-Calculus/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/11/16/%E5%BD%A2%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95-Classical-Propositional-Calculus/" title="发布于 2020-11-16 08:05">形式化方法-An Introduction to Classical Propositional Calculus</a>
+                <br>
+            
+            
+                <a href="/2020/11/16/%E5%BD%A2%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95-Schema/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/16/%E5%BD%A2%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95-Schema/" title="发布于 2020-11-16 11:17">形式化方法-Schema</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>
