@@ -65,19 +65,19 @@
 <p>​    人工智能软件助理需要随时跟踪用户的意图</p>
 <h2 id="State-Transition-Diagram-状态转换图"><a href="#State-Transition-Diagram-状态转换图" class="headerlink" title="State Transition Diagram 状态转换图"></a>State Transition Diagram 状态转换图</h2><p>St is one of {s, c, r} (sun, cloudy, rain)</p>
 <p>转换概率：</p>
-<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89.assets/image-20201111215316622.png" alt="image-20201111215316622"></p>
+<p><img src="https://i.loli.net/2020/12/14/XsZ2dLHgyeATbRa.png" alt="image-20201111215316622"></p>
 <p><strong>不要混淆状态和状态变量!</strong></p>
 <h2 id="Markov-processes-马尔科夫过程"><a href="#Markov-processes-马尔科夫过程" class="headerlink" title="Markov processes 马尔科夫过程"></a>Markov processes 马尔科夫过程</h2><p>我们有时间段 t = 0，1，2，…</p>
 <p>在每个周期t中，世界处于某一状态St</p>
 <p>马尔可夫假设：给定St， St+1 独立于所有 i &lt; t 的 Si</p>
 <p>​    P(St+1 | S1 , S2 , …, St ) = P(St+1 | St )</p>
 <p>​    给定当下的状态，历史没有告诉我们更多关于未来的东西</p>
-<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89.assets/image-20201111222625226.png" alt="image-20201111222625226"></p>
+<p><img src="https://i.loli.net/2020/12/14/DMpLn3rzfePFGoW.png" alt="image-20201111222625226"></p>
 <p>通常情况下，所有CPTs都是一样的:</p>
 <p>对于所有的：P(St+1 = j | St = i) = aij (stationarity assumption 平稳假设)</p>
 <h2 id="天气例子"><a href="#天气例子" class="headerlink" title="天气例子"></a>天气例子</h2><p>St is one of {s, c, r} (sun, cloudy, rain)</p>
 <p>转换概率：</p>
-<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89.assets/image-20201111215316622.png" alt="image-20201111215316622"></p>
+<p><img src="https://i.loli.net/2020/12/14/XsZ2dLHgyeATbRa.png" alt="image-20201111222625227"></p>
 <p>还需要指定初始分布P(S0)</p>
 <p>始终，假设P(S0 = s) = 1</p>
 <h4 id="两天后下雨的概率是多少"><a href="#两天后下雨的概率是多少" class="headerlink" title="两天后下雨的概率是多少?"></a>两天后下雨的概率是多少?</h4><p>P(S2 = r) </p>
@@ -96,17 +96,17 @@
 <p>当然,</p>
 <p>P(St+1 = i) = Σj P(St+1 = i, St = j) = Σj P(St = j) aji</p>
 <p>平稳分布是由πi = Σj πj aji定义</p>
-<h2 id="计算平稳分布"><a href="#计算平稳分布" class="headerlink" title="计算平稳分布"></a>计算平稳分布</h2><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89.assets/image-20201112140626418.png" alt="image-20201112140626418"></p>
+<h2 id="计算平稳分布"><a href="#计算平稳分布" class="headerlink" title="计算平稳分布"></a>计算平稳分布</h2><p><img src="https://i.loli.net/2020/12/14/k7U3EWqX9Ge4drR.png" alt="image-20201112140626418"></p>
 <p>πs = 0.6πs + 0.4πc + 0.2πr </p>
 <p>πc = 0.3πs + 0.3πc + 0.5πr </p>
 <p>πr = 0.1πs + 0.3πc + 0.3πr</p>
 <h2 id="Hidden-Markov-models-HMMs-隐马尔科夫模型"><a href="#Hidden-Markov-models-HMMs-隐马尔科夫模型" class="headerlink" title="Hidden Markov models (HMMs) 隐马尔科夫模型"></a>Hidden Markov models (HMMs) 隐马尔科夫模型</h2><p>和马尔科夫模型类似，但我们看不到状态</p>
 <p>相反地，我们只能看到每个阶段的一个 observation (观测)，这个观测依赖于当前状态</p>
-<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89.assets/image-20201112141028380.png" alt="image-20201112141028380"></p>
+<p><img src="https://i.loli.net/2020/12/14/ni4VbeFUJkrEX2m.png" alt="image-20201112141028380"></p>
 <p>仍然需要一个转换模型：P(St+1 = j | St = i) = aij</p>
 <p>也需要一个观测模型： P(Ot = k | St = i) = bik</p>
 <h2 id="拓展到HMM的天气案例"><a href="#拓展到HMM的天气案例" class="headerlink" title="拓展到HMM的天气案例"></a>拓展到HMM的天气案例</h2><p>转换概率：</p>
-<p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89.assets/image-20201112141211834.png" alt="image-20201112141211834"></p>
+<p><img src="https://i.loli.net/2020/12/14/BAkfYS2WtMicszh.png" alt="image-20201112141211834"></p>
 <p>观测：大衣是湿的还是干的</p>
 <p>b.sw = 0.1    晴天湿的概率是0.1</p>
 <p>b.cw = 0.3    多云湿的概率是0.3</p>
@@ -127,7 +127,7 @@
 <p>P(S3 = r | O0 = d, O1 = w, O2 = w) = Σs2 P(S3 = r, S2 = s2 | O0 = d, O1 = w, O2 = w) Σs2 P(S3 = r | S2 = s2 )P(S2 = s2 | O0 = d, O1 = w, O2 = w)</p>
 <p>对于S4也同理</p>
 <p>所以首先是监控，然后是直接的马尔可夫过程更新</p>
-<h3 id="Intergrating-newer-information-整合更新的信息"><a href="#Intergrating-newer-information-整合更新的信息" class="headerlink" title="Intergrating newer information 整合更新的信息"></a>Intergrating newer information 整合更新的信息</h3><p><img src="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AB%EF%BC%89.assets/image-20201112142848666.png" alt="image-20201112142848666"></p>
+<h3 id="Intergrating-newer-information-整合更新的信息"><a href="#Intergrating-newer-information-整合更新的信息" class="headerlink" title="Intergrating newer information 整合更新的信息"></a>Intergrating newer information 整合更新的信息</h3><p><img src="https://i.loli.net/2020/12/14/ENtkXFgUB642o7d.png" alt="image-20201112142848666"></p>
 <p>你被困在实验室四天了</p>
 <p>这些天里，你的大衣分别是，干的、湿的、湿的、干的</p>
 <p>两天前外面下雨的概率是多少？</p>
