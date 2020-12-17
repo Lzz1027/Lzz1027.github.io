@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>计算机图形学期末复习——图形管线与几何变换</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">计算机图形学期末复习——图形管线与几何变换</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-12-16
+                        </span>
+                        
+                            <span id="/2020/12/16/计算机图形学期末复习（二）/" class="leancloud_visitors" data-flag-title="计算机图形学期末复习——图形管线与几何变换">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/12/16/计算机图形学期末复习（二）/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="第三章-Graphics-Pipeline-amp-Geometric-Transformations"><a href="#第三章-Graphics-Pipeline-amp-Geometric-Transformations" class="headerlink" title="第三章 Graphics Pipeline &amp; Geometric Transformations"></a>第三章 Graphics Pipeline &amp; Geometric Transformations</h1><h2 id="Graphics-Pipeline-图形管线"><a href="#Graphics-Pipeline-图形管线" class="headerlink" title="Graphics Pipeline 图形管线"></a>Graphics Pipeline 图形管线</h2><h3 id="Graphics-Conceptual-Pipeline-图形概念管线"><a href="#Graphics-Conceptual-Pipeline-图形概念管线" class="headerlink" title="Graphics Conceptual Pipeline 图形概念管线"></a>Graphics Conceptual Pipeline 图形概念管线</h3><p><img src="https://i.loli.net/2020/12/16/tSMDCgjRBr4IqEv.png" alt="image-20201216170139767"></p>
+<h3 id="Application-Role-应用程序的任务"><a href="#Application-Role-应用程序的任务" class="headerlink" title="Application Role 应用程序的任务"></a>Application Role 应用程序的任务</h3><h4 id="Modeling-建模"><a href="#Modeling-建模" class="headerlink" title="Modeling 建模"></a>Modeling 建模</h4><p>​    创建模型</p>
+<p>​    将材质应用到模型中</p>
+<p>​    放置模型周围的场景</p>
+<p>​    在场景中放置灯光</p>
+<p>​    放置摄像机</p>
+<h4 id="Rendering-渲染"><a href="#Rendering-渲染" class="headerlink" title="Rendering 渲染"></a>Rendering 渲染</h4><p>​    用相机“拍照”</p>
+<h3 id="图形管线的可视化摘要"><a href="#图形管线的可视化摘要" class="headerlink" title="图形管线的可视化摘要"></a>图形管线的可视化摘要</h3><p><img src="https://i.loli.net/2020/12/16/pwl32FA6iQfNGSc.png" alt="image-20201216170505767"></p>
+<h3 id="沿着图形管线的一段旅程"><a href="#沿着图形管线的一段旅程" class="headerlink" title="沿着图形管线的一段旅程"></a>沿着图形管线的一段旅程</h3><p><img src="https://i.loli.net/2020/12/16/az5IF6etDfoRLJE.png" alt="image-20201216170602711"></p>
+<h4 id="Command-命令"><a href="#Command-命令" class="headerlink" title="Command 命令"></a>Command 命令</h4><p>Command queue    命令队列</p>
+<p>Command interpretation    命令解释</p>
+<p>Unpack and perform format conversion    解压并执行格式转换</p>
+<p>Maintain graphics state    维护图形状态</p>
+<p><img src="https://i.loli.net/2020/12/16/B4eC5mP9ujoDX1l.png" alt="image-20201216184807763"></p>
+<h4 id="Vertex-顶点"><a href="#Vertex-顶点" class="headerlink" title="Vertex 顶点"></a>Vertex 顶点</h4><p>Vertex transformation 顶点变换</p>
+<p>Normal transformation 法向量转换</p>
+<p>Texture coordinate generation 纹理坐标生成</p>
+<p>Texture coordinate transformation 纹理坐标变换</p>
+<p>Lighting (light sources and surface reflection)  照明(光源和表面反射)</p>
+<p><img src="https://i.loli.net/2020/12/16/2q3XpI8dRb6C7Fn.png" alt="image-20201216185021588"></p>
+<h4 id="Assembly-组装"><a href="#Assembly-组装" class="headerlink" title="Assembly 组装"></a>Assembly 组装</h4><p>Combine transformed/lit vertices into primitives 将转换/点亮的顶点合并为基元</p>
+<p>​    1 vertex: point  顶点：点</p>
+<p>​    2 vertices: line 顶点：线</p>
+<p>​    3 vertices: triangle 顶点：三角形</p>
+<p>Clipping 裁剪</p>
+<p>Perspective projection（透视）</p>
+<p>Transform to window coordinates 转换为窗口坐标</p>
+<p>Determine orientation 确定方向</p>
+<p>Back-face cull 背面剔除</p>
+<p><img src="https://i.loli.net/2020/12/16/o7pZJsHqOun6b5t.png" alt="image-20201216185558756"></p>
+<h4 id="Rasterization-光栅化"><a href="#Rasterization-光栅化" class="headerlink" title="Rasterization 光栅化"></a>Rasterization 光栅化</h4><p>Setup (per-triangle) 设置(每个三角形)</p>
+<p>Sampling (triangle={fragments}) 抽样(三角形={碎片})</p>
+<p>Interpolation 插值 (interpolate colors and coordinates) 插值(插入颜色和坐标)</p>
+<p><img src="https://i.loli.net/2020/12/16/Lol1pCtGwR9Q68O.png" alt="image-20201216185612734"></p>
+<h4 id="Fragment-分片"><a href="#Fragment-分片" class="headerlink" title="Fragment 分片"></a>Fragment 分片</h4><p>Combine texture sampler outputs 结合纹理采样器输出</p>
+<p>Per-fragment shading 每个片段着色</p>
+<p><img src="https://i.loli.net/2020/12/16/9RWXup1HvZ6jbl7.png" alt="image-20201216185759277"></p>
+<h4 id="FB-Operation-FB操作"><a href="#FB-Operation-FB操作" class="headerlink" title="FB Operation FB操作"></a>FB Operation FB操作</h4><p>Depth, scissor, alpha and stencil tests 深度，剪刀，alpha和模具测试</p>
+<p>Blending or compositing 混合或合成</p>
+<p><img src="https://i.loli.net/2020/12/16/TQByJXH56v3qFdj.png" alt="image-20201216185913968"></p>
+<h3 id="图形管线的进化"><a href="#图形管线的进化" class="headerlink" title="图形管线的进化"></a>图形管线的进化</h3><p><img src="https://i.loli.net/2020/12/16/bfPUK9o5ScOjgTE.png" alt="image-20201216190027823"></p>
+<p>从定制图形管线，到固定管线，再到可编程管线</p>
+<p><img src="https://i.loli.net/2020/12/16/U2Cklj81maPquS3.png" alt="image-20201216190116477"></p>
+<h2 id="Transformation-变换"><a href="#Transformation-变换" class="headerlink" title="Transformation 变换"></a>Transformation 变换</h2><p>场景中的物体是顶点的集合，这些物体有Location位置，orientation朝向，size尺寸</p>
+<p>在3D场景中，照相机也有位置和朝向，</p>
+<p>这些对应着Translation位移和Rotation旋转</p>
+<h3 id="基础元素"><a href="#基础元素" class="headerlink" title="基础元素"></a>基础元素</h3><p>几何学是研究n维空间中物体之间关系的学科，在计算机图形学中，物体存在于三维空间中</p>
+<p>有三种基础元素：Scalars标量，Vectors向量，Points点</p>
+<h4 id="标量"><a href="#标量" class="headerlink" title="标量"></a>标量</h4><p>定义：可以由两个操作(+，*)组合的集合的成员</p>
+<p>​    遵守一些基本公理，结合律，交换律，逆</p>
+<p>例子：实数、复数</p>
+<p>​    标量本身没有几何性质</p>
+<h4 id="矢量"><a href="#矢量" class="headerlink" title="矢量"></a>矢量</h4><p>物理定义：向量是一个有两个属性的量，有方向和长度</p>
+<p>例子：力、速度、有向线段</p>
+<p>​    最重要的图形实例</p>
+<p>​    可以映射到其他类型</p>
+<h4 id="矢量操作"><a href="#矢量操作" class="headerlink" title="矢量操作"></a>矢量操作</h4><p><img src="https://i.loli.net/2020/12/16/SpkyUM5dVPgGhc7.png" alt="image-20201216202132143"></p>
+<p>每个向量都有一个逆向量：有相同的大小，但指向相反的方向</p>
+<p>每个向量都可以乘以一个标量</p>
+<p>存在零向量：长度为0，未定义方向</p>
+<p>任意两个向量的和为一个向量：使用首尾相连的公理</p>
+<p>向量通过点来确定位置</p>
+<h4 id="点"><a href="#点" class="headerlink" title="点"></a>点</h4><p>空间中的位置</p>
+<p>允许在点和向量之间进行操作</p>
+<p>​    点-点减法得到一个向量</p>
+<p>​    等价于点向量相加</p>
+<p><img src="https://i.loli.net/2020/12/16/ZLcjf2WIKTUtAo3.png" alt="image-20201216202728306"></p>
+<h4 id="Affine-Spaces-仿射空间"><a href="#Affine-Spaces-仿射空间" class="headerlink" title="Affine Spaces 仿射空间"></a>Affine Spaces 仿射空间</h4><p>即点与向量组成的空间</p>
+<p>操作：</p>
+<p>​    向量-向量加法</p>
+<p>​    标量-向量乘法</p>
+<p>​    点-向量加法</p>
+<p>​    标量-标量操作</p>
+<p>对于任何点，定义：</p>
+<p>​    1 * <strong>P</strong> = <strong>P</strong></p>
+<p>​    0 * <strong>P</strong> = <strong>0</strong>（零向量）</p>
+<h4 id="线性组合"><a href="#线性组合" class="headerlink" title="线性组合"></a>线性组合</h4><p>向量的线性组合：</p>
+<p>​    给定n个向量和n个标量，可以组合出新向量：</p>
+<p><img src="https://i.loli.net/2020/12/16/oTYvXEbjN9mcCxF.png" alt="image-20201216203136878"></p>
+<p>点的线性组合：</p>
+<p><img src="https://i.loli.net/2020/12/16/haYF6o52ZdEmbIl.png" alt="image-20201216204141114"></p>
+<h4 id="线"><a href="#线" class="headerlink" title="线"></a>线</h4><p>考虑 P(a) = P0 + α d，在向量d方向上通过P0的所有点的集合</p>
+<p><img src="https://i.loli.net/2020/12/16/xMk8fd5WLDSjbAY.png" alt="image-20201216205529384"></p>
+<p>二维形式：</p>
+<p>​    Explicit 显式: y = mx + h</p>
+<p>​    Implicit 隐式: ax + by + c = 0</p>
+<p>​    Parametric 参数化: </p>
+<p>​        x(α) = x0 + α dx </p>
+<p>​        y(α) = y0 + α dy</p>
+<p>​    参数形式，健壮且通用，可以扩展到曲线和表面</p>
+<h4 id="Line-Segments-线段"><a href="#Line-Segments-线段" class="headerlink" title="Line Segments 线段"></a>Line Segments 线段</h4><p>如果用两个点定义d，则</p>
+<p>​    P(α) = P0 + α (P1 – P0) = (1 – α) P0 + α P1</p>
+<p>对于0≤α≤1，我们获得了从P0到P1的线段上的所有点</p>
+<p><img src="https://i.loli.net/2020/12/16/vTcQ3B2zanM1eZW.png" alt="image-20201216210320403"></p>
+<p>两点间的线性插值（Linear interpolation）被应用在艺术和电脑动画上——关键帧</p>
+<h4 id="Application-Polygon-Morphing-应用：多边形变形"><a href="#Application-Polygon-Morphing-应用：多边形变形" class="headerlink" title="Application: Polygon Morphing 应用：多边形变形"></a>Application: Polygon Morphing 应用：多边形变形</h4><p>对于给定的连个有相同定点数的多边形，可以进行线性插值</p>
+<p><img src="https://i.loli.net/2020/12/16/p6YIeOFk7jha28l.png" alt="image-20201216210635644"></p>
+<h4 id="Planes-平面"><a href="#Planes-平面" class="headerlink" title="Planes 平面"></a>Planes 平面</h4><p>平面可以被一个点和两个向量定义，或被三个点定义</p>
+<p><img src="https://i.loli.net/2020/12/16/CyQs2IB1D8qVJzH.png" alt="image-20201216210821259"></p>
+<h4 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h4><p><img src="https://i.loli.net/2020/12/16/UEY5adTleuH7g1r.png" alt="image-20201216210851835"></p>
+<p>当0≤α, β≤1时，T定义了三角形中的任意一点</p>
+<h2 id="Representation-表示法"><a href="#Representation-表示法" class="headerlink" title="Representation 表示法"></a>Representation 表示法</h2><p>需要一个参考框架来映射点和物体到我们的物质世界</p>
+<p>​    例如，点在哪里? 没有参考系就不能回答</p>
+<p>场景建模的关键概念</p>
+<p>​    World coordinates 世界坐标系</p>
+<p>​    Camera coordinates 相机坐标系</p>
+<h4 id="向量空间的基"><a href="#向量空间的基" class="headerlink" title="向量空间的基"></a>向量空间的基</h4><p>线性无关：</p>
+<p>​    a1V1+ a2V2 +…+ anVn = 0 iff（当且仅当） a1= a2=…= an = 0</p>
+<p>空间的维度：</p>
+<p>​    在向量空间中，线性无关向量的最大数量</p>
+<p>基：</p>
+<p>​    在n维空间中，任意n个线性无关向量构成空间的一组基basis</p>
+<h4 id="坐标系-Coordinate-Systems"><a href="#坐标系-Coordinate-Systems" class="headerlink" title="坐标系 Coordinate Systems"></a>坐标系 Coordinate Systems</h4><p>表示一个向量：</p>
+<p>​    给定一组基，任何向量都能写成基的线性组合的形式：</p>
+<p>​    v = a1 v1+ a2 v2 +…+ an vn</p>
+<p>​    标量序列{a1，a2， … ，an}是给定基下向量v的表示</p>
+<p>写成一行或一列的标量数组：</p>
+<p><img src="https://i.loli.net/2020/12/16/XgIWxw3kH9BsAGv.png" alt="image-20201216213744629"></p>
+<p>下面哪个正确？</p>
+<p><img src="https://i.loli.net/2020/12/16/BQc5xebYRPzpvAy.png" alt="image-20201216213823361"></p>
+<p>都正确，因为向量没有固定的位置</p>
+<h4 id="Frames-标架"><a href="#Frames-标架" class="headerlink" title="Frames 标架"></a>Frames 标架</h4><p>坐标系不足以表示点</p>
+<p>如果我们工作在一个仿射空间，我们可以添加一个单点——原点，到基向量形成一个标架</p>
+<p><img src="https://i.loli.net/2020/12/16/xaim9c5yEINGlsp.png" alt="image-20201216214108917"></p>
+<h4 id="标架内的表示"><a href="#标架内的表示" class="headerlink" title="标架内的表示"></a>标架内的表示</h4><p>给定一个标架（O，v1，v2，…，vn）</p>
+<p><img src="https://i.loli.net/2020/12/16/6IvNhKoXHVctlCm.png" alt="image-20201216214305168"></p>
+<p>每个向量都能被写作：</p>
+<p>​    v = a1 v1+ a2 v2 +…+ an vn</p>
+<p>每个顶点都能被写作：</p>
+<p>​    P = O + b1v1+ b2v2 +…+ bnvn</p>
+<p>两个表示看起来很相似：</p>
+<p><img src="https://i.loli.net/2020/12/16/Q6mb3ya2rkAvtIh.png" alt="image-20201216214250924"></p>
+<h4 id="Homogeneous-Coordinates-齐次坐标"><a href="#Homogeneous-Coordinates-齐次坐标" class="headerlink" title="Homogeneous Coordinates 齐次坐标"></a>Homogeneous Coordinates 齐次坐标</h4><p>如果我们定义 0 * P = 0 且 1 * P = P，</p>
+<p><img src="https://i.loli.net/2020/12/16/1qV2xUd9o8GWK67.png" alt="image-20201216214427230"></p>
+<p>则就获得了齐次坐标</p>
+<p>P = [x, y, z, w]T,</p>
+<p>这定义了一个三维的点（w≠0），即x为x/w，y为y/w，z为z/w，</p>
+<p>如果w为0，则表示一个向量。</p>
+<p><strong>齐次坐标是所有计算机图形系统的关键</strong></p>
+<p>​    所有标准变换(旋转、平移、缩放)都可以通过4×4矩阵的矩阵乘法来实现</p>
+<p>​    硬件管线工作用4维表示</p>
+<p>​    对于正投影观察，我们可以保持w=0为矢量，w=1为点</p>
+<p>​    对于透视，我们需要一个透视划分</p>
+<h4 id="坐标系变换"><a href="#坐标系变换" class="headerlink" title="坐标系变换"></a>坐标系变换</h4><p><img src="https://i.loli.net/2020/12/16/5iyVHmvQIknl3d1.png" alt="image-20201216214949728"></p>
+<p>如果一个坐标系有两个不同的基：</p>
+<p><img src="https://i.loli.net/2020/12/16/fB6HrkupbmviGTw.png" alt="image-20201216214921320"></p>
+<p>基之间有如下关系：</p>
+<p><img src="https://i.loli.net/2020/12/16/JLh5NRcimkZUvTy.png" alt="image-20201216214938954"></p>
+<p>这些系数定义了一个3*3矩阵</p>
+<p><img src="https://i.loli.net/2020/12/16/k39GxyhMlSJTipP.png" alt="image-20201216215042260"></p>
+<p>这两组基可以被关联起来：a = M b</p>
+<h4 id="标架变换"><a href="#标架变换" class="headerlink" title="标架变换"></a>标架变换</h4><p>在齐次坐标系中实施类似的变换，考虑两个标架：</p>
+<p><img src="https://i.loli.net/2020/12/16/K1QptjHiJoSP6Ts.png" alt="image-20201216215309646"></p>
+<p><img src="https://i.loli.net/2020/12/16/gcpbzeDdmYl54MX.png" alt="image-20201216215336218"></p>
+<p>任何一个点或向量都能被在另一个标架中表示</p>
+<h4 id="用一个坐标系表示另一个坐标系"><a href="#用一个坐标系表示另一个坐标系" class="headerlink" title="用一个坐标系表示另一个坐标系"></a>用一个坐标系表示另一个坐标系</h4><p>两组基和原点有如下关系：</p>
+<p><img src="https://i.loli.net/2020/12/16/fZLANDTamBWSH9n.png" alt="image-20201216215424322"></p>
+<p>用4*4矩阵表示：</p>
+<p><img src="https://i.loli.net/2020/12/16/AQ4Bk8sVu5xg6YH.png" alt="image-20201216215517852"></p>
+<p>在这两个坐标系中，任何点或向量都有相同形式的表示</p>
+<p><img src="https://i.loli.net/2020/12/16/JPtGjHKZFD86QVM.png" alt="image-20201216215556033"></p>
+<p>且a = Mb</p>
+<p><img src="https://i.loli.net/2020/12/16/cItaBN9GdXZHlrz.png" alt="image-20201216215633365"></p>
+<p>矩阵M是4*4矩阵并且在齐次坐标系中指定了一个仿射变换</p>
+<h2 id="Transformation-变换-1"><a href="#Transformation-变换-1" class="headerlink" title="Transformation 变换"></a>Transformation 变换</h2><h3 id="General-Transformations-一般转换"><a href="#General-Transformations-一般转换" class="headerlink" title="General Transformations 一般转换"></a>General Transformations 一般转换</h3><p>一个变换将点映射到其他点（向量）映射到其他点（向量）</p>
+<p><img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20201217005721384.png" alt="image-20201217005721384"></p>
+<p><img src="https://i.loli.net/2020/12/17/Y5Wbtv4uejdnZ9Q.png" alt="image-20201217005754074"></p>
+<h3 id="Triangle-based-Deformation-三角变换"><a href="#Triangle-based-Deformation-三角变换" class="headerlink" title="Triangle-based Deformation 三角变换"></a>Triangle-based Deformation 三角变换</h3><p>三角形之间的转换——建立三角形之间的对应关系</p>
+<p><img src="https://i.loli.net/2020/12/17/xMopW3hFYwyCdnT.png" alt="image-20201217010035116"></p>
+<h3 id="Image-Warping-图像扭曲"><a href="#Image-Warping-图像扭曲" class="headerlink" title="Image Warping 图像扭曲"></a>Image Warping 图像扭曲</h3><p><img src="https://i.loli.net/2020/12/17/CztcpdVXrvn1SZl.png" alt="image-20201217010140091"></p>
+<h3 id="Skeleton-Transformation-骨骼体转换"><a href="#Skeleton-Transformation-骨骼体转换" class="headerlink" title="Skeleton Transformation 骨骼体转换"></a>Skeleton Transformation 骨骼体转换</h3><p>Linear Blend Skinning线性混合蒙皮-蒙皮变换</p>
+<p><img src="https://i.loli.net/2020/12/17/H61hXoQTDVJZS8v.png" alt="image-20201217010317815"></p>
+<h3 id="Rigid-Body-Transformation-刚体变换"><a href="#Rigid-Body-Transformation-刚体变换" class="headerlink" title="Rigid Body Transformation 刚体变换"></a>Rigid Body Transformation 刚体变换</h3><p>空间距离保护（刚体形状不能改变）</p>
+<p><img src="https://i.loli.net/2020/12/17/RyhJQf8xMorDbkN.png" alt="image-20201217010501098"></p>
+<h3 id="Affine-Transformations-仿射变换"><a href="#Affine-Transformations-仿射变换" class="headerlink" title="Affine Transformations 仿射变换"></a>Affine Transformations 仿射变换</h3><p>线保护</p>
+<p>​    刚体变换：旋转、平移</p>
+<p>​    缩放、剪切</p>
+<p>​    许多物理上重要转变的特征</p>
+<p>图形的重要性</p>
+<p>​    只需要变换线段的端点</p>
+<p>​    在变换后的端点之间绘制线段</p>
+<h3 id="Scaling-缩放"><a href="#Scaling-缩放" class="headerlink" title="Scaling 缩放"></a>Scaling 缩放</h3><p>沿每个轴(原点的固定点)展开或收缩</p>
+<p><img src="https://i.loli.net/2020/12/17/KCGi3T2qkjnaIMz.png" alt="image-20201217152408830"></p>
+<p><img src="https://i.loli.net/2020/12/17/fxBkYvEobIZWM9w.png" alt="image-20201217152324556"></p>
+<p>​    x’ = sx x </p>
+<p>​    y’ = sy y</p>
+<p>​    z’ = sz z</p>
+<p>​    p’ = p</p>
+<h3 id="Reflection-反射"><a href="#Reflection-反射" class="headerlink" title="Reflection 反射"></a>Reflection 反射</h3><p>对应负的缩放因子</p>
+<p><img src="https://i.loli.net/2020/12/17/lZo6gymA2YfxrzW.png" alt="image-20201217152520216"></p>
+<h3 id="Rotation-旋转-2D"><a href="#Rotation-旋转-2D" class="headerlink" title="Rotation 旋转(2D)"></a>Rotation 旋转(2D)</h3><p>考虑绕原点旋转θ度，半径不变，角度增加θ</p>
+<p><img src="https://i.loli.net/2020/12/17/lBIwkFng7XEWfo3.png" alt="image-20201217152655871"></p>
+<p><img src="https://i.loli.net/2020/12/17/ZF9G2AWvur41OPl.png" alt="image-20201217153538492"></p>
+<h3 id="Translation-位移"><a href="#Translation-位移" class="headerlink" title="Translation 位移"></a>Translation 位移</h3><p>移动(平移，置换)一个点到新的位置</p>
+<p><img src="https://i.loli.net/2020/12/17/z72bHeknGUOtapQ.png" alt="image-20201217155356651"></p>
+<p>由向量d决定的位移：P ‘ = P + d（三自由度？？？）</p>
+<h3 id="Translation-Matrix-位移矩阵"><a href="#Translation-Matrix-位移矩阵" class="headerlink" title="Translation Matrix 位移矩阵"></a>Translation Matrix 位移矩阵</h3><p>在某些坐标系中使用齐次坐标表示</p>
+<p><img src="https://i.loli.net/2020/12/17/wBnqyFCKteMDIPW.png" alt="image-20201217155520039"></p>
+<p>因此，p ‘ = p + d 或</p>
+<p><img src="https://i.loli.net/2020/12/17/Gqve8Cow9fJYFsa.png" alt="image-20201217155628790"></p>
+<p>如用矩阵表示，则当</p>
+<p><img src="https://i.loli.net/2020/12/17/c6ViLXlF3KQhna8.png" alt="image-20201217155656829"></p>
+<p>有p ’ = T p</p>
+<h3 id="Rotation-旋转（3D）"><a href="#Rotation-旋转（3D）" class="headerlink" title="Rotation 旋转（3D）"></a>Rotation 旋转（3D）</h3><p>不同的情况：</p>
+<p>​    绕x, y, z轴旋转</p>
+<p>​    绕过原点的一轴旋转</p>
+<p>​    绕任意轴的旋转</p>
+<p><img src="https://i.loli.net/2020/12/17/qZWPIQ3BkHdtrgs.png" alt="image-20201217155922413"></p>
+<h4 id="关于z轴旋转"><a href="#关于z轴旋转" class="headerlink" title="关于z轴旋转"></a>关于z轴旋转</h4><p><img src="C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20201217160028384.png" alt="image-20201217160028384"></p>
+<p>相当于在二维平面中z为常数的旋转</p>
+<p><img src="https://i.loli.net/2020/12/17/WjlwXpnuMPi4c6z.png" alt="image-20201217160042020"></p>
+<p>在齐次坐标下 p’ = Rz (θ) p，其中Rz (θ)为</p>
+<p><img src="https://i.loli.net/2020/12/17/ZA3TnBRKjQw1qyV.png" alt="image-20201217160158422"></p>
+<h4 id="关于x、y轴旋转"><a href="#关于x、y轴旋转" class="headerlink" title="关于x、y轴旋转"></a>关于x、y轴旋转</h4><p>与关于z轴旋转相似</p>
+<p><img src="https://i.loli.net/2020/12/17/BwzjiumL7X6gNqR.png" alt="image-20201217160243994"></p>
+<h3 id="Shear-切变"><a href="#Shear-切变" class="headerlink" title="Shear 切变"></a>Shear 切变</h3><p>相当于把面拉向相反的方向</p>
+<p><img src="https://i.loli.net/2020/12/17/2lyqdCzic7frNQo.png" alt="image-20201217160529277"></p>
+<p><img src="https://i.loli.net/2020/12/17/zvZtAXsBUHjJFTc.png" alt="image-20201217160536806"></p>
+<p><img src="https://i.loli.net/2020/12/17/kZTcqbVHCmOF49y.png" alt="image-20201217160544296"></p>
+<h3 id="Inverses-逆变换"><a href="#Inverses-逆变换" class="headerlink" title="Inverses 逆变换"></a>Inverses 逆变换</h3><p>虽然我们可以使用通用公式计算逆矩阵(逆变换)，我们也可以用简单的几何观测</p>
+<p><img src="https://i.loli.net/2020/12/17/KyeqjAM7WH6uh51.png" alt="image-20201217161154216"></p>
+<h3 id="Order-of-Transformations-转换的顺序"><a href="#Order-of-Transformations-转换的顺序" class="headerlink" title="Order of Transformations 转换的顺序"></a>Order of Transformations 转换的顺序</h3><p>矩阵是顺序依赖的！所有的变换都是关于原点进行的。</p>
+<p><img src="https://i.loli.net/2020/12/17/KaXO8oei6gL5pvR.png" alt="image-20201217161343406"></p>
+<h3 id="Concatenation-连接"><a href="#Concatenation-连接" class="headerlink" title="Concatenation 连接"></a>Concatenation 连接</h3><p>通过将旋转、平移和缩放矩阵相乘形成任意仿射变换矩阵</p>
+<p><img src="https://i.loli.net/2020/12/17/qrfOeDmHNKwl29J.png" alt="image-20201217161504455"></p>
+<p>注意，<strong>右边的矩阵</strong>是先应用的</p>
+<p><img src="https://i.loli.net/2020/12/17/2LkrwbndENzVFUI.png" alt="image-20201217161540024"></p>
+<h3 id="Composing-Transforms-组合变换"><a href="#Composing-Transforms-组合变换" class="headerlink" title="Composing Transforms 组合变换"></a>Composing Transforms 组合变换</h3><p>仿射变换序列A1, A2, A3，…</p>
+<p>使用矩阵乘法组合</p>
+<p><img src="https://i.loli.net/2020/12/17/f5Q7P9DvnRsCXhL.png" alt="image-20201217161932019"></p>
+<h3 id="Rotation-About-a-Fixed-Point-关于固定点旋转"><a href="#Rotation-About-a-Fixed-Point-关于固定点旋转" class="headerlink" title="Rotation About a Fixed Point 关于固定点旋转"></a>Rotation About a Fixed Point 关于固定点旋转</h3><p><img src="https://i.loli.net/2020/12/17/YUpLcNo6WHvdlMZ.png" alt="image-20201217162155046"></p>
+<p>先将固定点移动到原点，然后旋转，在移动回原来位置，用矩阵表示为</p>
+<p><img src="https://i.loli.net/2020/12/17/wRXhM4edgN8OADP.png" alt="image-20201217162138461"></p>
+<h3 id="General-Rotation-About-the-Origin-关于原点的一般旋转"><a href="#General-Rotation-About-the-Origin-关于原点的一般旋转" class="headerlink" title="General Rotation About the Origin 关于原点的一般旋转"></a>General Rotation About the Origin 关于原点的一般旋转</h3><p><img src="https://i.loli.net/2020/12/17/YKDrM6BoNRw7aJ8.png" alt="image-20201217162336397"></p>
+<p>绕任意轴旋转θ度可以分解为绕x、y、z轴的旋转的串联，即</p>
+<p><img src="https://i.loli.net/2020/12/17/vrRB6Z9mxP8XDpM.png" alt="image-20201217162326530"></p>
+<p>θx θy θz被称作 Euler angles 欧拉角</p>
+<h3 id="Rotating-Axis-by-Axis-逐轴旋转-？？？？"><a href="#Rotating-Axis-by-Axis-逐轴旋转-？？？？" class="headerlink" title="Rotating Axis by Axis 逐轴旋转 ？？？？"></a>Rotating Axis by Axis 逐轴旋转 ？？？？</h3><p><img src="https://i.loli.net/2020/12/17/Nwp31d6nliUkbT9.png" alt="image-20201217163547249"></p>
+<p>步骤1：找到一个θ绕y轴旋转，使u在xy平面上</p>
+<p>步骤2：然后找到ϕ以z轴旋转，使u与x轴对齐</p>
+<p>​    现在u在一个简便的对齐中，我们可以对顶点v进行变换旋转:</p>
+<p>步骤3：绕x轴将v旋转ψ度(与u轴一致)</p>
+<p>步骤4：最后，取消对齐旋转(反向)。</p>
+<p>​    我们唯一保留的旋转是绕u轴旋转，这是我们的目标</p>
+<p>旋转矩阵：<img src="https://i.loli.net/2020/12/17/Grs6xAhIMOKDvw2.png" alt="image-20201217163102954"></p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/12/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank">计算机图形学期末复习——图形管线与几何变换</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+                
+                    <a href="/tag/Pipline/">Pipline</a>
+                
+                    <a href="/tag/Transformations/">Transformations</a>
+                
+                    <a href="/tag/Matrix/">Matrix</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/12/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/12/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" title="发布于 2020-12-17 04:39">计算机图形学期末复习——视角与投影</a>
+                <br>
+            
+            
+                <a href="/2020/12/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/12/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" title="发布于 2020-12-14 04:26">计算机图形学期末复习——介绍及图像原理</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>
