@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>计算机图形学——几何建模与光栅化</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">计算机图形学——几何建模与光栅化</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-12-18
+                        </span>
+                        
+                            <span id="/2020/12/18/计算机图形学期末复习（五）/" class="leancloud_visitors" data-flag-title="计算机图形学——几何建模与光栅化">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/12/18/计算机图形学期末复习（五）/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="第六章-Illumination"><a href="#第六章-Illumination" class="headerlink" title="第六章 Illumination"></a>第六章 Illumination</h1><h2 id="什么是Rendering渲染？"><a href="#什么是Rendering渲染？" class="headerlink" title="什么是Rendering渲染？"></a>什么是Rendering渲染？</h2><p><img src="https://i.loli.net/2020/12/18/Oj7fzWDxhpcRCmX.png" alt="image-20201218111437339"></p>
+<p>Rendering or image synthesis 渲染或图像合成</p>
+<p>​    通过计算机程序(渲染器)从2D或3D模型生成逼真/非逼真图像的自动过程</p>
+<p>​    显示这样一个模型的结果被称为渲染</p>
+<h3 id="After-Rasterization-光栅化后"><a href="#After-Rasterization-光栅化后" class="headerlink" title="After Rasterization 光栅化后"></a>After Rasterization 光栅化后</h3><p>所有内容都已经用像素表示（像素数由分辨率决定）</p>
+<p><img src="https://i.loli.net/2020/12/18/3xK9Hqoejba2l47.png" alt="image-20201218112009964"></p>
+<p>下一个问题：<strong>如何确定像素颜色?</strong></p>
+<p>​    <strong>Shading 着色</strong> 与 <strong>texturing 纹理</strong></p>
+<h3 id="Shading-着色"><a href="#Shading-着色" class="headerlink" title="Shading 着色"></a>Shading 着色</h3><p>改变3D场景中物体/表面/多边形颜色的过程</p>
+<p>​    确定像素颜色的过程</p>
+<p>​    狭义上：特指 lighting 照明和 color interpolation 色彩插值</p>
+<p><img src="https://i.loli.net/2020/12/18/N94XSkhRBcGtvW8.png" alt="image-20201218112209391"></p>
+<h3 id="Texturing-纹理"><a href="#Texturing-纹理" class="headerlink" title="Texturing 纹理"></a>Texturing 纹理</h3><p>为表面赋予细节的过程</p>
+<p>​    表面细节难以建模实现</p>
+<p>​    使表面看起来更加真实</p>
+<p><img src="https://i.loli.net/2020/12/18/tmfvZb5z9x61Rpd.png" alt="image-20201218112447660"></p>
+<h3 id="Light-Reflection-光线反射"><a href="#Light-Reflection-光线反射" class="headerlink" title="Light Reflection 光线反射"></a>Light Reflection 光线反射</h3><p>定义：反射是光入射到表面，与表面相互作用的过程，光线会立即改变方向，离开表面</p>
+<p><img src="https://i.loli.net/2020/12/18/XjFWaUvDNkfKYed.png" alt="image-20201218112627474"></p>
+<h3 id="Graphical-Lighting-图形学光照"><a href="#Graphical-Lighting-图形学光照" class="headerlink" title="Graphical Lighting 图形学光照"></a>Graphical Lighting 图形学光照</h3><p>计算机图形学中的光照模拟：</p>
+<p>​    确定光在空间中的分布</p>
+<p>​    使用阴影模型来描述表面对光的响应</p>
+<h3 id="Illumination-光照"><a href="#Illumination-光照" class="headerlink" title="Illumination 光照"></a>Illumination 光照</h3><p><img src="https://i.loli.net/2020/12/18/XESzFQafldk57s1.png" alt="image-20201218112927369"></p>
+<p>光照模型描述了光是如何</p>
+<p>​    Emitted 发出</p>
+<p>​    Reflected 反射</p>
+<p>​    Transmitted 传播</p>
+<p>​    Absorbed 吸收</p>
+<h2 id="Light-Sources-amp-Material-光源与材质"><a href="#Light-Sources-amp-Material-光源与材质" class="headerlink" title="Light Sources &amp; Material 光源与材质"></a>Light Sources &amp; Material 光源与材质</h2><h3 id="Light-Sources-光源"><a href="#Light-Sources-光源" class="headerlink" title="Light Sources 光源"></a>Light Sources 光源</h3><p><img src="https://i.loli.net/2020/12/18/XoHBwR4aNdErWg2.png" alt="image-20201218113158946"></p>
+<p>光产生（来源）的地方：在一个环境中生成光的源头</p>
+<h3 id="光源种类"><a href="#光源种类" class="headerlink" title="光源种类"></a>光源种类</h3><h4 id="Point-Light-点光源"><a href="#Point-Light-点光源" class="headerlink" title="Point Light 点光源"></a>Point Light 点光源</h4><p>从空间中的一点发出的光，可能是外向光的角度变化分布</p>
+<p><img src="https://i.loli.net/2020/12/18/ZVthOQo7WRAkrpe.png" alt="image-20201218144818997"></p>
+<p>在空间中有一个位置Position：A 4D vector (x,y,z,w)    其中 W=1.0</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//	Example: light at (-1.0; 0.5; 2.0)</span></span><br><span class="line">GLfloat light_position[] = &#123; <span class="number">-1.0</span>, <span class="number">0.5</span>, <span class="number">2.0</span>, <span class="number">1.0</span> &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在各个方向均匀发光</p>
+<p><img src="https://i.loli.net/2020/12/18/q2kFihH1Lw58QCU.png" alt="image-20201218145830461"></p>
+<h4 id="Spotlights-聚光灯"><a href="#Spotlights-聚光灯" class="headerlink" title="Spotlights 聚光灯"></a>Spotlights 聚光灯</h4><p>​    一种点光源的变种</p>
+<p>​    一定角度范围内的光发射</p>
+<p>​    通常是三维锥</p>
+<p>​        SPOT_DIRECTION</p>
+<p>​        SPOT_CUTOFF：β</p>
+<p>​        SPOT_EXPONENT    描述光有多集中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> spotEffect = dot(normalize(gl_LightSource[<span class="number">0</span>].spotDirection.xyz),</span><br><span class="line">                       normalize(-light));</span><br><span class="line"><span class="keyword">if</span> (spotEffect &lt; gl_LightSource[<span class="number">0</span>].spotCosCutoff)&#123;</span><br><span class="line">	spotEffect = smoothstep(gl_LightSource[<span class="number">0</span>].spotCosCutoff<span class="number">-0.002</span>,</span><br><span class="line">	gl_LightSource[<span class="number">0</span>].spotCosCutoff, spotEffect);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> spotEffect = <span class="number">1.0</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Directional-distant-lights-定向（远）光"><a href="#Directional-distant-lights-定向（远）光" class="headerlink" title="Directional (distant) lights 定向（远）光"></a>Directional (distant) lights 定向（远）光</h4><p><img src="https://i.loli.net/2020/12/18/DEjufqm2ioH1vSV.png" alt="image-20201218185504444"></p>
+<p>在空间中每一点有光生成在相同方向</p>
+<p>一种位于无限远处的点光源</p>
+<p>光线是平行的</p>
+<p>​    POSITION：A 4D vector (x,y,z,w)    其中(x, y, z) 是方向，W=0.0</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//	Example: light pointing toward negative z axis.</span></span><br><span class="line">GLfloat light_position[] = &#123; <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span> &#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Area-lights-区域光"><a href="#Area-lights-区域光" class="headerlink" title="Area lights 区域光"></a>Area lights 区域光</h4><p><img src="https://i.loli.net/2020/12/18/GJOuEgs8ik5VAQv.png" alt="image-20201218185743546"></p>
+<p>光生成自一个或多个形状表面</p>
+<p>最常见的光源形式</p>
+<h4 id="Infinite-area-lights-无限区域光"><a href="#Infinite-area-lights-无限区域光" class="headerlink" title="Infinite area lights 无限区域光"></a>Infinite area lights 无限区域光</h4><p>一个无限远的区域光源包围着整个场景</p>
+<p>一种重要的用途是作为环境光</p>
+<p><img src="https://i.loli.net/2020/12/18/T1857OhdFYVxBR9.png" alt="image-20201218191042557"></p>
+<h2 id="什么是-Material-材质？"><a href="#什么是-Material-材质？" class="headerlink" title="什么是 Material 材质？"></a>什么是 Material 材质？</h2><h3 id="图形学中的材质定义"><a href="#图形学中的材质定义" class="headerlink" title="图形学中的材质定义"></a>图形学中的材质定义</h3><p>​    表面属性，用于描述<strong>光如何在表面上反射</strong></p>
+<p>​    确定相对于表面法线和视角方向的反射光分布</p>
+<p>​    不同的物理材料有不同的反射</p>
+<p><img src="https://i.loli.net/2020/12/18/SRcwGO64qXsl8gH.png" alt="image-20201218191255629"></p>
+<h3 id="材质分类"><a href="#材质分类" class="headerlink" title="材质分类"></a>材质分类</h3><p><img src="https://i.loli.net/2020/12/18/H2UGoTzXqdphceW.png" alt="image-20201218192128582"></p>
+<h2 id="Illumination-Models-光照模型"><a href="#Illumination-Models-光照模型" class="headerlink" title="Illumination Models 光照模型"></a>Illumination Models 光照模型</h2><h3 id="Reflection-反射"><a href="#Reflection-反射" class="headerlink" title="Reflection 反射"></a>Reflection 反射</h3><p><img src="https://i.loli.net/2020/12/18/IheBnRZo6siP7gE.png" alt="image-20201218192359413"></p>
+<h3 id="Perfect-Diffuse-Reflection-完美漫反射"><a href="#Perfect-Diffuse-Reflection-完美漫反射" class="headerlink" title="Perfect Diffuse Reflection 完美漫反射"></a>Perfect Diffuse Reflection 完美漫反射</h3><p>反射光均匀地散射在四周</p>
+<p>每个方向的反射光强度相同</p>
+<p>发生在粗糙的表面</p>
+<p><img src="https://i.loli.net/2020/12/18/FTP6YdRfh5rMLcg.png" alt="image-20201218192513293"></p>
+<h4 id="用-Lambert’s-model-着色"><a href="#用-Lambert’s-model-着色" class="headerlink" title="用 Lambert’s model 着色"></a>用 Lambert’s model 着色</h4><p>​    表面足够光滑</p>
+<p>​    光分布仅由模型几何决定</p>
+<p>​    没有高亮区域</p>
+<p><img src="https://i.loli.net/2020/12/18/VzvbQqLTJPNMCZS.png" alt="image-20201218192642207"></p>
+<p><img src="https://i.loli.net/2020/12/18/FJjgvQoIuxnq49R.png" alt="image-20201218192706314"></p>
+<h4 id="如何计算完美漫反射？"><a href="#如何计算完美漫反射？" class="headerlink" title="如何计算完美漫反射？"></a>如何计算完美漫反射？</h4><p>​    Lambert’s cosine law 兰伯特余弦法则</p>
+<p><img src="https://i.loli.net/2020/12/18/FD1GduhxlVwbyr2.png" alt="image-20201218194117168"></p>
+<p><img src="https://i.loli.net/2020/12/18/pe9i1dKSouqAYTI.png" alt="image-20201218194015356"></p>
+<h3 id="Specular-Highlight-镜面高光"><a href="#Specular-Highlight-镜面高光" class="headerlink" title="Specular Highlight 镜面高光"></a>Specular Highlight 镜面高光</h3><p>反射强烈的一块区域</p>
+<p>​    分布依赖于材料特性(非常光滑的表面)</p>
+<p>​    视光线和视野方向而定</p>
+<p><img src="https://i.loli.net/2020/12/18/f6PbrElnKeg5iUG.png" alt="image-20201218194304863"></p>
+<h4 id="镜面高光的例子"><a href="#镜面高光的例子" class="headerlink" title="镜面高光的例子"></a>镜面高光的例子</h4><p>环境就会在表面上形成一幅图像</p>
+<p>点光源在其表面上会出现斑点</p>
+<p><img src="https://i.loli.net/2020/12/18/RLsEFMWlCPrUXvm.png" alt="image-20201218194417058"></p>
+<h4 id="Phong-Reflection-Phong-反射"><a href="#Phong-Reflection-Phong-反射" class="headerlink" title="Phong Reflection Phong 反射"></a>Phong Reflection Phong 反射</h4><p>如何模拟镜面光？</p>
+<p>​    Phong specular light model Phong镜面光模型</p>
+<p><img src="https://i.loli.net/2020/12/18/Dv8g7RkmSQ2xifn.png" alt="image-20201218194948534"></p>
+<p><img src="https://i.loli.net/2020/12/18/dvCEBTMSezGoPX2.png" alt="image-20201218195011564"></p>
+<h3 id="Phong-Illumination-Model-Phong-光照模型"><a href="#Phong-Illumination-Model-Phong-光照模型" class="headerlink" title="Phong Illumination Model Phong 光照模型"></a>Phong Illumination Model Phong 光照模型</h3><p>图形学系统中最常用的反射模型</p>
+<p><img src="https://i.loli.net/2020/12/18/SxTQcw1rZlAftp4.png" alt="image-20201218195112875"></p>
+<p>有许多变种</p>
+<p>Reflected = ambient + diffuse + specular    反射=环境光+漫反射+镜面光</p>
+<h4 id="Cosine-Power-Plots-余弦幂级数图-？？？"><a href="#Cosine-Power-Plots-余弦幂级数图-？？？" class="headerlink" title="Cosine Power Plots 余弦幂级数图 ？？？"></a>Cosine Power Plots 余弦幂级数图 ？？？</h4><p>Increasing n narrows the reflection lobe 增加n使反射波瓣变窄</p>
+<p><img src="https://i.loli.net/2020/12/18/fPukLM4RqKpjXmb.png" alt="image-20201218201927720"></p>
+<h4 id="Ambient-环境光"><a href="#Ambient-环境光" class="headerlink" title="Ambient 环境光"></a>Ambient 环境光</h4><p>模拟间接照明，有些表面即使在阴影中也会被照亮</p>
+<p><img src="https://i.loli.net/2020/12/18/LbMIJzYDy8HXfja.png" alt="image-20201218202139402"><img src="https://i.loli.net/2020/12/18/dbx4uEyQ5aDLXec.png" alt="image-20201218202150340"></p>
+<p>启发式近似</p>
+<p>​    假定间接照明是恒定的</p>
+<p>​    I = I_a</p>
+<h4 id="Phong-lighting-model-Phong光照模型"><a href="#Phong-lighting-model-Phong光照模型" class="headerlink" title="Phong lighting model Phong光照模型"></a>Phong lighting model Phong光照模型</h4><p>​    恒定的环境光</p>
+<p>​    漫反射</p>
+<p>​    镜面反射</p>
+<p><img src="https://i.loli.net/2020/12/18/d3Dvs2uqYBU8ASm.png" alt="image-20201218202319635"></p>
+<p><img src="https://i.loli.net/2020/12/18/XTI4jpsOJu3Dr8H.png" alt="image-20201218202311747"></p>
+<h4 id="Approximation-近似：Blinn-Phong着色模型？？？"><a href="#Approximation-近似：Blinn-Phong着色模型？？？" class="headerlink" title="Approximation 近似：Blinn-Phong着色模型？？？"></a>Approximation 近似：Blinn-Phong着色模型？？？</h4><p><img src="https://i.loli.net/2020/12/18/XkhUA4FoDYfEgmr.png" alt="image-20201218202522968"></p>
+<p><img src="https://i.loli.net/2020/12/18/hWyGx5LfXvIRrEm.png" alt="image-20201218202536174"></p>
+<h2 id="OpenGL中的光照"><a href="#OpenGL中的光照" class="headerlink" title="OpenGL中的光照"></a>OpenGL中的光照</h2><p>根据Phong模型确定顶点颜色</p>
+<p>​    基于点光源</p>
+<p>​    3D几何模型中的每个顶点都将应用Phong光照模型</p>
+<p>​    几何原件(比如三角形)中的像素颜色是由顶点颜色插值决定的</p>
+<p><img src="https://i.loli.net/2020/12/18/AdbCH187xcySNF9.png" alt="image-20201218202822087"></p>
+<h2 id="Shading-Model-明暗模型"><a href="#Shading-Model-明暗模型" class="headerlink" title="Shading Model 明暗模型"></a>Shading Model 明暗模型</h2><p>在那些已知光照或照明的点之间插值颜色的过程，通常是网格中的三角形顶点</p>
+<p>​    Flat shading</p>
+<p>​    Gouraud shading    </p>
+<p>​    Phong shading</p>
+<h3 id="Flat-Shading"><a href="#Flat-Shading" class="headerlink" title="Flat Shading"></a>Flat Shading</h3><p><img src="https://i.loli.net/2020/12/18/b3EJedLzpxUq2Cu.png" alt="image-20201218204719998"></p>
+<p>定义每个多边形的法线</p>
+<p>照明:</p>
+<p>​    <strong>使用面法线</strong>计算每个多边形中心的渲染方程</p>
+<p>着色:</p>
+<p>​    多边形上的每个采样点都是在顶点处<strong>插值的光照值</strong></p>
+<h3 id="Gouraud-Shading"><a href="#Gouraud-Shading" class="headerlink" title="Gouraud Shading"></a>Gouraud Shading</h3><p><img src="https://i.loli.net/2020/12/18/uIRHnK6xCg9fZEa.png" alt="image-20201218204815398"></p>
+<p>定义<strong>每个顶点</strong>的法向量</p>
+<p>照明:</p>
+<p>​    使用<strong>顶点法线</strong>计算每个顶点的渲染方程</p>
+<p>材质:</p>
+<p>​    多边形上每个采样点的颜色是由多边形顶点的<strong>颜色值插值</strong>的</p>
+<p><img src="https://i.loli.net/2020/12/18/sw78NjTz56W2VvX.png" alt="image-20201218205135278"></p>
+<p>左侧为Flat Shading 右侧为Gouraud Shading</p>
+<h3 id="Gouraud-Shading-Artifacts"><a href="#Gouraud-Shading-Artifacts" class="headerlink" title="Gouraud Shading Artifacts"></a>Gouraud Shading Artifacts</h3><p>高光异常</p>
+<p>​    当物体旋转时，高光看起来好像在“跳跃”。</p>
+<p>​    我们可能会错过一些高光。</p>
+<p><img src="https://i.loli.net/2020/12/18/YbUw9okCKsnS3Me.png" alt="image-20201218210243753"></p>
+<p><img src="https://i.loli.net/2020/12/18/hKcQUpM23fdyqgN.png" alt="image-20201218210312880"></p>
+<h3 id="Phong-Shading"><a href="#Phong-Shading" class="headerlink" title="Phong Shading"></a>Phong Shading</h3><p><img src="https://i.loli.net/2020/12/18/nbZSit1FWJyhoKR.png" alt="image-20201218210605848"></p>
+<p>每个顶点有一个法向量</p>
+<p>照明:</p>
+<p>​    使用顶点法线计算每个顶点的光照方程</p>
+<p>着色:</p>
+<p>​    对于多边形上的每个采样点，插值多边形顶点的法线</p>
+<p>​    使用插值法线的渲染方程计算颜色</p>
+<h4 id="Gourand-VS-Phong-Shading"><a href="#Gourand-VS-Phong-Shading" class="headerlink" title="Gourand VS. Phong Shading"></a>Gourand VS. Phong Shading</h4><p><img src="https://i.loli.net/2020/12/18/8lruyOMiI9e2ZvL.png" alt="image-20201218210811617"></p>
+<p>​    左侧为Gouraud，右侧为Phong</p>
+<p>Gourand VS. Phong Shading</p>
+<p>​    插值颜色 vs. 插值法线</p>
+<p>​    Gourand shading：在原色中插入颜色</p>
+<p>​    Phong shading：法线首先被插值，然后基于照明模型计算颜色</p>
+<p><img src="https://i.loli.net/2020/12/18/zhc9yDsgVXdKNlG.png" alt="image-20201218211335081"></p>
+<h3 id="Realizing-Phong-Lighting-amp-Shading-实现Phong光照-amp-着色"><a href="#Realizing-Phong-Lighting-amp-Shading-实现Phong光照-amp-着色" class="headerlink" title="Realizing Phong Lighting &amp; Shading 实现Phong光照&amp;着色"></a>Realizing Phong Lighting &amp; Shading 实现Phong光照&amp;着色</h3><h4 id="Vertex-shader-顶点着色器"><a href="#Vertex-shader-顶点着色器" class="headerlink" title="Vertex shader 顶点着色器"></a>Vertex shader 顶点着色器</h4><p>​    自动插值变量 [varying]或[out]</p>
+<p>​    这样的变量会在栅格化后自动插值，并传递给片段/像素着色器</p>
+<p>​    法线插值:将法线设置为这样一个变量</p>
+<p><img src="https://i.loli.net/2020/12/18/wCrOxiyXUuoGDVB.png" alt="image-20201218211704984"></p>
+<h4 id="Fragment-pixel-shader-片段着色器"><a href="#Fragment-pixel-shader-片段着色器" class="headerlink" title="Fragment(pixel) shader 片段着色器"></a>Fragment(pixel) shader 片段着色器</h4><p>​    接收一个插值变量，如normal</p>
+<p>​    执行Phong照明，计算每个像素，以确定像素的颜色</p>
+<p>​    采样率：所有投影像素(Gourand shading采样率：所有投影顶点)</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" target="_blank">计算机图形学——几何建模与光栅化</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+                
+                    <a href="/tag/OpenGL/">OpenGL</a>
+                
+                    <a href="/tag/illumination/">illumination</a>
+                
+                    <a href="/tag/Rendering/">Rendering</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/" title="发布于 2020-12-18 09:20">计算机图形学——纹理映射</a>
+                <br>
+            
+            
+                <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" title="发布于 2020-12-18 08:55">计算机图形学——几何建模与光栅化</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>

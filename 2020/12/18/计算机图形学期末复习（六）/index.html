@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>计算机图形学——纹理映射</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">计算机图形学——纹理映射</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-12-18
+                        </span>
+                        
+                            <span id="/2020/12/18/计算机图形学期末复习（六）/" class="leancloud_visitors" data-flag-title="计算机图形学——纹理映射">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/12/18/计算机图形学期末复习（六）/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="第七章-Texture-Mapping"><a href="#第七章-Texture-Mapping" class="headerlink" title="第七章 Texture Mapping"></a>第七章 Texture Mapping</h1><h2 id="什么是-texture-mapping-纹理映射？"><a href="#什么是-texture-mapping-纹理映射？" class="headerlink" title="什么是 texture mapping 纹理映射？"></a>什么是 texture mapping 纹理映射？</h2><p>将一张图片映射到一个表面，来定义表面任意一点的基本属性</p>
+<p><img src="https://i.loli.net/2020/12/18/1sVqCbTci3vHPdg.png" alt="image-20201218212400023"></p>
+<p>任意一个三维物体的表面都为二维平面，可以与纹理图进行一一映射</p>
+<p><img src="https://i.loli.net/2020/12/18/KOmH8LrDkNho4jv.png" alt="image-20201218212426569"></p>
+<h2 id="Texture-mapping-纹理映射"><a href="#Texture-mapping-纹理映射" class="headerlink" title="Texture mapping 纹理映射"></a>Texture mapping 纹理映射</h2><p>texture coordinate纹理坐标系（u，v），u和v在（0,1）内</p>
+<p>假定给出一个三角形，要将每个顶点映射到纹理空间中，同时要通过插值的方式获得三角形内每一个点的平滑的过渡纹理值，这里要用到<strong>重心坐标</strong></p>
+<p><img src="https://i.loli.net/2020/12/18/E61aVT9lzgyeCfS.png" alt="image-20201218212524409"></p>
+<h3 id="Barycentric-Coordinates-重心坐标"><a href="#Barycentric-Coordinates-重心坐标" class="headerlink" title="Barycentric Coordinates 重心坐标"></a>Barycentric Coordinates 重心坐标</h3><p>三角形的一个坐标系统：</p>
+<p>​    三角形所在平面的任意一点的坐标都能写成三个顶点坐标的线性组合，且 α + β ＋ γ = 1</p>
+<p>​    如果三个系数都非负，则该点在三角形内</p>
+<p><img src="https://i.loli.net/2020/12/18/Lr8HWyA6cDE9NMn.png" alt="image-20201218212846991"></p>
+<p>三角形内任意一点可以将三角形分为三个小三角形</p>
+<p>​    A<del>A</del>表示的是A点所对的部分三角形的面积</p>
+<p>​    A<del>B</del>表示的是B点所对的部分三角形的面积</p>
+<p>​    A<del>C</del>表示的是C点所对的部分三角形的面积</p>
+<p>易得三角形重心的重心坐标为（1/3，1/3，1/3）</p>
+<p><img src="https://i.loli.net/2020/12/18/ZFOxuJ3PKgTf2m5.png" alt="image-20201218212919790"></p>
+<p>已知所有点的坐标时，求任意一点重心坐标的通用方法</p>
+<p><img src="https://i.loli.net/2020/12/18/eyz5tmNGcdFbCuI.png" alt="image-20201218213030662"></p>
+<p>使用重心坐标在顶点上线性插值</p>
+<p><img src="https://i.loli.net/2020/12/18/yK6ZiqoVO4pQEnt.png" alt="image-20201218213224230"></p>
+<p><strong>投影下不保证重心坐标不变化！</strong></p>
+<p><img src="https://i.loli.net/2020/12/18/GXlsWUfYFeZjnPv.png" alt="image-20201218213329444"></p>
+<h3 id="Wrapping-Mode-循环模式"><a href="#Wrapping-Mode-循环模式" class="headerlink" title="Wrapping Mode 循环模式"></a>Wrapping Mode 循环模式</h3><p>当 s 和 t 超出了（0,1）</p>
+<p><img src="https://i.loli.net/2020/12/18/wGKqykCbL5BjPOp.png" alt="image-20201218213508080"></p>
+<h3 id="Magnification-and-minification-放大与缩小"><a href="#Magnification-and-minification-放大与缩小" class="headerlink" title="Magnification and minification 放大与缩小"></a>Magnification and minification 放大与缩小</h3><p><strong>texel</strong> （纹理元素、纹素），材质上的像素</p>
+<p>​    多个像素覆盖同一个纹理 (放大)</p>
+<p>​    多个纹理覆盖同一个像素 (缩小)</p>
+<p><img src="https://i.loli.net/2020/12/18/875UtSaJs2nO6eK.png" alt="image-20201218213720501"></p>
+<h3 id="Texture-magnification-纹理放大"><a href="#Texture-magnification-纹理放大" class="headerlink" title="Texture magnification 纹理放大"></a>Texture magnification 纹理放大</h3><p><img src="https://i.loli.net/2020/12/18/DCQVjkad6BE9foN.png" alt="image-20201218214120348"></p>
+<h4 id="Bilinear-interpolation-双线性插值"><a href="#Bilinear-interpolation-双线性插值" class="headerlink" title="Bilinear interpolation 双线性插值"></a>Bilinear interpolation 双线性插值</h4><p><img src="https://i.loli.net/2020/12/18/oyulizBKTD8fRJd.png" alt="image-20201218213906970"></p>
+<p><strong>Nearest 方法：</strong>直接取最近的纹素的值</p>
+<p><strong>Bilinear 双线性插值：</strong>（水平竖直方向都进行了线性插值）</p>
+<p><img src="https://i.loli.net/2020/12/19/G7WC9jaOAfkZPNB.png" alt="image-20201219002935235"></p>
+<p>选择最近的四个取样点，标记纹理值</p>
+<p><img src="https://i.loli.net/2020/12/19/aLF8bQwNKOhc3jV.png" alt="image-20201219003139332"></p>
+<p>找到像素点对应纹素的偏移量 s 和 t </p>
+<p><img src="https://i.loli.net/2020/12/19/m5oGkczqsR7l9EL.png" alt="image-20201219003420221"></p>
+<p>先计算u<del>00</del>与u<del>10</del>间的线性差值u<del>0</del>，以及u<del>01</del>与u<del>11</del>间的线性差值u<del>1</del>，</p>
+<p>再计算u<del>0</del>与u<del>1</del>的线性插值，即为像素点对应的值</p>
+<p><strong>Bicubic 方法：</strong>双三次插值，取周围最近的16个点，每四个点取三次插值</p>
+<h3 id="Texture-minification-纹理缩小"><a href="#Texture-minification-纹理缩小" class="headerlink" title="Texture minification 纹理缩小"></a>Texture minification 纹理缩小</h3><p><img src="https://i.loli.net/2020/12/18/iYqfptrAhHxOycg.png" alt="image-20201218214249548"></p>
+<p>从近到远，每个像素覆盖的纹理数量越来越大，单个像素代表的纹理数量越来越多，近处的像素对应的纹素太少，易产生锯齿，远处对应的纹素太少，容易走样产生摩尔纹</p>
+<p><img src="https://i.loli.net/2020/12/18/mJNf8LWlcTC6rya.png" alt="image-20201218214713864"></p>
+<p>使用<strong>超采样 Super sampling</strong> 可以一定程度上解决问题，但开销太大</p>
+<p><img src="https://i.loli.net/2020/12/18/ZoyaxS6iXzHsmIB.png" alt="image-20201218214814443"></p>
+<p><strong>新的思路：</strong>不进行采样的过程，直接获得该像素点对应的值</p>
+<p>问题转化为，<strong>如何快速的获得一个均值？</strong></p>
+<h3 id="Mipmaps"><a href="#Mipmaps" class="headerlink" title="Mipmaps"></a>Mipmaps</h3><p>能够实现 <strong>快速、近似、方形</strong>范围的纹理查询，从原始的纹理图生成多层的纹理，每个后续纹理的长宽都是前一个纹理的二分之一，得到一个纹理图像的集合，层数为log<del>2</del>n</p>
+<p>仅增加了原纹理大小的三分之一存储量</p>
+<p><img src="https://i.loli.net/2020/12/18/RTUYX6xSjkZpuEV.png" alt="image-20201218215617575"></p>
+<h4 id="计算-Mipmap-Level"><a href="#计算-Mipmap-Level" class="headerlink" title="计算 Mipmap Level"></a>计算 Mipmap Level</h4><p>Method 1:</p>
+<p><img src="https://i.loli.net/2020/12/18/YtPAVHXirjWRbMG.png" alt="image-20201218220218996"></p>
+<p>Method 2：</p>
+<p><img src="https://i.loli.net/2020/12/19/xLVMtd2Ngb9AIDB.png" alt="image-20201219010033649"></p>
+<p>将要进行采样的像素点临近的像素点也投影到材质图上，得到像素相对距离在纹理图上的相应长度，近似的取方形，此时问题转化为要求边长为L的方形对应的纹理</p>
+<p>如果L为1，则为第0层，如果L为2,这说明需要进如第1层，L为4第2层…….</p>
+<p>即 D = log<del>2</del>L ，在这一层对应的mipmap就可以直接获得该层对应的纹理</p>
+<p><strong>三线性插值：</strong>如果D不为整数层，则就在两层分别求双线性插值，再将两层的双线性插值再进行一次插值，即可得到非整数层的纹理值，即可获得非连续的插值。</p>
+<p>尽管Mipmap效果不错，但在远处仍然会出现 Overblur 过度模糊</p>
+<p><img src="https://i.loli.net/2020/12/19/jumD98bWcVOMCAr.png" alt="image-20201219011123250"></p>
+<h3 id="Anisotropic-Filtering-各向异性过滤"><a href="#Anisotropic-Filtering-各向异性过滤" class="headerlink" title="Anisotropic Filtering 各向异性过滤"></a>Anisotropic Filtering 各向异性过滤</h3><p>mipmap可以认为是下图中（Ripmap），对角线上的纹理内容，只有长宽同时压缩后的纹理信息</p>
+<p><img src="https://i.loli.net/2020/12/19/dTwjcsnZJfCS18r.png" alt="image-20201219011611581"></p>
+<p>由于像素对应的纹理范围不一定是规则形状的，使用这种纹理图可以获得更不规则的矩形范围的纹理，一定程度上改进Mipmap过度模糊的问题，但仍不能解决其他不规则形状（EWA等方法、代价更大）</p>
+<p><img src="https://i.loli.net/2020/12/19/VHX648SQqIAeYfK.png" alt="image-20201219011744692"></p>
+<h3 id="Sampling-Textures-纹理采样？？？"><a href="#Sampling-Textures-纹理采样？？？" class="headerlink" title="Sampling Textures 纹理采样？？？"></a>Sampling Textures 纹理采样？？？</h3><h4 id="屏幕采样率-vs-纹理采样率"><a href="#屏幕采样率-vs-纹理采样率" class="headerlink" title="屏幕采样率 vs. 纹理采样率"></a>屏幕采样率 vs. 纹理采样率</h4><p><img src="https://i.loli.net/2020/12/18/enQMBVCrzlNa7td.png" alt="image-20201218214508097"></p>
+<p><img src="https://i.loli.net/2020/12/18/fM6asECDxiWJtuK.png" alt="image-20201218214533141"></p>
+<p><img src="https://i.loli.net/2020/12/18/TFuJSvqn13YsDk6.png" alt="image-20201218214546973"></p>
+<h3 id="Environment-mapping-环境贴图"><a href="#Environment-mapping-环境贴图" class="headerlink" title="Environment mapping 环境贴图"></a>Environment mapping 环境贴图</h3><p>将一个物体（点）周围的环境光记录在一张贴图上</p>
+<h4 id="球型映射-Sphere-maps"><a href="#球型映射-Sphere-maps" class="headerlink" title="球型映射 Sphere maps"></a>球型映射 Sphere maps</h4><p><img src="https://i.loli.net/2020/12/19/dYwneScgWNMaTV8.png" alt="image-20201219103933127"></p>
+<p>​    球型映射是在反射向量和圆形纹理之间的映射，在单个图像中包含围绕一个点的整个环境，但边缘周围的分辨率较低；</p>
+<p>​    使用时计算物体表面的反射向量，在球体地图上找到相应的纹理坐标，使用纹理给物体表面上色就能获得环境光效果；</p>
+<p>​    但无法更改视点，高度非均匀采样，高度非线性映射，纹理坐标的线性插值提取了错误的纹理像素</p>
+<h4 id="方形映射-Cube-maps"><a href="#方形映射-Cube-maps" class="headerlink" title="方形映射 Cube maps"></a>方形映射 Cube maps</h4><p><img src="https://i.loli.net/2020/12/19/52bhNGltxeaSZgK.png" alt="image-20201219104348732"></p>
+<p>​    方形映射定义6个2D纹理映射，对应于盒子的6个边，将环境光记录在盒体的六个面上，展开即为左侧的环境贴图；</p>
+<p>​    使用时，同样计算物体表面的反射向量，选择环境贴图的面和待处理表面上的像素，再使用纹理给物体表面上色；</p>
+<p>​    方形映射可以改变视口，有更低计算成本，有更多的纹理</p>
+<h3 id="Multitexturing-多重纹理"><a href="#Multitexturing-多重纹理" class="headerlink" title="Multitexturing 多重纹理"></a>Multitexturing 多重纹理</h3><p>设置多个纹理坐标，调节多个纹理，将多个纹理图应用在同一个表面上，获得复合效果</p>
+<p><img src="https://i.loli.net/2020/12/19/HfJRWxd1tTh7qDO.png" alt="image-20201219104746551"></p>
+<h3 id="Bump-Mapping-凹凸贴图"><a href="#Bump-Mapping-凹凸贴图" class="headerlink" title="Bump Mapping 凹凸贴图"></a>Bump Mapping 凹凸贴图</h3><p>​    在平面几何图形上模拟一些浮雕，并没有改变原有模型的顶点位置</p>
+<p><img src="https://i.loli.net/2020/12/19/JgvsOA3yDli9wSx.png" alt="image-20201219104926390"></p>
+<p>使用原始的简单几何图形，扰动顶点法线沿着它的法线成比例的值，贴图中定义了顶点的相对高度，从而改变了法线方向</p>
+<p><img src="https://i.loli.net/2020/12/19/btucLrlBdOTi92f.png" alt="image-20201219105102261"></p>
+<p><img src="https://i.loli.net/2020/12/19/shJAopWmdwuYBQz.png" alt="image-20201219105116690"></p>
+<h3 id="Normal-Mapping-法线贴图"><a href="#Normal-Mapping-法线贴图" class="headerlink" title="Normal Mapping 法线贴图"></a>Normal Mapping 法线贴图</h3><p>一个凹凸贴图的实现，使用3通道位图纹理，位图中的每个通道对应一个空间维度(X, Y和Z)。</p>
+<p>法线贴图在切线空间中定义。通过法线的变化来模拟凹凸感</p>
+<p><img src="https://i.loli.net/2020/12/19/PfrU2v4ILBq6p81.png" alt="image-20201219105326416"></p>
+<h3 id="Displacement-Mapping-位移贴图"><a href="#Displacement-Mapping-位移贴图" class="headerlink" title="Displacement Mapping 位移贴图"></a>Displacement Mapping 位移贴图</h3><p><img src="https://i.loli.net/2020/12/19/sBlU86Ayx5t4PKC.png" alt="image-20201219105700939"></p>
+<p>使用纹理(位移贴图)变形多边形网格，以添加表面细节，真正改变了原有模型的顶点位置，将顶点位置沿其高度值的法线方向移动。</p>
+<p><img src="https://i.loli.net/2020/12/19/49YBKWoUhCgqbpx.png" alt="image-20201219105628241"></p>
+<p>与凹凸贴图相比，由于真正改变了顶点位置，在计算阴影时，能获得有凹凸改变的阴影效果，而凹凸贴图应当产生原有网格体的阴影。所以下图左侧为凹凸贴图，右侧为位移贴图</p>
+<p><img src="https://i.loli.net/2020/12/19/4MycDQXns9kdioF.png" alt="image-20201219105812803"></p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/" target="_blank">计算机图形学——纹理映射</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+                
+                    <a href="/tag/Texture/">Texture</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%85%AB%EF%BC%89/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%85%AB%EF%BC%89/" title="发布于 2020-12-18 09:20">计算机图形学——光线追踪</a>
+                <br>
+            
+            
+                <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" title="发布于 2020-12-18 08:55">计算机图形学——几何建模与光栅化</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>

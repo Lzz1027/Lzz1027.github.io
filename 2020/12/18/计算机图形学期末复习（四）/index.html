@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>计算机图形学——几何建模与光栅化</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">计算机图形学——几何建模与光栅化</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-12-18
+                        </span>
+                        
+                            <span id="/2020/12/18/计算机图形学期末复习（四）/" class="leancloud_visitors" data-flag-title="计算机图形学——几何建模与光栅化">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/12/18/计算机图形学期末复习（四）/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="第五章-Geometric-Modeling-amp-Rasterization"><a href="#第五章-Geometric-Modeling-amp-Rasterization" class="headerlink" title="第五章 Geometric Modeling &amp; Rasterization"></a>第五章 Geometric Modeling &amp; Rasterization</h1><h2 id="Model-Representations-模型表示"><a href="#Model-Representations-模型表示" class="headerlink" title="Model Representations 模型表示"></a>Model Representations 模型表示</h2><p>Implicit 隐式表达</p>
+<p>​    Quadratic Surfaces 二次曲面</p>
+<p>​    Parametric patches 参数化面片</p>
+<p>​    Sweep representation 扫描表示</p>
+<p>​    Constructive solid geometry 构造立体几何</p>
+<p>​    Fractals 分形</p>
+<p>Explicit 显示表达</p>
+<p>​    Wireframe representation 线框表示</p>
+<p>​    Polygonal representation 多边形表示</p>
+<p>​    Bezier surface 贝塞尔曲线表面</p>
+<h3 id="Implicit-Quadratic-Surfaces-二次表面"><a href="#Implicit-Quadratic-Surfaces-二次表面" class="headerlink" title="Implicit: Quadratic Surfaces 二次表面"></a>Implicit: Quadratic Surfaces 二次表面</h3><p>从二次数学方程组中生成</p>
+<p><img src="https://i.loli.net/2020/12/18/uDjX2KU7hBko9y3.png" alt="image-20201218095435611"></p>
+<p>eg：球体表面方程 </p>
+<p>​    X^2^ + y ^2^ + Z^2^ = r^2^    (隐式表达)</p>
+<p>或<img src="https://i.loli.net/2020/12/18/7cveHLJMwiGWUox.png" alt="image-20201218095411340">（显式表达）</p>
+<h3 id="Implicit-Parametric-Patches-参数化面片"><a href="#Implicit-Parametric-Patches-参数化面片" class="headerlink" title="Implicit: Parametric Patches 参数化面片"></a>Implicit: Parametric Patches 参数化面片</h3><p>建模光滑曲面</p>
+<p>允许动态控制表面的形状</p>
+<p>大量用于CAD应用和动画</p>
+<p><img src="https://i.loli.net/2020/12/18/wIs8EkVA6yCobZl.png" alt="image-20201218095721726"></p>
+<h3 id="Implicit-Constructive-Solid-Geometry-CSG-构造立体几何"><a href="#Implicit-Constructive-Solid-Geometry-CSG-构造立体几何" class="headerlink" title="Implicit: Constructive Solid Geometry (CSG) 构造立体几何"></a>Implicit: Constructive Solid Geometry (CSG) 构造立体几何</h3><p>给定一组三维基元，如：方块、金字塔、圆柱体、锥和球体…</p>
+<p>定义新对象为基本实体的布尔运算。</p>
+<p><img src="https://i.loli.net/2020/12/18/cJhP2ydOtIYHw47.png" alt="image-20201218100005696"></p>
+<p>优点：</p>
+<p>​    能够用简单的操作表达复杂的机械结构</p>
+<p>​    在大多数CAD系统中应用</p>
+<p>缺点：</p>
+<p>​    难以计算表面属性</p>
+<p>​    计算更昂贵</p>
+<p>​    需要特殊的渲染引擎</p>
+<p>​    对图形硬件没有支持</p>
+<h3 id="Implicit-Fractals-分形"><a href="#Implicit-Fractals-分形" class="headerlink" title="Implicit: Fractals 分形"></a>Implicit: Fractals 分形</h3><p>没有精确的定义；显示自相似性，在所有尺度都有细节</p>
+<p>描述自然现象的新“语言”</p>
+<p>难以控制形状!</p>
+<p><img src="https://i.loli.net/2020/12/18/ZtoFChqp5BwsbIk.png" alt="image-20201218100403051"><img src="https://i.loli.net/2020/12/18/ZIW4lcpzBFSdLwx.png" alt="image-20201218100411669"></p>
+<h3 id="Explicit-Wireframe-Representation-线框表示"><a href="#Explicit-Wireframe-Representation-线框表示" class="headerlink" title="Explicit: Wireframe Representation 线框表示"></a>Explicit: Wireframe Representation 线框表示</h3><p><img src="https://i.loli.net/2020/12/18/ZVLD2pJXyMfwajl.png" alt="image-20201218100631240"></p>
+<p>表示物体：</p>
+<p>​    用“线的列表”表示</p>
+<p>​    只显示物体的骨架结构</p>
+<p>​    glutWireSphere()，glutWireTeapot() …</p>
+<p>优缺点：</p>
+<p>​    能够看穿物体</p>
+<p>​    非常快</p>
+<p>​    独立行数据结构是非常低效的</p>
+<h3 id="Explicit-Polygonal-Representations-多边形表示"><a href="#Explicit-Polygonal-Representations-多边形表示" class="headerlink" title="Explicit: Polygonal Representations 多边形表示"></a>Explicit: Polygonal Representations 多边形表示</h3><p><img src="https://i.loli.net/2020/12/18/QfeybGwRsrpALKC.png" alt="image-20201218100845364"></p>
+<p>表示物体：</p>
+<p>​    一组平滑连接的多边形</p>
+<p>​    形成对象的“皮肤”</p>
+<h3 id="Explicit-Triangular-Mesh-三角化网格"><a href="#Explicit-Triangular-Mesh-三角化网格" class="headerlink" title="Explicit: Triangular Mesh 三角化网格"></a>Explicit: Triangular Mesh 三角化网格</h3><p>广泛使用的网格表示</p>
+<p><img src="https://i.loli.net/2020/12/18/f47YGIcB2jSRADP.png" alt="image-20201218101055454"></p>
+<h3 id="Explicit-Point-Cloud-点云"><a href="#Explicit-Point-Cloud-点云" class="headerlink" title="Explicit: Point Cloud 点云"></a>Explicit: Point Cloud 点云</h3><p>最简单的表示：点的列表 (x, y, z)</p>
+<p>适用于大型数据集</p>
+<p>经常转换成多边形网格</p>
+<p><img src="https://i.loli.net/2020/12/18/8CeREjOSAYf4oMu.png" alt="image-20201218101203255"><img src="https://i.loli.net/2020/12/18/O4yxsADegC2SkUT.png" alt="image-20201218101224092"></p>
+<h3 id="Explicit-Bicubic-Surface-Patches-双三次曲面面片"><a href="#Explicit-Bicubic-Surface-Patches-双三次曲面面片" class="headerlink" title="Explicit: Bicubic Surface Patches 双三次曲面面片"></a>Explicit: Bicubic Surface Patches 双三次曲面面片</h3><p>使用一组控制点表示曲面</p>
+<p><img src="https://i.loli.net/2020/12/18/yMr1L8GFRtlQeT6.png" alt="image-20201218101503960"></p>
+<h3 id="Explicit-Sweep-Representations-扫描表示"><a href="#Explicit-Sweep-Representations-扫描表示" class="headerlink" title="Explicit: Sweep Representations 扫描表示"></a>Explicit: Sweep Representations 扫描表示</h3><p>一个二维图形扫过空间的一个区域，就形成了具有平移对称或旋转对称的固体。</p>
+<p><img src="https://i.loli.net/2020/12/18/yhZnoCev4JFiNHA.png" alt="image-20201218101642368"></p>
+<h3 id="Mathematical-Generation-数学生成"><a href="#Mathematical-Generation-数学生成" class="headerlink" title="Mathematical Generation 数学生成"></a>Mathematical Generation 数学生成</h3><p><img src="https://i.loli.net/2020/12/18/cNDtZAPJaRXmnxY.png" alt="image-20201218101834720"></p>
+<p>Extrusion 挤压</p>
+<p>​    沿剖面曲线挤压横截面</p>
+<p>​    比例尺可能会沿剖面变化</p>
+<p>​        许多金属和塑料零件</p>
+<p>​        锥</p>
+<p>​        圆柱体</p>
+<p>​        瓶</p>
+<h3 id="Sweep-Extracting-Editable-Objects-from-a-Single-Photo-从单张照片中建立物体"><a href="#Sweep-Extracting-Editable-Objects-from-a-Single-Photo-从单张照片中建立物体" class="headerlink" title="Sweep: Extracting Editable Objects from a Single Photo 从单张照片中建立物体"></a>Sweep: Extracting Editable Objects from a Single Photo 从单张照片中建立物体</h3><p><img src="https://i.loli.net/2020/12/18/xNheR8QMBSW6ano.png" alt="image-20201218102017196"></p>
+<h2 id="Mesh-Representation-网格表示"><a href="#Mesh-Representation-网格表示" class="headerlink" title="Mesh Representation 网格表示"></a>Mesh Representation 网格表示</h2><h3 id="Discretizing-Geometric-Representations-离散化的几何表示"><a href="#Discretizing-Geometric-Representations-离散化的几何表示" class="headerlink" title="Discretizing Geometric Representations 离散化的几何表示"></a>Discretizing Geometric Representations 离散化的几何表示</h3><p>将连续的表面表示转换为离散的原始元素的集合</p>
+<p>​    三角形或四边形</p>
+<p>​    原始元素的某种组织</p>
+<p><img src="https://i.loli.net/2020/12/18/5ruCTlVpDacJyd8.png" alt="image-20201218102340041"></p>
+<h3 id="Polygon-mesh-多边形网格"><a href="#Polygon-mesh-多边形网格" class="headerlink" title="Polygon mesh 多边形网格"></a>Polygon mesh 多边形网格</h3><p><img src="https://i.loli.net/2020/12/18/nL8mH2Z1IFPawSX.png" alt="image-20201218102800740"></p>
+<p>顶点、边和面的集合</p>
+<p>​    在3D计算机图形和实体建模中定义多面体对象的形状</p>
+<p>​    面通常由三角形、四边形或其他简单的凸多边形组成</p>
+<h3 id="Representing-a-Mesh-表示一个网格体"><a href="#Representing-a-Mesh-表示一个网格体" class="headerlink" title="Representing a Mesh 表示一个网格体"></a>Representing a Mesh 表示一个网格体</h3><p>考虑如下网格体</p>
+<p><img src="https://i.loli.net/2020/12/18/73VeSTz4EOtnMcj.png" alt="image-20201218102902110"></p>
+<p>有8个顶点和12条边</p>
+<p>​    5内部多边形</p>
+<p>​    6个内部(共享)边</p>
+<p>每个顶点都有一个位置  vi = (xi, yi, zi)</p>
+<h3 id="Mesh-Organization-网格体组织"><a href="#Mesh-Organization-网格体组织" class="headerlink" title="Mesh Organization 网格体组织"></a>Mesh Organization 网格体组织</h3><p>Face-vertex representation 面-顶点表示</p>
+<p><img src="https://i.loli.net/2020/12/18/DwbOncjEPSYLqaT.png" alt="image-20201218103419662"></p>
+<h3 id="在OpenGL中绘制网格体"><a href="#在OpenGL中绘制网格体" class="headerlink" title="在OpenGL中绘制网格体"></a>在OpenGL中绘制网格体</h3><p>使用 vertex array顶点数组：</p>
+<p>​    Vertex position 位置</p>
+<p>​    Vertex color 颜色</p>
+<p>​    Vertex normal 法向</p>
+<p>​    Vertex texture coordinates 纹理坐标</p>
+<p>使用 index array 索引数组</p>
+<p>​    面索引：三角形元素、四边形元素等</p>
+<h3 id="3D-模型文件格式"><a href="#3D-模型文件格式" class="headerlink" title="3D 模型文件格式"></a>3D 模型文件格式</h3><p>Static models 静态模型</p>
+<p>​    Wavefront OBJ format</p>
+<p>​    Standford FLV format</p>
+<p>Skeleton models 骨骼模型</p>
+<p>​    MD5 format</p>
+<p>​    FBX models</p>
+<h4 id="OBJ-File"><a href="#OBJ-File" class="headerlink" title="OBJ File"></a>OBJ File</h4><p><img src="https://i.loli.net/2020/12/18/lbSgnLVKmpyMujv.png" alt="image-20201218104323848"></p>
+<h4 id="FBX-Scene"><a href="#FBX-Scene" class="headerlink" title="FBX Scene"></a>FBX Scene</h4><p>以scene graph结构存储模型的信息</p>
+<p>​    根结点：空属性</p>
+<p>​    节点为一个对象</p>
+<p>​    节点类型为：Mesh，Light， Camera, Skeleton</p>
+<p>​    对象之间的关联是双向的</p>
+<p>​    渲染需遍历所有的节点</p>
+<p><img src="https://i.loli.net/2020/12/18/klDTU1E25QmX8p4.png" alt="image-20201218104429102"></p>
+<h2 id="Hierarchical-Modeling-分层建模"><a href="#Hierarchical-Modeling-分层建模" class="headerlink" title="Hierarchical Modeling 分层建模"></a>Hierarchical Modeling 分层建模</h2><h3 id="Example-例子"><a href="#Example-例子" class="headerlink" title="Example 例子"></a>Example 例子</h3><p><img src="https://i.loli.net/2020/12/18/EqmMtzV2T361d5o.png" alt="image-20201218104625512"></p>
+<h3 id="Robot-Arm中的关系"><a href="#Robot-Arm中的关系" class="headerlink" title="Robot Arm中的关系"></a>Robot Arm中的关系</h3><p><img src="https://i.loli.net/2020/12/18/ia9Pm7kjLhRJY2K.png" alt="image-20201218104906251"></p>
+<p>底座</p>
+<p>​    独立旋转</p>
+<p>​    单角度决定位置</p>
+<p>下臂</p>
+<p>​    与底座相连</p>
+<p>​    相对于底座进行平移，并围绕连接接头进行旋转</p>
+<p>上臂</p>
+<p>​    与下臂相连</p>
+<p>​    相对于下臂平移，并围绕连接到下臂的关节旋转</p>
+<h3 id="Required-Matrices-所需的矩阵"><a href="#Required-Matrices-所需的矩阵" class="headerlink" title="Required Matrices 所需的矩阵"></a>Required Matrices 所需的矩阵</h3><p>底座旋转：R<del>b</del></p>
+<p>​    应用 M = R<del>b</del> 到底座</p>
+<p>相对底座的下臂位移：T<del>lu</del></p>
+<p>绕连接点的下臂旋转：R<del>lu</del></p>
+<p>​    应用 M = R<del>b</del> T<del>lu</del> R<del>lu</del> 到下臂</p>
+<p>相对下臂的上臂位移：T<del>uu</del></p>
+<p>绕连接点的上臂旋转： R<del>uu</del></p>
+<p>​    应用 M = R<del>b</del> T<del>lu</del> R<del>lu</del> T<del>uu</del> R<del>uu</del> 到上臂</p>
+<h3 id="机械臂的OpenGL代码"><a href="#机械臂的OpenGL代码" class="headerlink" title="机械臂的OpenGL代码"></a>机械臂的OpenGL代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mat4 ctm;</span><br><span class="line">robot_arm()</span><br><span class="line">&#123;</span><br><span class="line">	ctm = RotateY(theta);</span><br><span class="line">	base();</span><br><span class="line">    ctm *= Translate(<span class="number">0.0</span>, h1, <span class="number">0.0</span>);</span><br><span class="line">    ctm *= RotateZ(phi);</span><br><span class="line">    lower_arm();</span><br><span class="line">    ctm *= Translate(<span class="number">0.0</span>, h2, <span class="number">0.0</span>);</span><br><span class="line">    ctm *= RotateZ(psi);</span><br><span class="line">    upper_arm();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Scene-Graph-场景图"><a href="#Scene-Graph-场景图" class="headerlink" title="Scene Graph 场景图"></a>Scene Graph 场景图</h3><p><img src="https://i.loli.net/2020/12/18/NwIpiTXhlPJmMAR.png" alt="image-20201218105832557"></p>
+<p>步骤1：对每一个叶子节点(物体元件：head, base…)进行各种转换。</p>
+<p>步骤2：然后转换应用于对象的组合(上半身和下半身…)</p>
+<p><img src="https://i.loli.net/2020/12/18/GnO6ujzXRLmkrFB.png" alt="image-20201218110127851"></p>
+<p>当向上移动树时，会生成cumulative transformation matrix累积转换矩阵(CTM)。</p>
+<p>请注意，<strong>更高级别的转换矩阵被附加到序列的前面</strong></p>
+<p>Example:</p>
+<p>​    For object 1 (o1), CTM = M<del>1</del></p>
+<p>​    For o2, CTM = M<del>2</del>M<del>3</del></p>
+<p>​    For o3, CTM = M<del>2</del>M<del>4</del>M<del>5</del></p>
+<p>​    For a vertex v in o3, position in world coordinate system is CTM v = (M<del>2</del>M<del>4</del>M<del>5</del>) v</p>
+<h3 id="作业案例"><a href="#作业案例" class="headerlink" title="作业案例"></a>作业案例</h3><p>图片左侧显示了电风扇的三个部件：底座、支撑杆、扇叶，定义在各自的局部 坐标系中。现需要将这三个部件通过模型变换连接为右侧所示的电风扇， 并实现扇叶的自转、以及扇叶与支撑杆一起绕着Y轴的旋转。</p>
+<p><img src="https://i.loli.net/2020/12/18/fx5NM96Gu3pOS7j.png" alt="image-20201218110424334"></p>
+<p>可使用的方法如下：</p>
+<p>Identity( )：产生单位矩阵</p>
+<p>Translate(x, y, z): 产生沿着(x, y, z)方向平移的平移矩阵；</p>
+<p>Rotate(angle, x, y, z) :产生以(x, y, z)为旋转轴的旋转矩阵；</p>
+<p>Base( )：绘制底座 </p>
+<p>Arm( )：绘制支撑杆 </p>
+<p>FanLeaves( )：绘制扇叶</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" target="_blank">计算机图形学——几何建模与光栅化</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+                
+                    <a href="/tag/OpenGL/">OpenGL</a>
+                
+                    <a href="/tag/Modeling/">Modeling</a>
+                
+                    <a href="/tag/Rasterization/">Rasterization</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" title="发布于 2020-12-18 08:55">计算机图形学——几何建模与光栅化</a>
+                <br>
+            
+            
+                <a href="/2020/12/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/12/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" title="发布于 2020-12-17 04:39">计算机图形学——视角与投影</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>

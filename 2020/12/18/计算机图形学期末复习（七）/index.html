@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>计算机图形学——参数化曲线与曲面</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">计算机图形学——参数化曲线与曲面</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-12-18
+                        </span>
+                        
+                            <span id="/2020/12/18/计算机图形学期末复习（七）/" class="leancloud_visitors" data-flag-title="计算机图形学——参数化曲线与曲面">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/12/18/计算机图形学期末复习（七）/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="第八章-Parametric-curves-and-surfaces"><a href="#第八章-Parametric-curves-and-surfaces" class="headerlink" title="第八章 Parametric curves and surfaces"></a>第八章 Parametric curves and surfaces</h1><h2 id="表示几何的方式"><a href="#表示几何的方式" class="headerlink" title="表示几何的方式"></a>表示几何的方式</h2><h3 id="Implicit-隐式的几何表述"><a href="#Implicit-隐式的几何表述" class="headerlink" title="Implicit 隐式的几何表述"></a>Implicit 隐式的几何表述</h3><p>并不直接表示几何体中的每个顶点的位置，而是表示这些点之间的关系</p>
+<p>eg：球的隐式表示：X^2^ + Y^2^ + Z^2^=1</p>
+<p>更通用的，定义一个函数 f(x, y, z) = 0，满足这个条件的（x，y，z）就得到了一个表面。</p>
+<p>优点：易于判断点是否在表面上\在内部\在外部，只需要代入即可计算</p>
+<p>​     f(x, y, z) = 0则在表面上，&gt;0则在表面外，&lt;0在表面内</p>
+<p>缺点：当方程过于复杂时，难以找到面上所有点，</p>
+<p>​            非常不直观，难以看出表面的真实形状，且难以对复杂形状的表面进行建模（可以使用CSG方式，对基础几何体进行交、并、差的操作进行复杂建模）</p>
+<h3 id="Explicit-显示的几何表达"><a href="#Explicit-显示的几何表达" class="headerlink" title="Explicit 显示的几何表达"></a>Explicit 显示的几何表达</h3><p>所有的点都直接给出</p>
+<p>​    难以表达所有曲线、曲面</p>
+<p>或通过<strong>参数映射</strong>——Parameter Mapping</p>
+<p>​    将对应参数映射到空间中的某个点，只需要遍历参数范围，就可以获得所有点。</p>
+<p><img src="https://i.loli.net/2020/12/19/OVWi32xTrIvPwRl.png" alt="image-20201219113040686"></p>
+<p>优点：容易找到所有的点</p>
+<p>缺点：难以判断点是否在表面上\在内部\在外部</p>
+<h4 id="Point-Cloud-点云"><a href="#Point-Cloud-点云" class="headerlink" title="Point Cloud 点云"></a>Point Cloud 点云</h4><p><img src="https://i.loli.net/2020/12/19/Q16wzACeuc4jk3W.png" alt="image-20201219125738969"></p>
+<p>最简单的表示：点的列表 (x, y, z)</p>
+<p>容易表达任何几何形状</p>
+<p>在LARGE dataset 超大数据集中常用（&gt;&gt;1 point/pixel）</p>
+<p>经常被转化为多面体网格体</p>
+<p>难以在采样不足的区域绘制</p>
+<h4 id="Ploygon-Mesh-多边形网格体"><a href="#Ploygon-Mesh-多边形网格体" class="headerlink" title="Ploygon Mesh 多边形网格体"></a>Ploygon Mesh 多边形网格体</h4><p>存储顶点和多边形（通常是三角形或四边形）</p>
+<p>更容易做处理/模拟，自适应采样</p>
+<p>更复杂的数据结构</p>
+<p>也许是图形学中最广泛的应用</p>
+<h3 id="Bezier-Curve贝塞尔曲线"><a href="#Bezier-Curve贝塞尔曲线" class="headerlink" title="Bezier Curve贝塞尔曲线"></a>Bezier Curve贝塞尔曲线</h3><p>有一些控制点控制生成的曲线，使用t这个参数定义，是显示表示</p>
+<p>de Casteljau’s algorithm</p>
+<h4 id="三个控制点：quadratic-Bezier-二次贝赛尔曲线"><a href="#三个控制点：quadratic-Bezier-二次贝赛尔曲线" class="headerlink" title="三个控制点：quadratic Bezier 二次贝赛尔曲线"></a>三个控制点：quadratic Bezier 二次贝赛尔曲线</h4><p><img src="https://i.loli.net/2020/12/19/FqmxsYIGrbCw17c.png" alt="image-20201219131227297"></p>
+<p>假定曲线从初始到结束用时为0到1，t为其中的某一时刻</p>
+<p>在b<del>0</del>与b<del>1</del>之间取b<del>0</del>^1^，b<del>0</del>b<del>0</del>^1^：b<del>0</del>^1^b<del>1</del> = t：（1-t）</p>
+<p>同理在b<del>1</del>与b<del>2</del>之间取b<del>1</del>^1^</p>
+<p><img src="https://i.loli.net/2020/12/19/6ftC9skHdvUbWhx.png" alt="image-20201219131602435"></p>
+<p>再在b<del>0</del>^1^和b<del>1</del>^1^之间取b<del>0</del>^2^，即为任意时刻t上，贝塞尔曲线对应点的位置，生成曲线如下：</p>
+<p><img src="https://i.loli.net/2020/12/19/sUHMRr5Z4zFqy9j.png" alt="image-20201219131749172"></p>
+<h4 id="四个控制点："><a href="#四个控制点：" class="headerlink" title="四个控制点："></a>四个控制点：</h4><p><img src="https://i.loli.net/2020/12/19/KhboliykqzC6etE.png" alt="image-20201219131928009"></p>
+<h4 id="代数公式："><a href="#代数公式：" class="headerlink" title="代数公式："></a>代数公式：</h4><p>以三个控制点的二次贝塞尔曲线为例</p>
+<p><img src="https://i.loli.net/2020/12/19/ioa6nVq8e4fEuZc.png" alt="image-20201219132431459"></p>
+<p><img src="https://i.loli.net/2020/12/19/EmxLp5O4zbNT1VK.png" alt="image-20201219132654149"></p>
+<h4 id="贝塞尔曲线的性质："><a href="#贝塞尔曲线的性质：" class="headerlink" title="贝塞尔曲线的性质："></a>贝塞尔曲线的性质：</h4><p><strong>对于三次贝塞尔曲线</strong>（四个控制点）</p>
+<p>​    起始点的切线方向：</p>
+<p><img src="https://i.loli.net/2020/12/19/5upzQoy4BNqvKGW.png" alt="image-20201219132959254"></p>
+<p><strong>Affine transformation property 仿射变换性质</strong>：在仿射变换下，直接对贝塞尔曲线进行仿射变换与对控制点进行仿射变换后再生成的贝塞尔曲线是相同的</p>
+<p><strong>Convex hull property 凸包性质</strong></p>
+<p>Convex hull是能包围给定集合形体的最小凸多边形</p>
+<p><img src="https://i.loli.net/2020/12/19/b1plELZJrDAWfdh.png" alt="image-20201219133521204"></p>
+<p>贝塞尔曲线任意时刻生成的点一定在控制点形成的凸包内</p>
+<h4 id="Higher-Order-Bezier-Curves-高阶贝塞尔曲线"><a href="#Higher-Order-Bezier-Curves-高阶贝塞尔曲线" class="headerlink" title="Higher-Order Bezier Curves 高阶贝塞尔曲线"></a>Higher-Order Bezier Curves 高阶贝塞尔曲线</h4><p><img src="https://i.loli.net/2020/12/19/8rEnQUbazFeAMY4.png" alt="image-20201219134722390"></p>
+<p>控制点增多，但控制效果不理想，难以局部控制</p>
+<h4 id="Piecewise-Bezier-Curves-分段贝塞尔曲线"><a href="#Piecewise-Bezier-Curves-分段贝塞尔曲线" class="headerlink" title="Piecewise Bezier Curves 分段贝塞尔曲线"></a>Piecewise Bezier Curves 分段贝塞尔曲线</h4><p>每次使用一小段贝塞尔曲线（一般是cubic Bezier curves），多段曲线相连接形成多段的低阶贝赛尔曲线，</p>
+<p><img src="https://i.loli.net/2020/12/19/g9NMZ28pzEsBSR7.png" alt="image-20201219135345786"></p>
+<p>给定两个贝塞尔曲线，要让两个曲线 continuity 连续</p>
+<p>C^0^ continuity：只要两个曲线的连接点相等</p>
+<p><img src="https://i.loli.net/2020/12/19/vfpiwx9VEc7od2z.png" alt="image-20201219135526835"></p>
+<p>C^1^ continuity：连接点切线连续（1阶导数连续）</p>
+<p><img src="https://i.loli.net/2020/12/19/ARs9pPky3ni41KG.png" alt="image-20201219135655208"></p>
+<h3 id="Spline-样条"><a href="#Spline-样条" class="headerlink" title="Spline 样条"></a>Spline 样条</h3><p>一种连续曲线，它通过一组给定的点并有一定数量的连续导数。简而言之，曲线在控制之下</p>
+<p><img src="https://i.loli.net/2020/12/19/rxsnyCRkvdJVtB7.png" alt="image-20201219135947111"></p>
+<h4 id="B-splines-B样条"><a href="#B-splines-B样条" class="headerlink" title="B-splines B样条"></a>B-splines B样条</h4><p>​    basis splines的简写</p>
+<p>​    比贝塞尔曲线要求更多信息</p>
+<p>​    满足贝塞尔曲线的所有重要性质</p>
+<p>​    有局部性，不会影响到其他部分</p>
+<h3 id="Bezier-Surface-贝塞尔曲面"><a href="#Bezier-Surface-贝塞尔曲面" class="headerlink" title="Bezier Surface 贝塞尔曲面"></a>Bezier Surface 贝塞尔曲面</h3><p>以4*4个控制点的贝塞尔曲面为例，先在水平方向用的四条线上生成四个贝塞尔曲线，再以t时刻，这四个贝塞尔曲线上的点作为控制点，生成新的贝塞尔曲线，连续起来就生成了曲面</p>
+<p><img src="https://i.loli.net/2020/12/19/jZlU5tFwrnNxbQk.png" alt="image-20201219141555502"></p>
+<p> General form 生成形式</p>
+<p><img src="https://i.loli.net/2020/12/19/sEfDQWz9rGF3U7w.png" alt="image-20201219141855261"></p>
+<p>u作为第一次生成四条曲线的任意时刻，v作为第二次生成曲线上的任意时刻，使用u，v即可任意确定贝塞尔曲面上一点</p>
+<p>一个贝塞尔曲面或阶（n, m）有（n + 1）（m + 1）个控制点。</p>
+<h1 id="第九章-Mesh-Operation：Geometry-Processing-网格操作"><a href="#第九章-Mesh-Operation：Geometry-Processing-网格操作" class="headerlink" title="第九章 Mesh Operation：Geometry Processing 网格操作"></a>第九章 Mesh Operation：Geometry Processing 网格操作</h1><h2 id="Source-of-polygon-meshes-多面体网格的来源"><a href="#Source-of-polygon-meshes-多面体网格的来源" class="headerlink" title="Source of polygon meshes 多面体网格的来源"></a>Source of polygon meshes 多面体网格的来源</h2><h3 id="Menual-generation手动生成"><a href="#Menual-generation手动生成" class="headerlink" title="Menual generation手动生成"></a>Menual generation手动生成</h3><p>手动输入mesh文件</p>
+<p><img src="https://i.loli.net/2020/12/19/akByCSuwNVA6Jpl.png" alt="image-20201219144409411"></p>
+<p>使用建模软件：Maya、Solidworks、3DSMAX</p>
+<p><img src="https://i.loli.net/2020/12/19/qt5AN28O9wWzVBY.png" alt="image-20201219144441145"></p>
+<h3 id="Hierarchical-Modeling-分层建模"><a href="#Hierarchical-Modeling-分层建模" class="headerlink" title="Hierarchical Modeling 分层建模"></a>Hierarchical Modeling 分层建模</h3><p>对以个更小的元件集合施加各种变换，来组合得到更加复杂的3D模型</p>
+<p><img src="https://i.loli.net/2020/12/19/Jh51NWEQji6LIoq.png" alt="image-20201219144542322"></p>
+<h3 id="3D-Scanning-3D扫描"><a href="#3D-Scanning-3D扫描" class="headerlink" title="3D Scanning 3D扫描"></a>3D Scanning 3D扫描</h3><p>Photogrammetry 摄影测量法：拍摄大量不同角度照片，合成建模</p>
+<p><img src="https://i.loli.net/2020/12/19/zfigQGMHulWVoqv.png" alt="image-20201219144631212"></p>
+<p>Laser sanning 激光扫描：使用激光测距扫描</p>
+<p><img src="https://i.loli.net/2020/12/19/ZebkNI8rROcQYq9.png" alt="image-20201219144729056"></p>
+<h2 id="Mesh-Processing-网格加工"><a href="#Mesh-Processing-网格加工" class="headerlink" title="Mesh Processing 网格加工"></a>Mesh Processing 网格加工</h2><h3 id="Mesh-refinement-网格改进"><a href="#Mesh-refinement-网格改进" class="headerlink" title="Mesh refinement 网格改进"></a>Mesh refinement 网格改进</h3><p>Level of details（LOD）</p>
+<p>当物体远离视点时，使用低分辨率模型</p>
+<p><img src="https://i.loli.net/2020/12/19/KshNGWIk9fY5Mqn.png" alt="image-20201219145221027"></p>
+<p>给网格体增加更多的面：</p>
+<p><img src="https://i.loli.net/2020/12/19/GObNmgqLTZltxRU.png" alt="image-20201219145239446"></p>
+<h3 id="Mesh-subdivision-网格细分"><a href="#Mesh-subdivision-网格细分" class="headerlink" title="Mesh subdivision 网格细分"></a>Mesh subdivision 网格细分</h3><p><img src="https://i.loli.net/2020/12/19/SGWsq6dbfLTHy8p.png" alt="image-20201219145316308"></p>
+<h4 id="Interpolation-subdivision-surface-插值细分表面"><a href="#Interpolation-subdivision-surface-插值细分表面" class="headerlink" title="Interpolation subdivision surface 插值细分表面"></a>Interpolation subdivision surface 插值细分表面</h4><p>​    旧的顶点不移动</p>
+<p>​    只有新的分裂顶点会移动</p>
+<h4 id="Approximation-subdivision-surface-近似细分表面"><a href="#Approximation-subdivision-surface-近似细分表面" class="headerlink" title="Approximation subdivision surface 近似细分表面"></a>Approximation subdivision surface 近似细分表面</h4><p>​    所有的顶点(包括旧的和新的顶点)在每次迭代时都被移动</p>
+<h4 id="Loop-Subdivision-（与循环无关，Loop是人名）"><a href="#Loop-Subdivision-（与循环无关，Loop是人名）" class="headerlink" title="Loop Subdivision （与循环无关，Loop是人名）"></a>Loop Subdivision （与循环无关，Loop是人名）</h4><p><img src="https://i.loli.net/2020/12/19/KLSxjkNPsGMWwtn.png" alt="image-20201219150020946"></p>
+<p>常用的三角形网格细分规则</p>
+<p>创建更多的三角形(顶点)，然后调整它们的位置</p>
+<p>近似的，而不是插值的</p>
+<p><strong>过程：</strong></p>
+<p>将每个三角形分为四个（连接三条边中点）</p>
+<p><img src="https://i.loli.net/2020/12/19/MpfWQ73kBuP5lTz.png" alt="image-20201219150113023"></p>
+<p>根据权重分配新的顶点位置：新旧顶点更新方式不同</p>
+<p><strong>对于新生成的顶点</strong>：应该共享两个三角形（不考虑边界），设共享边上两点为A、B，另外两点为C、D，然后将新生成的该点坐标更新为：3/8 * (A + B) + 1/8 * (C + D)</p>
+<p><img src="https://i.loli.net/2020/12/19/53RHxodMr7mkjXO.png" alt="image-20201219150630246"></p>
+<p><strong>对于旧的顶点</strong>：假设该顶点的度为n，定义一个新的变量u，当n=3时，u=3/16，否则u=3/8n，将旧顶点的坐标更新为：(1 - n*u) * original_position + u * neighbor_position_sum，这样既保留了自己原有的一部分坐标，又考虑了周围坐标的影响，且周围坐标数量越多，周围部分影响越大，自己原有部分影响越小。</p>
+<p><img src="https://i.loli.net/2020/12/19/XZSRtkELKWhPUxl.png" alt="image-20201219151209383"></p>
+<h3 id="Catmull-Clark-Subdivision"><a href="#Catmull-Clark-Subdivision" class="headerlink" title="Catmull-Clark Subdivision"></a>Catmull-Clark Subdivision</h3><p>将网格的每个面分为<strong>四边形面</strong>和<strong>非四边形面</strong>，点分为<strong>Extraordinary vertex 奇异点</strong>（度不为4）和<strong>非奇异点</strong></p>
+<p><img src="https://i.loli.net/2020/12/19/Ti4l6zHybsYuc9p.png" alt="image-20201219151806249"></p>
+<p><strong>细分步骤：</strong>取每个边的中点，取每个面的中点，连接起来，再连接顶点和边上的点</p>
+<p><img src="https://i.loli.net/2020/12/19/ZM6uHRJ3Sy5Bmzj.png" alt="image-20201219151951326"></p>
+<p>由于划分了三角形，奇异点增多了，但非四边形面减少了（奇异点增加数=非四边形面减少数，之后不会再增加）</p>
+<p><img src="https://i.loli.net/2020/12/19/lpH1zxTMWSDBXbm.png" alt="image-20201219152414083"></p>
+<p><strong>坐标更新规则：</strong></p>
+<p>​    面中心点：周围四个点的均值</p>
+<p>​    边中心点：相邻两个顶点和相邻两个面中心点的均值</p>
+<p><img src="https://i.loli.net/2020/12/19/EHky7BG4qQZbOPF.png" alt="image-20201219152534755"></p>
+<p>​    顶点：边中心点、面中心点以及自己旧坐标的加权平均</p>
+<p><img src="https://i.loli.net/2020/12/19/UTkGXbSC3VLPuFf.png" alt="image-20201219152610686"></p>
+<p><img src="https://i.loli.net/2020/12/19/xrYu9R5CNdDhJOy.png" alt="image-20201219154345955"></p>
+<p><strong>Catmull-Clark Subdivision 适用于一般网格</strong>，不像Loop细分，要求网格体必须是三角形组成的</p>
+<p><img src="https://i.loli.net/2020/12/19/q8CVex5LjhYMTam.png" alt="image-20201219153004430"></p>
+<h3 id="Mesh-simplification-网格简化"><a href="#Mesh-simplification-网格简化" class="headerlink" title="Mesh simplification 网格简化"></a>Mesh simplification 网格简化</h3><p><img src="https://i.loli.net/2020/12/19/FGESmRMDWJhY4xs.png" alt="image-20201219145351392"></p>
+<p>减少网格元素的数量，同时保持整体形状</p>
+<p> <strong>Vertex decimation 顶点抽取：</strong>每次从网格中移除一个顶点</p>
+<p><img src="https://i.loli.net/2020/12/19/9INjSYV6Q7HX8Zq.png" alt="image-20201219155142480"></p>
+<p> <strong>Face contraction 面收缩：</strong>每次从网格中移除一个面</p>
+<p><img src="https://i.loli.net/2020/12/19/OdtozZ1NRVIAxcU.png" alt="image-20201219155151321"></p>
+<p><strong>Edge contraction 边坍缩：</strong>每次从网格中移除一条边（edge collapsing）</p>
+<p><img src="https://i.loli.net/2020/12/19/91jFKvCwyGbEN8X.png" alt="image-20201219155239752"></p>
+<p><strong>Quadric Error Metrics 二次误差度量：</strong></p>
+<p><img src="https://i.loli.net/2020/12/19/kCcQHqB5842jTte.png" alt="image-20201219161636439"></p>
+<p>以左图为例，将中间三个点简化为一个点，直接取平均值得到的效果不好</p>
+<p>转化为优化问题：寻找一个点，使得这个点到其他各个临近面的距离平方和最小</p>
+<p><img src="https://i.loli.net/2020/12/19/QMbjwK6sTvCatG8.png" alt="image-20201219162123438"></p>
+<p>假设在坐标中，我们有：查询点坐标 v = (x, y, z)，一个法向量 (a, b, c)，一个偏移量 d = –(𝑥<del>𝑝</del>, 𝑦<del>𝑝</del>, 𝑧<del>𝑝</del>) • (a,b,c) </p>
+<p>那么在齐次坐标中，设 u = (x, y, z, 1)，v = (a, b, c, d)</p>
+<p>到平面的符号距离为 D = 𝑢𝑣^𝑇^ = 𝑣𝑢^𝑇^ = ax+by+cz+d</p>
+<p>距离平方为：𝐷^2^ = (𝑢𝑣^𝑇^ )(𝑣𝑢^𝑇^ ) = 𝑢(𝑣^𝑇^𝑣)𝑢^𝑇^= 𝑢^𝑇^𝑄𝑢</p>
+<p><img src="https://i.loli.net/2020/12/19/4DWaKqsndQLlpi1.png" alt="image-20201219165407826"></p>
+<p>到顶点三角形的近似距离是到每个三角形平面的距离之和。</p>
+<p>将其编码为单个顶点的二次矩阵，即所有三角形的二次误差矩阵的总和</p>
+<p><img src="https://i.loli.net/2020/12/19/85dsLM9SykIhujD.png" alt="image-20201219165527153"></p>
+<p>计算每个三角形的二次误差矩阵Q</p>
+<p>设每个顶点的Q为相邻三角形的Q之和</p>
+<p>设每条边的Q为各端点的Q之和</p>
+<p>在每条边找出最小二次误差的点</p>
+<p>直到我们达到目标三角形数量:</p>
+<p>​    以最小代价折叠边(i,j)得到新的顶点m</p>
+<p>​    将Qi和Qj相加，得到顶点m处的二次Qm</p>
+<p>​    与顶点m接触的边的更新代价</p>
+<h3 id="Mesh-regularization-网格正则化-？？？"><a href="#Mesh-regularization-网格正则化-？？？" class="headerlink" title="Mesh regularization 网格正则化 ？？？"></a>Mesh regularization 网格正则化 ？？？</h3><p><img src="https://i.loli.net/2020/12/19/fNwHmALKiqloPy6.png" alt="image-20201219145411405"></p>
+<p>提高网格质量以备进一步使用</p>
+<p>建模:简单处理</p>
+<p>仿真:数值鲁棒性</p>
+<p><strong>好的三角网格体</strong>：规则三角形（正三角形），每个顶点的度为6</p>
+<p><img src="https://i.loli.net/2020/12/19/iuHYwsWryO5TxbJ.png" alt="image-20201219170810541"></p>
+<p><strong>翻转边来调整角度</strong></p>
+<p><img src="https://i.loli.net/2020/12/19/JmXYG7NUSVBuyWi.png" alt="image-20201219170854828"></p>
+<p><strong>使顶点居中以改变形状</strong></p>
+<p><img src="https://i.loli.net/2020/12/19/TPryJZU6gOF3k5q.png" alt="image-20201219170928742"></p>
+<p>Isotropic Remeshing Algorithm：</p>
+<p><img src="https://i.loli.net/2020/12/19/7c4R1gvd3UqVaSz.png" alt="image-20201219171032081"></p>
+<p>特定的目标边长度L</p>
+<p>Lmax = 4/3 * L</p>
+<p>Lmin = 4/5 * L</p>
+<p>迭代:</p>
+<p>​    拆分边比Lmax长</p>
+<p>​    折叠边短于Lmin</p>
+<p>​    翻转边以接近最佳的度</p>
+<p>​    通过切线松弛的顶点移动</p>
+<p>​    将顶点投影到参考网格上</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%83%EF%BC%89/" target="_blank">计算机图形学——参数化曲线与曲面</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+                
+                    <a href="/tag/Mesh/">Mesh</a>
+                
+                    <a href="/tag/Bezier/">Bezier</a>
+                
+                    <a href="/tag/Subdivision/">Subdivision</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+            
+                <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%85%AB%EF%BC%89/" class="next-prefix">» </a> 下一篇：    <a href="/2020/12/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%EF%BC%88%E5%85%AB%EF%BC%89/" title="发布于 2020-12-18 09:20">计算机图形学——光线追踪</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>
