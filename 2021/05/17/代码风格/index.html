@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Ant-Design-Vue 代码风格的统一方式</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">Ant-Design-Vue 代码风格的统一方式</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2021-05-17
+                        </span>
+                        
+                            <span id="/2021/05/17/代码风格/" class="leancloud_visitors" data-flag-title="Ant-Design-Vue 代码风格的统一方式">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2021/05/17/代码风格/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="Ant-Design-Vue-代码风格的统一方式"><a href="#Ant-Design-Vue-代码风格的统一方式" class="headerlink" title="Ant-Design-Vue 代码风格的统一方式"></a>Ant-Design-Vue 代码风格的统一方式</h1><p>[TOC]</p>
+<h2 id="1-EditorConfig"><a href="#1-EditorConfig" class="headerlink" title="1. EditorConfig"></a>1. EditorConfig</h2><p><code>EditorConfig</code> 并不是软件或插件，仅仅是一个名为 <code>.editorconfig</code> 的自定义文件，该文件用于定义项目代码规范，编辑器行为会与其保持一致，且<strong>其优先级甚至高于编辑器自己的设置</strong>（在 <code>VsCode</code> 中需要安装插件支持）。</p>
+<p><code>Ant-Design-Vue</code> 中的 <code>.editorconfig</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 🎨 editorconfig.org</span><br><span class="line"></span><br><span class="line">root &#x3D; true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">&#x2F;&#x2F; 字符集</span><br><span class="line">charset &#x3D; utf-8</span><br><span class="line">&#x2F;&#x2F; 行尾（CR&#x2F;LF）</span><br><span class="line">end_of_line &#x3D; lf</span><br><span class="line">&#x2F;&#x2F; 缩进风格（tab&#x2F;space）</span><br><span class="line">indent_style &#x3D; space</span><br><span class="line">&#x2F;&#x2F; 缩进量</span><br><span class="line">indent_size &#x3D; 2</span><br><span class="line">&#x2F;&#x2F; 是否允许空格结尾</span><br><span class="line">trim_trailing_whitespace &#x3D; true</span><br><span class="line">&#x2F;&#x2F; 是否在文档最后插入新行</span><br><span class="line">insert_final_newline &#x3D; true</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Husky"><a href="#2-Husky" class="headerlink" title="2. Husky"></a>2. Husky</h2><p><code>Husky</code> 是 <code>git</code> 的代码规范工具，能够<strong>防止不规范代码被commit、push、merge等</strong></p>
+<p>安装husky：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install husky --save-dev</span><br></pre></td></tr></table></figure>
+
+<p><code>Ant-Design-Vue</code> 中的 <code>.huskyrc</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;hooks&quot;</span>: &#123;</span><br><span class="line">  	<span class="comment">// commit前操作</span></span><br><span class="line">    <span class="attr">&quot;pre-commit&quot;</span>: <span class="string">&quot;pretty-quick --staged&quot;</span>,</span><br><span class="line">    <span class="comment">// publish前操作</span></span><br><span class="line">    <span class="attr">&quot;pre-publish&quot;</span>: <span class="string">&quot;npm run lint&quot;</span>,</span><br><span class="line">    <span class="comment">// commit的msg设置</span></span><br><span class="line">    <span class="attr">&quot;commit-msg&quot;</span>: <span class="string">&quot;commitlint -x @commitlint/config-conventional -e $GIT_PARAMS&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Eslint"><a href="#3-Eslint" class="headerlink" title="3. Eslint"></a>3. Eslint</h2><p><code>Eslint</code> 是一个<strong>语法规则</strong>和<strong>代码风格</strong>检测工具，能在项目编译时提醒语法或风格错误，用于保证书写语法正确，风格统一的代码。</p>
+<p>配合 <code>VsCode</code> 插件，<code>Eslint</code> 也<strong>可以在书写代码时就进行提示</strong>，帮助修正语法风格。</p>
+<p>但 <code>Eslint</code> 通常只提供检测和提示功能，并<strong>不能直接格式化代码</strong>，还需要 <code>pritter</code> 等格式化工具的辅助。</p>
+<p><code>Ant-Design-Vue</code> 中的 <code>.eslintignore</code> ，用于标注不需要使用 <code>Eslint</code> 的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">node_modules&#x2F;</span><br><span class="line">**&#x2F;*.spec.*</span><br><span class="line">**&#x2F;style&#x2F;</span><br><span class="line">*.html</span><br><span class="line">&#x2F;components&#x2F;test&#x2F;*</span><br><span class="line">es&#x2F;</span><br><span class="line">lib&#x2F;</span><br><span class="line">_site&#x2F;</span><br><span class="line">dist&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><code>Ant-Design-Vue</code> 中的 <code>.eslintrc</code> ，详细规定代码风格，可以引入其他规定，如本项目中，对 <code>typescript</code> 以及 <code>typescriptX</code> 文件即采用 <code>@typescript-eslint</code> 规范；</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;root&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">&quot;env&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;browser&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;node&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;jasmine&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;jest&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;es6&quot;</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;parserOptions&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;parser&quot;</span>: <span class="string">&quot;babel-eslint&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;extends&quot;</span>: [<span class="string">&quot;plugin:vue/vue3-recommended&quot;</span>, <span class="string">&quot;prettier&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;plugins&quot;</span>: [<span class="string">&quot;markdown&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;overrides&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;files&quot;</span>: [<span class="string">&quot;**/demo/*.md&quot;</span>],</span><br><span class="line">      <span class="attr">&quot;processor&quot;</span>: <span class="string">&quot;markdown/markdown&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;rules&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;no-console&quot;</span>: <span class="string">&quot;off&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;files&quot;</span>: [<span class="string">&quot;*.ts&quot;</span>, <span class="string">&quot;*.tsx&quot;</span>],</span><br><span class="line">      <span class="attr">&quot;extends&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;@vue/typescript/recommended&quot;</span>,</span><br><span class="line">        <span class="string">&quot;@vue/prettier&quot;</span>,</span><br><span class="line">        <span class="string">&quot;@vue/prettier/@typescript-eslint&quot;</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">&quot;rules&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;@typescript-eslint/no-explicit-any&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;@typescript-eslint/ban-types&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;@typescript-eslint/explicit-module-boundary-types&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;@typescript-eslint/no-empty-function&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;@typescript-eslint/no-non-null-assertion&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;@typescript-eslint/no-unused-vars&quot;</span>: [</span><br><span class="line">          <span class="string">&quot;error&quot;</span>,</span><br><span class="line">          &#123; <span class="attr">&quot;vars&quot;</span>: <span class="string">&quot;all&quot;</span>, <span class="attr">&quot;args&quot;</span>: <span class="string">&quot;after-used&quot;</span>, <span class="attr">&quot;ignoreRestSiblings&quot;</span>: <span class="literal">true</span> &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">&quot;@typescript-eslint/ban-ts-comment&quot;</span>: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;rules&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;comma-dangle&quot;</span>: [<span class="number">2</span>, <span class="string">&quot;always-multiline&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;no-var&quot;</span>: <span class="string">&quot;error&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;no-console&quot;</span>: [<span class="number">2</span>, &#123; <span class="attr">&quot;allow&quot;</span>: [<span class="string">&quot;warn&quot;</span>, <span class="string">&quot;error&quot;</span>] &#125;],</span><br><span class="line">    <span class="attr">&quot;object-shorthand&quot;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">&quot;no-unused-vars&quot;</span>: [<span class="number">2</span>, &#123; <span class="attr">&quot;ignoreRestSiblings&quot;</span>: <span class="literal">true</span>, <span class="attr">&quot;argsIgnorePattern&quot;</span>: <span class="string">&quot;^h$&quot;</span> &#125;],</span><br><span class="line">    <span class="attr">&quot;no-undef&quot;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">&quot;camelcase&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;no-extra-boolean-cast&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;semi&quot;</span>: [<span class="string">&quot;error&quot;</span>, <span class="string">&quot;always&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;vue/require-explicit-emits&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/require-prop-types&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/require-default-prop&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/no-reserved-keys&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/comment-directive&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/prop-name-casing&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/one-component-per-file&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/custom-event-name-casing&quot;</span>: <span class="string">&quot;off&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vue/max-attributes-per-line&quot;</span>: [</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">&quot;singleline&quot;</span>: <span class="number">20</span>,</span><br><span class="line">        <span class="attr">&quot;multiline&quot;</span>: &#123;</span><br><span class="line">          <span class="attr">&quot;max&quot;</span>: <span class="number">1</span>,</span><br><span class="line">          <span class="attr">&quot;allowFirstLine&quot;</span>: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;globals&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;h&quot;</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Stylelint"><a href="#4-Stylelint" class="headerlink" title="4. Stylelint"></a>4. Stylelint</h2><p><code>StyleLint</code> 是一个强大的 <strong><code>CSS</code> 代码风格检测工具</strong>，可以规范 <code>CSS</code> 书写<strong>样式及顺序</strong>，且<strong>支持 <code>Less</code> 、<code>Sass</code> 等 CSS 预处理语言</strong>，有大量第三方插件，在 Facebook、Github 等公司得到实践，能覆盖很多使用场景。</p>
+<p><code>Ant-Design-Vue</code> 中有两个配置文件，查询发现好像都可以生效，逐条看并没有冲突项，一般情况下应该是只需要一个配置项即可。</p>
+<p><code>Ant-Design-Vue</code> 中的 <code>.stylelintrc</code></p>
+<p>注意：rules 优先级大于 extends，建议采用extends方式统一管理，rules 进行微调</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;extends&quot;</span>: [<span class="string">&quot;stylelint-config-standard&quot;</span>, <span class="string">&quot;stylelint-config-prettier&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;rules&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;comment-empty-line-before&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;declaration-empty-line-before&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;function-comma-newline-after&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;function-name-case&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;function-parentheses-newline-inside&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;function-max-empty-lines&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;function-whitespace-after&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;indentation&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;number-leading-zero&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;number-no-trailing-zeros&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;rule-empty-line-before&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;selector-combinator-space-after&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;selector-list-comma-newline-after&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;selector-pseudo-element-colon-notation&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;unit-no-unknown&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;value-list-max-empty-lines&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;font-family-no-missing-generic-family-keyword&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;no-descending-specificity&quot;</span>: <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Ant-Design-Vue</code> 中的 <code>.stylelintrc.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;extends&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;stylelint-config-standard&quot;</span>,</span><br><span class="line">    <span class="string">&quot;stylelint-config-rational-order&quot;</span>,</span><br><span class="line">    <span class="string">&quot;stylelint-config-prettier&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;plugins&quot;</span>: [<span class="string">&quot;stylelint-order&quot;</span>, <span class="string">&quot;stylelint-declaration-block-no-ignored-properties&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;rules&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;comment-empty-line-before&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;function-name-case&quot;</span>: [<span class="string">&quot;lower&quot;</span>, &#123; <span class="attr">&quot;ignoreFunctions&quot;</span>: [<span class="string">&quot;/colorPalette/&quot;</span>] &#125;],</span><br><span class="line">    <span class="attr">&quot;no-invalid-double-slash-comments&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;no-descending-specificity&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">&quot;declaration-empty-line-before&quot;</span>: <span class="literal">null</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;ignoreFiles&quot;</span>: [<span class="string">&quot;components/style/color/&#123;bezierEasing,colorPalette,tinyColor&#125;.less&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Pritter"><a href="#5-Pritter" class="headerlink" title="5. Pritter"></a>5. Pritter</h2><p><code>Pritter</code> 是一个<strong>代码格式化程序</strong>，能够解析代码并按规则格式化，可以手动格式化也可以经配置在保存时自动格式化，可以配合 <code>Eslint</code>、<code>Stylelint</code> 使用。</p>
+<p><code>Ant-Design-Vue</code> 中的 <code>.prettierignore</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">**&#x2F;*.svg</span><br><span class="line">lib&#x2F;</span><br><span class="line">es&#x2F;</span><br><span class="line">dist&#x2F;</span><br><span class="line">_site&#x2F;</span><br><span class="line">coverage&#x2F;</span><br><span class="line">CNAME</span><br><span class="line">LICENSE</span><br><span class="line">yarn.lock</span><br><span class="line">netlify.toml</span><br><span class="line">yarn-error.log</span><br><span class="line">*.sh</span><br><span class="line">*.snap</span><br><span class="line">.gitignore</span><br><span class="line">.npmignore</span><br><span class="line">.prettierignore</span><br><span class="line">.DS_Store</span><br><span class="line">.editorconfig</span><br><span class="line">.eslintignore</span><br><span class="line">**&#x2F;*.yml</span><br><span class="line">components&#x2F;style&#x2F;color&#x2F;*.less</span><br><span class="line">**&#x2F;assets</span><br><span class="line">.gitattributes</span><br><span class="line">.stylelintrc</span><br><span class="line">.vcmrc</span><br><span class="line">.png</span><br><span class="line">.npmrc.template</span><br><span class="line">.huskyrc</span><br><span class="line">.gitmodules</span><br><span class="line">*.png</span><br><span class="line">v2-doc&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><code>Ant-Design-Vue</code> 中的 <code>.prettierrc</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;singleQuote&quot;: true,</span><br><span class="line">  &quot;trailingComma&quot;: &quot;all&quot;,</span><br><span class="line">  &quot;printWidth&quot;: 100,</span><br><span class="line">  &quot;proseWrap&quot;: &quot;never&quot;,</span><br><span class="line">  &quot;overrides&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;files&quot;: &quot;.prettierrc&quot;,</span><br><span class="line">      &quot;options&quot;: &#123;</span><br><span class="line">        &quot;parser&quot;: &quot;json&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整个 <code>Ant-Design-Vue</code> 项目经过如上配置，包含<strong>个人本地的多种文件语法风格检测、格式化</strong>，以及 <strong>git 协作编程时的二次检测</strong>，增强了代码的可读性和可维护性，使得团队的代码风格保持一致。</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/05/17/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/" target="_blank">Ant-Design-Vue 代码风格的统一方式</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/Ant-Design-Vue/">Ant-Design-Vue</a>
+                
+                    <a href="/tag/stylelint/">stylelint</a>
+                
+                    <a href="/tag/prittier/">prittier</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2021/05/21/antd-pro-vue/" class="prev-prefix">« </a> 上一篇：    <a href="/2021/05/21/antd-pro-vue/" title="发布于 2021-05-21 09:30">AntD-Pro-Vue 学习文档</a>
+                <br>
+            
+            
+                <a href="/2021/05/17/Jest-Mock/" class="next-prefix">» </a> 下一篇：    <a href="/2021/05/17/Jest-Mock/" title="发布于 2021-05-17 09:30">Jest-Mock测试</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>

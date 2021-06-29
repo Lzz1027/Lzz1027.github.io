@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>AntDesign - Checkbox 学习文档</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">AntDesign - Checkbox 学习文档</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2021-05-14
+                        </span>
+                        
+                            <span id="/2021/05/14/AntDesign-Checkbox/" class="leancloud_visitors" data-flag-title="AntDesign - Checkbox 学习文档">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2021/05/14/AntDesign-Checkbox/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="Ant-Design-Vue-Checkbox-组件"><a href="#Ant-Design-Vue-Checkbox-组件" class="headerlink" title="Ant-Design-Vue - Checkbox 组件"></a>Ant-Design-Vue - Checkbox 组件</h1><h2 id="1-项目结构："><a href="#1-项目结构：" class="headerlink" title="1. 项目结构："></a>1. 项目结构：</h2><p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210514100119462.png" alt="image-20210514100119462"></p>
+<p>项目包含测试文件夹 _test_ ，样式文件夹 style ，和 index.ts、Group.tsx、Checkbox.tsx 三个文件。</p>
+<p>其中index.ts为组件入口，Checkbox.tsx实现组件基本功能，Group.tsx实现选项组</p>
+<h2 id="2-index-ts"><a href="#2-index-ts" class="headerlink" title="2. index.ts"></a>2. index.ts</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; App, Plugin &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Checkbox <span class="keyword">from</span> <span class="string">&#x27;./Checkbox&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> CheckboxGroup <span class="keyword">from</span> <span class="string">&#x27;./Group&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Checkbox.Group = CheckboxGroup;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* istanbul ignore next */</span></span><br><span class="line">Checkbox.install = <span class="function"><span class="keyword">function</span>(<span class="params">app: App</span>) </span>&#123;</span><br><span class="line">  app.component(Checkbox.name, Checkbox);</span><br><span class="line">  app.component(CheckboxGroup.name, CheckboxGroup);</span><br><span class="line">  <span class="keyword">return</span> app;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Checkbox <span class="keyword">as</span> <span class="keyword">typeof</span> Checkbox &amp;</span><br><span class="line">  Plugin &amp; &#123;</span><br><span class="line">    <span class="keyword">readonly</span> Group: <span class="keyword">typeof</span> CheckboxGroup;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过 Ant-Design-Vue 的 /components/index.ts 入口文件，本文件作为组件入口（components\checkbox\index.ts）被导入，其中导入了 Checkbox组件和CheckBoxGroup组件，</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue项目中的 main.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router/router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Antd <span class="keyword">from</span> <span class="string">&#x27;ant-design-vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;ant-design-vue/dist/antd.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = createApp(App)</span><br><span class="line">app.use(router)</span><br><span class="line"><span class="comment">// 这里触发install</span></span><br><span class="line">app.use(Antd)</span><br><span class="line"></span><br><span class="line">app.mount(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在导入时，组件被use函数使用，触发install，将组件及子组件注册，并导出为 Checkbox，Plugin 和 CheckboxGroup；</p>
+<h2 id="3-Checkbox-tsx"><a href="#3-Checkbox-tsx" class="headerlink" title="3. Checkbox.tsx"></a>3. Checkbox.tsx</h2><h3 id="3-1-执行顺序"><a href="#3-1-执行顺序" class="headerlink" title="3.1. 执行顺序"></a>3.1. 执行顺序</h3><p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210514154830154.png" alt="image-20210514154830154"></p>
+<p>这里的几个函数执行顺序如图所示，当 setup() 完成后，进入 render() 函数，在实例挂载完毕后，mounted() 函数开始执行，最后在实例卸载前执行 beforeUnmount()</p>
+<h3 id="3-2-props"><a href="#3-2-props" class="headerlink" title="3.2. props"></a>3.2. props</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">   prefixCls: PropTypes.string,</span><br><span class="line">   &#x2F;&#x2F; 初始是否选中 默认 false</span><br><span class="line">   defaultChecked: PropTypes.looseBool,</span><br><span class="line">   &#x2F;&#x2F; 当前是否选中 默认 false</span><br><span class="line">   checked: PropTypes.looseBool,</span><br><span class="line">   &#x2F;&#x2F; 失效状态 默认 false</span><br><span class="line">   disabled: PropTypes.looseBool,</span><br><span class="line">   isGroup: PropTypes.looseBool,</span><br><span class="line">   value: PropTypes.any,</span><br><span class="line">   name: PropTypes.string,</span><br><span class="line">   id: PropTypes.string,</span><br><span class="line">   &#x2F;&#x2F; 设置 indeterminate（部分选中）状态，只负责样式控制 默认 false</span><br><span class="line">   indeterminate: PropTypes.looseBool,</span><br><span class="line">   type: PropTypes.string.def(&#39;checkbox&#39;),</span><br><span class="line">   &#x2F;&#x2F; 自动获取焦点 默认 false</span><br><span class="line">   autofocus: PropTypes.looseBool,</span><br><span class="line">   onChange: PropTypes.func,</span><br><span class="line">   &#39;onUpdate:checked&#39;: PropTypes.func,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>props 里设置了如下属性以及一些其他属性和功能</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th>说明</th>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">autoFocus</td>
+<td>自动获取焦点</td>
+<td>boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td align="left">checked</td>
+<td>指定当前是否选中</td>
+<td>boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td align="left">defaultChecked</td>
+<td>初始是否选中</td>
+<td>boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td align="left">disabled</td>
+<td>失效状态</td>
+<td>boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td align="left">indeterminate</td>
+<td>设置 indeterminate 状态，只负责样式控制</td>
+<td>boolean</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-setup"><a href="#3-3-setup" class="headerlink" title="3.3. setup()"></a>3.3. setup()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">setup() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        &#x2F;&#x2F; 接收设置，默认设置为 defaultConfigProvider</span><br><span class="line">        configProvider: inject(&#39;configProvider&#39;, defaultConfigProvider),</span><br><span class="line">        &#x2F;&#x2F; 接收checkBoxGroup的背景（上下文）</span><br><span class="line">        checkboxGroupContext: inject(&#39;checkboxGroupContext&#39;, undefined),</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>configProvider用来接收由 components\config-provider\index.tsx 中的 defaultConfigProvider 提供的默认设置；</p>
+<p>checkboxGroupContext用来接收多选框组的内容。</p>
+<h3 id="3-4-render"><a href="#3-4-render" class="headerlink" title="3.4. render()"></a>3.4. render()</h3><h4 id="3-4-1-render-数据获取部分"><a href="#3-4-1-render-数据获取部分" class="headerlink" title="3.4.1. render() 数据获取部分"></a>3.4.1. render() 数据获取部分</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 此时已经完成了 created 阶段，实例已经初始化，this可以使用，通过getOptionPrors方法获取props</span><br><span class="line">const props &#x3D; getOptionProps(this);</span><br><span class="line">&#x2F;&#x2F; 解构 checkboxGroup 相关信息</span><br><span class="line">const &#123; checkboxGroupContext: checkboxGroup, $attrs &#125; &#x3D; this;</span><br><span class="line">&#x2F;&#x2F; 获取 slot 插槽内容</span><br><span class="line">const children &#x3D; getSlot(this);</span><br><span class="line">&#x2F;&#x2F; 获取 前缀 设定信息</span><br><span class="line">const &#123; indeterminate, prefixCls: customizePrefixCls, ...restProps &#125; &#x3D; props;</span><br><span class="line">const getPrefixCls &#x3D; this.configProvider.getPrefixCls;</span><br><span class="line">const prefixCls &#x3D; getPrefixCls(&#39;checkbox&#39;, customizePrefixCls);</span><br><span class="line">&#x2F;&#x2F; 从 attrs 中解构类名、样式等信息</span><br><span class="line">const &#123;</span><br><span class="line">    onMouseenter &#x3D; noop,</span><br><span class="line">    onMouseleave &#x3D; noop,</span><br><span class="line">    onInput,</span><br><span class="line">    class: className,</span><br><span class="line">    style,</span><br><span class="line">    ...restAttrs</span><br><span class="line">&#125; &#x3D; $attrs;</span><br><span class="line">&#x2F;&#x2F; 综合数据为 checkboxProps</span><br><span class="line">const checkboxProps: any &#x3D; &#123;</span><br><span class="line">    ...restProps,</span><br><span class="line">    prefixCls,</span><br><span class="line">    ...restAttrs,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 是否为多选框组，如果是则配置其余信息</span><br><span class="line">if (checkboxGroup) &#123;</span><br><span class="line">    checkboxProps.onChange &#x3D; (...args) &#x3D;&gt; &#123;</span><br><span class="line">        this.$emit(&#39;change&#39;, ...args);</span><br><span class="line">        checkboxGroup.toggleOption(&#123; label: children, value: props.value &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    checkboxProps.name &#x3D; checkboxGroup.name;</span><br><span class="line">    checkboxProps.checked &#x3D; checkboxGroup.sValue.indexOf(props.value) !&#x3D;&#x3D; -1;</span><br><span class="line">    checkboxProps.disabled &#x3D; props.disabled || checkboxGroup.disabled;</span><br><span class="line">    checkboxProps.indeterminate &#x3D; indeterminate;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    checkboxProps.onChange &#x3D; this.handleChange;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 根据前缀设置配置类名字符串</span><br><span class="line">const classString &#x3D; classNames(</span><br><span class="line">    &#123;</span><br><span class="line">        [&#96;$&#123;prefixCls&#125;-wrapper&#96;]: true,</span><br><span class="line">        [&#96;$&#123;prefixCls&#125;-wrapper-checked&#96;]: checkboxProps.checked,</span><br><span class="line">        [&#96;$&#123;prefixCls&#125;-wrapper-disabled&#96;]: checkboxProps.disabled,</span><br><span class="line">    &#125;,</span><br><span class="line">    className,</span><br><span class="line">);</span><br><span class="line">const checkboxClass &#x3D; classNames(&#123;</span><br><span class="line">    [&#96;$&#123;prefixCls&#125;-indeterminate&#96;]: indeterminate,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>详细数据内容获取参照注释，这一部分将要渲染的组件所需要的所有信息获取，完成数据的综合；</p>
+<h4 id="3-4-2-render-的-return-部分"><a href="#3-4-2-render-的-return-部分" class="headerlink" title="3.4.2. render() 的 return 部分"></a>3.4.2. render() 的 return 部分</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">return (</span><br><span class="line">      &lt;label</span><br><span class="line">        class&#x3D;&#123;classString&#125;</span><br><span class="line">        style&#x3D;&#123;style&#125;</span><br><span class="line">        onMouseenter&#x3D;&#123;onMouseenter as EventHandlerNonNull&#125;</span><br><span class="line">        onMouseleave&#x3D;&#123;onMouseleave as EventHandlerNonNull&#125;</span><br><span class="line">      &gt;</span><br><span class="line">        &lt;VcCheckbox &#123;...checkboxProps&#125; class&#x3D;&#123;checkboxClass&#125; ref&#x3D;&quot;vcCheckbox&quot; &#x2F;&gt;</span><br><span class="line">        &#123;children.length ? &lt;span&gt;&#123;children&#125;&lt;&#x2F;span&gt; : null&#125;</span><br><span class="line">      &lt;&#x2F;label&gt;</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+
+<p>这一部分将数据组装为html代码，作为 render() 函数的返回值进行渲染，可以看出整个多选框是由 label 标签和自定义组件 VCCheckbox 以及 children插槽组成，如果 children 不为空则将其放在<code>&lt;span&gt;</code> 中返回；</p>
+<h3 id="3-5-mounted"><a href="#3-5-mounted" class="headerlink" title="3.5. mounted()"></a>3.5. mounted()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mounted() &#123;</span><br><span class="line">    const &#123; value, checkboxGroupContext: checkboxGroup &#x3D; &#123;&#125; &#125; &#x3D; this;</span><br><span class="line">    if (checkboxGroup.registerValue) &#123;</span><br><span class="line">      checkboxGroup.registerValue(value);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 提示</span><br><span class="line">    warning(</span><br><span class="line">      hasProp(this, &#39;checked&#39;) || this.checkboxGroupContext || !hasProp(this, &#39;value&#39;),</span><br><span class="line">      &#39;Checkbox&#39;,</span><br><span class="line">      &#39;&#96;value&#96; is not validate prop, do you mean &#96;checked&#96;?&#39;,</span><br><span class="line">    );</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>实例挂载后，可以调用 warning 来查看 Prop 是否有效。</p>
+<h3 id="3-6-beforeUnmount"><a href="#3-6-beforeUnmount" class="headerlink" title="3.6. beforeUnmount()"></a>3.6. beforeUnmount()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">beforeUnmount() &#123;</span><br><span class="line">    const &#123; value, checkboxGroupContext: checkboxGroup &#x3D; &#123;&#125; &#125; &#x3D; this;</span><br><span class="line">    if (checkboxGroup.cancelValue) &#123;</span><br><span class="line">      checkboxGroup.cancelValue(value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>实例卸载前，将 checkboxGroup 的值清除。</p>
+<h3 id="3-7-watch"><a href="#3-7-watch" class="headerlink" title="3.7. watch"></a>3.7. watch</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">  value(value, prevValue) &#123;</span><br><span class="line">    nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">      const &#123; checkboxGroupContext: checkboxGroup &#x3D; &#123;&#125; &#125; &#x3D; this;</span><br><span class="line">      if (checkboxGroup.registerValue &amp;&amp; checkboxGroup.cancelValue) &#123;</span><br><span class="line">        checkboxGroup.cancelValue(prevValue);</span><br><span class="line">        checkboxGroup.registerValue(value);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>监听值的改变，如果值改变则使用延时执行函数 nextTick将旧值撤销，再将新值重新注册</p>
+<h3 id="3-8-methods"><a href="#3-8-methods" class="headerlink" title="3.8. methods"></a>3.8. methods</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">    &#x2F;&#x2F; 处理改变</span><br><span class="line">    handleChange(event: RadioChangeEvent) &#123;</span><br><span class="line">      const targetChecked &#x3D; event.target.checked;</span><br><span class="line">      this.$emit(&#39;update:checked&#39;, targetChecked);</span><br><span class="line">      &#x2F;&#x2F; this.$emit(&#39;input&#39;, targetChecked);</span><br><span class="line">      this.$emit(&#39;change&#39;, event);</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 获取焦点</span><br><span class="line">    focus() &#123;</span><br><span class="line">      (this.$refs.vcCheckbox as HTMLInputElement).focus();</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 移除焦点</span><br><span class="line">    blur() &#123;</span><br><span class="line">      (this.$refs.vcCheckbox as HTMLInputElement).blur();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>提供了三个函数，分别用于处理选择的改变以及获取和移除焦点。</p>
+<h2 id="4-Group-tsx"><a href="#4-Group-tsx" class="headerlink" title="4. Group.tsx"></a>4. Group.tsx</h2><p>Group.tsx 其余部分结构功能与 Checkbox 类似，在 render 部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    const &#123; $props: props, $data: state &#125; &#x3D; this;</span><br><span class="line">    const &#123; prefixCls: customizePrefixCls, options &#125; &#x3D; props;</span><br><span class="line">    const getPrefixCls &#x3D; this.configProvider.getPrefixCls;</span><br><span class="line">    const prefixCls &#x3D; getPrefixCls(&#39;checkbox&#39;, customizePrefixCls);</span><br><span class="line">    let children &#x3D; getSlot(this);</span><br><span class="line">    const groupPrefixCls &#x3D; &#96;$&#123;prefixCls&#125;-group&#96;;</span><br><span class="line">    if (options &amp;&amp; options.length &gt; 0) &#123;</span><br><span class="line">      children &#x3D; this.getOptions().map(option &#x3D;&gt; (</span><br><span class="line">        &lt;Checkbox</span><br><span class="line">          prefixCls&#x3D;&#123;prefixCls&#125;</span><br><span class="line">          key&#x3D;&#123;option.value.toString()&#125;</span><br><span class="line">          disabled&#x3D;&#123;&#39;disabled&#39; in option ? option.disabled : props.disabled&#125;</span><br><span class="line">          indeterminate&#x3D;&#123;option.indeterminate&#125;</span><br><span class="line">          value&#x3D;&#123;option.value&#125;</span><br><span class="line">          checked&#x3D;&#123;state.sValue.indexOf(option.value) !&#x3D;&#x3D; -1&#125;</span><br><span class="line">          onChange&#x3D;&#123;option.onChange || noop&#125;</span><br><span class="line">          class&#x3D;&#123;&#96;$&#123;groupPrefixCls&#125;-item&#96;&#125;</span><br><span class="line">        &gt;</span><br><span class="line">          &#123;option.label&#125;</span><br><span class="line">        &lt;&#x2F;Checkbox&gt;</span><br><span class="line">      ));</span><br><span class="line">    &#125;</span><br><span class="line">    return &lt;div class&#x3D;&#123;groupPrefixCls&#125;&gt;&#123;children&#125;&lt;&#x2F;div&gt;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里返回的 <code>&lt;div&gt;</code> 标签中的 children 还是由 Checkbox 组件构成的。</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/05/14/AntDesign-Checkbox/" target="_blank">AntDesign - Checkbox 学习文档</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/AntDesign/">AntDesign</a>
+                
+                    <a href="/tag/Vue/">Vue</a>
+                
+                    <a href="/tag/TypeScript/">TypeScript</a>
+                
+                    <a href="/tag/Checkbox/">Checkbox</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2021/05/17/To-Do-List-Vue/" class="prev-prefix">« </a> 上一篇：    <a href="/2021/05/17/To-Do-List-Vue/" title="发布于 2021-05-17 09:30">To-Do-List-Vue 项目文档</a>
+                <br>
+            
+            
+                <a href="/2021/05/13/Vue-Composition-API/" class="next-prefix">» </a> 下一篇：    <a href="/2021/05/13/Vue-Composition-API/" title="发布于 2021-05-13 11:30">Vue 3 - Composition API 学习文档</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>

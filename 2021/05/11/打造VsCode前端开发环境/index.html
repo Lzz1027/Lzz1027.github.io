@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>打造VsCode前端集成开发环境</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js"></script>
+
+<link rel="alternate" href="/atom.xml" title="Scropio Blog" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">打造VsCode前端集成开发环境</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2021-05-11
+                        </span>
+                        
+                            <span id="/2021/05/11/打造VsCode前端开发环境/" class="leancloud_visitors" data-flag-title="打造VsCode前端集成开发环境">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2021/05/11/打造VsCode前端开发环境/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="打造VsCode前端集成开发环境"><a href="#打造VsCode前端集成开发环境" class="headerlink" title="打造VsCode前端集成开发环境"></a>打造VsCode前端集成开发环境</h1><h2 id="1-下载安装"><a href="#1-下载安装" class="headerlink" title="1. 下载安装"></a>1. 下载安装</h2><p>VsCode 官网下载页：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/Download">https://code.visualstudio.com/Download</a></p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511140409410.png" alt="image-20210511140409410"></p>
+<p>选择正确版本安装即可</p>
+<h2 id="2-基础使用"><a href="#2-基础使用" class="headerlink" title="2. 基础使用"></a>2. 基础使用</h2><h3 id="2-1-界面介绍："><a href="#2-1-界面介绍：" class="headerlink" title="2.1. 界面介绍："></a>2.1. 界面介绍：</h3><p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210512104411798.png" alt="image-20210512104411798"></p>
+<h3 id="2-2-常用指令："><a href="#2-2-常用指令：" class="headerlink" title="2.2. 常用指令："></a>2.2. 常用指令：</h3><h4 id="2-2-1-万能键：F1-或-Ctrl-Shift-P"><a href="#2-2-1-万能键：F1-或-Ctrl-Shift-P" class="headerlink" title="2.2.1. 万能键：F1 或 Ctrl+Shift+P"></a>2.2.1. 万能键：F1 或 Ctrl+Shift+P</h4><p>打开命令面板，可以输入任何命令；</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210512104751733.png" alt="image-20210512104751733"></p>
+<p>2.2.2. </p>
+<h2 id="2-插件安装"><a href="#2-插件安装" class="headerlink" title="2. 插件安装"></a>2. 插件安装</h2><h3 id="2-1-安装方式："><a href="#2-1-安装方式：" class="headerlink" title="2.1. 安装方式："></a>2.1. 安装方式：</h3><p>点击 VsCode 界面左侧 Tab 栏的第五个按钮（或快捷键 Ctrl + Shift + X）即可进入安装插件界面，在上方搜索栏搜索插件名即可搜索安装：</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511152051443.png" alt="image-20210511152051443"></p>
+<h3 id="2-2-常规插件："><a href="#2-2-常规插件：" class="headerlink" title="2.2. 常规插件："></a>2.2. 常规插件：</h3><p><strong>Chinese Language Pack</strong></p>
+<p>中文语言包（由于语言冲突不建议使用）</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511143959412.png" alt="image-20210511143959412"></p>
+<p><strong>VsCode-icons &amp; Material Icon Theme</strong></p>
+<p>目录图标美化</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511162621261.png" alt="image-20210511162621261"></p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210512103829654.png" alt="image-20210512103829654"></p>
+<p><strong>Path Intellisense</strong></p>
+<p>自动提示文件路径</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511150045599.png" alt="image-20210511150045599"></p>
+<p><strong>Change-case</strong></p>
+<p>修改命名规则（支持驼峰、下划线等）</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511150230780.png" alt="image-20210511150230780"></p>
+<p><strong>Bracket Pair Colorizer</strong></p>
+<p>颜色匹配括号</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511163445718.png" alt="image-20210511163445718"></p>
+<p><strong>vscode-faker</strong></p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511151218637.png" alt="image-20210511151218637"></p>
+<p>随机生成姓名、地址、图像、电话号、乱数假文段落等内容，帮助快速生成测试用例；</p>
+<p>用法：Ctrl/Command Shift P 呼出控制台，输入faker即可看到提示<img src="https://pic2.zhimg.com/v2-06dcb08125539bc0f827e064c3a84eb5_b.webp" alt="img"></p>
+<p><strong>Git History</strong></p>
+<p>图表方式查看Git日志</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511163658947.png" alt="image-20210511163658947"></p>
+<p><strong>GitLens</strong></p>
+<p>实时查看代码修改者及提交时间</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511162506556.png" alt="image-20210511162506556"></p>
+<h3 id="HTML-CSS-插件："><a href="#HTML-CSS-插件：" class="headerlink" title="HTML/CSS 插件："></a>HTML/CSS 插件：</h3><p><strong>Auto Close Tag</strong></p>
+<p>自动闭合 HTML/XML 标签</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511142114763.png" alt="image-20210511142114763"></p>
+<p><strong>Auto Rename Tag</strong></p>
+<p>自动完成另一侧标签同步修改</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511142222818.png" alt="image-20210511142222818"></p>
+<p><strong>HTML CSS Support</strong></p>
+<p>智能提示 CSS 类名和 ID</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511142539090.png" alt="image-20210511142539090"></p>
+<p><strong>HTML Snippets</strong></p>
+<p>智能提示HTML标签及含义，包含HTML5标签</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511142658596.png" alt="image-20210511142658596"></p>
+<p><strong>HTML Boilerplate</strong></p>
+<p>HTML模板插件，输入html出现提示框，即可立即生成html结构</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511150806868.png" alt="image-20210511150806868"></p>
+<p><strong>CSS Peek</strong></p>
+<p>从Html标签直接定位到CSS类，方便修改样式</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511142947454.png" alt="image-20210511142947454"></p>
+<p><strong>Color Info</strong></p>
+<p>提供CSS颜色信息，辅助预览颜色效果</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511143646743.png" alt="image-20210511143646743"></p>
+<h3 id="JavaScript-插件："><a href="#JavaScript-插件：" class="headerlink" title="JavaScript 插件："></a>JavaScript 插件：</h3><p><strong>JavaScript Snippets Pack</strong></p>
+<p>JS代码高亮、提示补全等</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511163842798.png" alt="image-20210511163842798"></p>
+<p><strong>JavaScript(ES6) Code Snippets</strong></p>
+<p>ES6代码高亮、提示补全等</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511163211408.png" alt="image-20210511163211408"></p>
+<h3 id="TypeScript-插件："><a href="#TypeScript-插件：" class="headerlink" title="TypeScript 插件："></a>TypeScript 插件：</h3><p>TypeScript Extension Pack</p>
+<p>ts扩展包，包括TsLint、TypeScript Hero、Json2ts等8个常用插件</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511154105577.png" alt="image-20210511154105577"></p>
+<h3 id="Vue-插件："><a href="#Vue-插件：" class="headerlink" title="Vue 插件："></a>Vue 插件：</h3><p><strong>Vue</strong></p>
+<p>vue代码高亮、补全提示等</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511162902942.png" alt="image-20210511162902942"></p>
+<p>Vue 3 Snippets</p>
+<p>Vue3代码高亮、补全提示等</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511165107052.png" alt="image-20210511165107052"></p>
+<p><strong>Vite(预览版)</strong></p>
+<p>vue文件右键一键运行</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511164734494.png" alt="image-20210511164734494"></p>
+<h3 id="Tailwind-CSS-插件："><a href="#Tailwind-CSS-插件：" class="headerlink" title="Tailwind CSS 插件："></a>Tailwind CSS 插件：</h3><p><strong>Tailwind CSS IntelliSence</strong></p>
+<p>TailwindCSS提供代码高亮</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511170034049.png" alt="image-20210511170034049"></p>
+<h3 id="Ant-Design-插件："><a href="#Ant-Design-插件：" class="headerlink" title="Ant Design 插件："></a>Ant Design 插件：</h3><p><strong>Ant Design Snippets</strong></p>
+<p>提供代码高亮、补全提示</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511164937165.png" alt="image-20210511164937165"></p>
+<h3 id="语法检测及格式化："><a href="#语法检测及格式化：" class="headerlink" title="语法检测及格式化："></a>语法检测及格式化：</h3><p><strong>ESLint + Prettier + Vetur</strong></p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511153325024.png" alt="image-20210511153325024"></p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511153538519.png" alt="image-20210511153538519"></p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511160417116.png" alt="image-20210511160417116"></p>
+<p>安装上述三个插件后，全局安装eslint库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 终端中运行：</span><br><span class="line">npm install eslint -g</span><br></pre></td></tr></table></figure>
+
+<p>安装后进行高级设置：</p>
+<p><img src="https://gitee.com/zhuoran_DW/mark-down-images/raw/master/images/image-20210511160745112.png" alt="image-20210511160745112"></p>
+<p>在 setting.json 中添加如下代码：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// vscode默认启用了根据文件类型自动设置tabsize的选项</span></span><br><span class="line">  <span class="attr">&quot;editor.detectIndentation&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// 重新设定tabsize</span></span><br><span class="line">  <span class="attr">&quot;editor.tabSize&quot;</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="comment">// #每次保存的时候自动格式化</span></span><br><span class="line">  <span class="attr">&quot;editor.formatOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// #每次保存的时候将代码按eslint格式进行修复</span></span><br><span class="line">  <span class="attr">&quot;eslint.autoFixOnSave&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 添加 vue 支持</span></span><br><span class="line">  <span class="attr">&quot;eslint.validate&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;javascript&quot;</span>,</span><br><span class="line">    <span class="string">&quot;javascriptreact&quot;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;language&quot;</span>: <span class="string">&quot;vue&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;autoFix&quot;</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="comment">//  #让prettier使用eslint的代码格式进行校验</span></span><br><span class="line">  <span class="attr">&quot;prettier.eslintIntegration&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">//  #去掉代码结尾的分号</span></span><br><span class="line">  <span class="attr">&quot;prettier.semi&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">//  #使用带引号替代双引号</span></span><br><span class="line">  <span class="attr">&quot;prettier.singleQuote&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">//  #让函数(名)和后面的括号之间加个空格</span></span><br><span class="line">  <span class="attr">&quot;javascript.format.insertSpaceBeforeFunctionParenthesis&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// #这个按用户自身习惯选择</span></span><br><span class="line">  <span class="attr">&quot;vetur.format.defaultFormatter.html&quot;</span>: <span class="string">&quot;js-beautify-html&quot;</span>,</span><br><span class="line">  <span class="comment">// #让vue中的js按编辑器自带的ts格式进行格式化</span></span><br><span class="line">  <span class="attr">&quot;vetur.format.defaultFormatter.js&quot;</span>: <span class="string">&quot;vscode-typescript&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;vetur.format.defaultFormatterOptions&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;js-beautify-html&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;wrap_attributes&quot;</span>: <span class="string">&quot;force-aligned&quot;</span></span><br><span class="line">      <span class="comment">// #vue组件中html代码格式化样式</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;[vue]&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;editor.defaultFormatter&quot;</span>: <span class="string">&quot;octref.vetur&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;[jsonc]&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;editor.defaultFormatter&quot;</span>: <span class="string">&quot;esbenp.prettier-vscode&quot;</span></span><br><span class="line">  &#125; <span class="comment">// 两个选择器中是否换行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成后保存即完成配置；</p>
+<p>在要修改的文件中<strong>右键格式化文档</strong>或使用<strong>快捷键 Alt + Shift + F</strong> 即可对文档进行格式化。</p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="https://avatars0.githubusercontent.com/u/55450873?s=400&u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&v=4" alt="Scropio">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：Scropio
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/05/11/%E6%89%93%E9%80%A0VsCode%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" target="_blank">打造VsCode前端集成开发环境</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：杨柳枝，芳菲节，所恨年年赠离别。
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/category/Note/">Note</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tag/Note/">Note</a>
+                
+                    <a href="/tag/Vue3/">Vue3</a>
+                
+                    <a href="/tag/VsCode/">VsCode</a>
+                
+                    <a href="/tag/H5/">H5</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2021/05/12/vite%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="prev-prefix">« </a> 上一篇：    <a href="/2021/05/12/vite%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="发布于 2021-05-12 09:30">Vite工程创建</a>
+                <br>
+            
+            
+                <a href="/2021/05/06/ElectronDemo%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="next-prefix">» </a> 下一篇：    <a href="/2021/05/06/ElectronDemo%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="发布于 2021-05-06 11:30">Electron-Demo及Electron-Vue-Demo的环境配置</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js"></script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'Lzz1027',
+        GitHubRepositories : 'Lzz1027.github.io',
+
+        BlogUser      : 'Scropio',
+        BlogAvatar    : 'https://avatars0.githubusercontent.com/u/55450873?s=400&amp;u=01057a04e102b4cd7bcadd9c1cdb2aee11740866&amp;v=4',
+        BlogStartDate : '2020-11-1',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) 你怎么走辽~',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : 'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/logo.png',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpg',
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/home.jpeg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                'https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/header/article.jpg',
+            
+        ],
+
+        OtherBannerText  : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archive',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                {
+                    icon : 'icon-weibo', 
+                    url  : 'https://weibo.com/u/5687785291'
+                },
+            
+                {
+                    icon : 'icon-wechat', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-qq', 
+                    url  : ''
+                },
+            
+                {
+                    icon : 'icon-github', 
+                    url  : 'https://github.com/Lzz1027'
+                },
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '章台柳，章台柳',
+            right   : '昨日青青今在否'
+        },
+        ThemeInfo   : true,
+
+        ConsoleList : [
+            
+                [
+                    
+                        'Based on cnblogs theme SimpleMemory.',
+                    
+                        '',
+                    
+                ],
+            
+                [
+                    
+                        'SimpleMemory Author:',
+                    
+                        'BNDong',
+                    
+                ],
+            
+                [
+                    
+                        'Theme:',
+                    
+                        'LiveForCode',
+                    
+                ],
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/alipay.jpg?raw=true',
+            wechat  : 'https://github.com/Lzz1027/Lzz1027.github.io/blob/master/image/wechat.png?raw=true'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'UPDILNG07G',
+            apiKey        : 'd16b7cf6edb9ef5d4bb4f7c4b3836fa8',
+            indexName     : 'Blog',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/",
+            waitSeconds : 100
+        },
+
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/image/website/lazyload.svg"
+        },
+  
+
+        Style : {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/archive.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/menu-bubble.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/tocbot.css",
+            normal           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/normal.css",
+            night            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/night.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/css/clipboard.css"
+        },
+
+        Script: {
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/instantsearch.min.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/Meting.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/iscroll.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/require.min.js"
+        },
+
+        Font: {
+            LongCang   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/LongCang.css",
+            Monda      : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Monda.css",
+            NotoSansSC : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/NotoSansSC.css",
+            Playball   : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Playball.css",
+            PTMono     : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/PTMono.css",
+            RobotoSlab : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/RobotoSlab.css",
+            Rosario    : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/Rosario.css",
+            UbuntuMono : "https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : '杨柳枝，芳菲节，所恨年年赠离别。'
+        },
+            
+        Theme : {
+            url  : 'https://github.com/first19326/Hexo-LiveForCode',
+            name : 'Hexo - Live For Code'
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/hexo-liveforcode@master/static/js/index.js"></script>
+</body>
+</html>
