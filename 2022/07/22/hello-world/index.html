@@ -128,25 +128,21 @@
 </article>
 
   
+
 	<section id="comment" class="comment">
-		<div id="gitalk-container"></div>
+		<div id="vcomments"></div>
 	</section>
-	<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-	<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+	<!-- LeanCloud -->
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+	<!-- Valine -->
+	<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 	<script>
-		var gitalk = new Gitalk({
-			clientID: 'f936d646e57050e33f0d',
-			clientSecret: '8d08d2b5e613867f291623dcb0d95534f9969c2e',
-			repo: 'gitalk',
-			owner: 'Lzz1027',
-			admin: ['Lzz1027'],
-			id: location.pathname,
-			distractionFreeMode: false
+		new Valine({
+			el: '#vcomments',
+			appId: 'FGQ8zuHTdVNgVWaNK9TI1Md9-gzGzoHsz',
+			appKey: 'etVGbTl6l7ovK2VGnoOaXSHo'
 		})
-
-		gitalk.render('gitalk-container')
 	</script>
-
 
 
 
