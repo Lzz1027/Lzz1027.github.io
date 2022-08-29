@@ -67,13 +67,755 @@
 
   
     
-    <h3 class="article-title"><a href="/2022/07/22/hello-world/"><span>重启 Github 博客</span></a></h3>
+    <h3 class="article-title"><a href="/2022/08/29/论文阅读02-知识图谱构建技术综述/"><span>论文阅读02 知识图谱构建技术综述</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2022/07/22/hello-world/" rel="bookmark">
+      <a href="/2022/08/29/论文阅读02-知识图谱构建技术综述/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-29T05:00:00.000Z">
+          2022-08-29
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220829130310059.png" alt="image-20220829130310059"></p>
+<p>本周阅读的是《知识图谱构建技术综述》这篇论文，于 2016 年发表于《计算机研究与发展》，是课题组知识图谱研究方向的必读论文之一。本篇综述从技术框架和图谱定义出发，介绍了知识图谱的各类构建技术。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/PaperReading/">PaperReading</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/KnowledgeGraph/">KnowledgeGraph</a><a href="/tags/Summarize/">Summarize</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/08/29/论文阅读02-知识图谱构建技术综述/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/08/15/数据管理00-openGauss-Docker部署/"><span>数据管理00 openGauss Docker部署</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/08/15/数据管理00-openGauss-Docker部署/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-15T05:33:41.618Z">
+          2022-08-15
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="openGauss-架构学习"><a href="#openGauss-架构学习" class="headerlink" title="openGauss 架构学习"></a>openGauss 架构学习</h1><p>openGauss 是华为研发的开源关系型数据库，具有高性能、高可用、高安全、易运维、全开放特点。</p>
+<h3 id="openGauss-系统架构："><a href="#openGauss-系统架构：" class="headerlink" title="openGauss 系统架构："></a>openGauss 系统架构：</h3><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815141035566.png" alt="image-20220815141035566" style="zoom:50%;" />
+
+<p>OM（Operation Manager）：运维管理模块，提供集群日常运维、配置管理的接口和工具，包括安装、升级以及系统层面的一些功能。</p>
+<p>CM（Cluster Manager）：集群管理模块，提供集群启停、主备切换、状态查询等功能。</p>
+<p>openGauss 主备（Data Node)：在企业部署中，往往采用主备的形式，主机备机通常部署在不同的物理节点上。社区版 openGauss 支持最多 7 个备份。</p>
+<p>客户端驱动（Client Driver）：面向用户，接受访问请求，返回查询结果。提供 SQL 查询、JDBC、ODBC等功能。</p>
+<p>Storage：支持本地存储、云存储等不同形式介质的访问。</p>
+<p>openGauss 内核：提供内存管理、进程管理、SQL引擎等核心功能。</p>
+<h3 id="openGauss-内核架构："><a href="#openGauss-内核架构：" class="headerlink" title="openGauss 内核架构："></a>openGauss 内核架构：</h3><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815142021363.png" alt="image-20220815142021363" style="zoom:50%;" />
+
+<p>用户在业务侧通过 GSQL、JDBC、Python 等客户端驱动连接到数据库，由业务处理线程进行处理；经过词法&#x2F;语法分析，进行语义处理；再在 SQL 优化器中对语句进行优化改写，生成执行计划，下发到执行引擎中；执行时，对象等信息存储在数据字典缓冲区，磁盘数据存储在数据缓冲区，方便下次查询，日志缓冲区用于暂存日志。</p>
+<p>除了业务处理线程外，还有系统监控、检查点、后台写、日志写、归档等多个后台线程，提供其他各类行动，这些线程协作运行，构建出 openGauss 的内核体系架构。</p>
+<h3 id="openGauss-线程管理："><a href="#openGauss-线程管理：" class="headerlink" title="openGauss 线程管理："></a>openGauss 线程管理：</h3><p><strong>采用多线程的原因：</strong></p>
+<ul>
+<li>多进程应用的不同进程之间数据共享复杂，同步简单；多线程应用数据共享简单，同步复杂</li>
+<li>多进程应用占用内存多、切换复杂、速度慢、CPU 利用率低下；多线程应用占用内存少、切换简单、CPU 利用率高</li>
+</ul>
+<p>尽管有更大的开发和维护难度，线程管理模式能为 openGauss 提供更极致的性能，减少频繁创建或切换进程带来的开销，更高效的利用资源。</p>
+<p><strong>线程分类：</strong></p>
+<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220816150647613.png" alt="image-20220816150647613" style="zoom:50%;" />
+
+<p>主线程 - PostmasterMain：初始化、启动辅助线程、循环监听</p>
+<p>业务处理线程 - PostgresMain：处理客户端连接请求、执行相关 SQL 业务</p>
+<p>辅助线程：日志读写、读脏、检查点、统计信息等等</p>
+<h1 id="容器安装"><a href="#容器安装" class="headerlink" title="容器安装"></a>容器安装</h1><p>使用 Docker 安装 openGauss 镜像，省去搭建 CentOS 虚拟机的步骤</p>
+<h3 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h3><p>构建 CentOS 7.6 镜像，之后按顺序执行命令，构建 OpenGauss 镜像。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos:<span class="number">7.6</span>.<span class="number">1810</span></span><br><span class="line"><span class="comment">#安装依赖包</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> yum update -y &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">	yum install -y <span class="built_in">which</span> gcc gcc-c++ gdb git make cmake wget libaio-devel flex bison ncurses-devel glibc-devel patch lsb_release readline-devel</span></span><br><span class="line"><span class="comment">#创建用户，openGauss基于postgresql，和postresql一样，不能在root用户下启动</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;123456&#x27;</span> | passwd --stdin root &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    groupadd dbgroup &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    useradd -g dbgroup omm</span></span><br><span class="line"><span class="comment">#切换工作目录，下面几条命令都在此目录下执行</span></span><br><span class="line"><span class="keyword">USER</span> omm</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /home/omm</span></span><br><span class="line"><span class="comment">#下载openGauss-third_party_binarylibs解压</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> wget https://opengauss.obs.cn-south-1.myhuaweicloud.com/latest/openGauss-third_party_binarylibs.tar.gz &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    tar -zxf openGauss-third_party_binarylibs.tar.gz &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    <span class="built_in">mv</span> openGauss-third_party_binarylibs binarylibs</span></span><br><span class="line"><span class="comment">#clone源码，编译，编译后安装在/home/omm/openGauss-server/mppdb_temp_install下</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> git <span class="built_in">clone</span> https://gitee.com/opengauss/openGauss-server.git &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    <span class="built_in">cd</span> openGauss-server &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    sh build.sh -m debug -3rd /home/omm/binarylibs &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    <span class="built_in">cp</span> -r simpleInstall/ mppdb_temp_install/</span></span><br><span class="line"><span class="comment">#清理垃圾文件</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">rm</span> openGauss-third_party_binarylibs.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><p>PowerShell 中使用 docker 命令构建镜像</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从gite仓库访问dockerfile脚本构建镜像,指定构建好的镜像名称为：open-gauss-debug:v1</span></span><br><span class="line">docker build openGaussDockerfile <span class="literal">-t</span> <span class="built_in">open-gauss</span><span class="literal">-debug</span>:v1</span><br></pre></td></tr></table></figure>
+
+<p>之后等待约15分钟（设备配置决定）即可构建完成</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/Snipaste_2022-08-14_20-12-10.png" alt="Snipaste_2022-08-14_20-12-10"></p>
+<p>之后使用 docker images 命令查看已安装镜像，可以看到 open-gauss-debug 镜像已经存在，并使用 docker run 命令启动镜像，进入默认安装文件夹，可以看到数据库已经安装完毕</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -u 参数指定登录的用户，openGauss不能在root用户下启动</span></span><br><span class="line">docker run <span class="literal">-u</span> omm <span class="literal">-it</span> <span class="built_in">open-gauss</span><span class="literal">-debug</span>:v1</span><br></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/Snipaste_2022-08-14_20-12-45.png" alt="Snipaste_2022-08-14_20-12-45" style="zoom:150%;" />
+
+<p>之后进入 simpleInstall 文件夹，运行安装脚本 install.sh，该脚本可配置环境变量并初始化一个用于测试的 demo 数据库</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> simpleInstall/</span><br><span class="line"><span class="comment"># -w 是指定初始化数据库的密码</span></span><br><span class="line">sh install.sh <span class="literal">-w</span> Gauss_123</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/Snipaste_2022-08-14_20-13-09.png" alt="Snipaste_2022-08-14_20-13-09"></p>
+<p>脚本安装完成后会询问是否创建 demo 数据库，输入 yes，完成数据库搭建</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815135918319.png" alt="image-20220815135918319"></p>
+<p>之后还需要刷新环境变量，才能连接数据库</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让bash重新加载.bashrc文件</span></span><br><span class="line">source ~/.bashrc</span><br><span class="line"><span class="comment">#连接数据库</span></span><br><span class="line">gsql <span class="literal">-d</span> postgres</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815140100463.png" alt="image-20220815140100463"></p>
+<p>使用 \l 命令测试，出现查询结果，即安装完成</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815140219461.png" alt="image-20220815140219461"></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/openGauss/">openGauss</a><a href="/tags/DB/">DB</a><a href="/tags/Docker/">Docker</a><a href="/tags/Configuration/">Configuration</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/08/15/数据管理00-openGauss-Docker部署/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/08/06/机器学习05-Transformer/"><span>机器学习05 Transformer</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/08/06/机器学习05-Transformer/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-06T05:30:00.000Z">
+          2022-08-06
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><h2 id="Transformer-是什么？"><a href="#Transformer-是什么？" class="headerlink" title="Transformer 是什么？"></a>Transformer 是什么？</h2><p>本质上是一种 Sequence to sequence (Seq2seq) 的转换</p>
+<p>输入是序列，输出也是序列（输出长度不确定）</p>
+<p>适合用于语音识别（现在多使用 RNN-Transducer）、文本翻译、QA、NLP（转化为QA）等（输出序列长度不确定，没有明确关系）</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414014551597.png" alt="image-20220414014551597"></p>
+<p>也可用于 Multi-label Classification 多标签分类</p>
+<p>输入符合输出结果中的多种标签，是一对多的分类问题，比如输入是一篇文章，输出既有语言，又有体裁，又有正负面评价等等标签。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414020620729.png" alt="image-20220414020620729"></p>
+<p>Multi-class Classification 多类别分类（传统分类问题，与前者区分）</p>
+<p>输入属于输出结果中的某一个类，是一对一的分类问题，比如输入是一段语音，输出分类为中文或英文（看似与多标签分类问题相似，实际两者很难用同一类模型解决）</p>
+<h2 id="Seq2seq-基本结构"><a href="#Seq2seq-基本结构" class="headerlink" title="Seq2seq 基本结构"></a>Seq2seq 基本结构</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021014715.png" alt="image-20220414021014715"></p>
+<p>基本结构：输入序列经过 **编码器 Encoder **部分处理，交由 **解码器 Decoder **处理为输出序列</p>
+<h3 id="Encoder-编码器"><a href="#Encoder-编码器" class="headerlink" title="Encoder 编码器"></a>Encoder 编码器</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021341139.png" alt="image-20220414021341139"></p>
+<p>Encoder 的任务是将一个向量输入转化为另一个向量输出，可以使用 RNN、CNN 等各种模型。</p>
+<h3 id="Decoder-解码器"><a href="#Decoder-解码器" class="headerlink" title="Decoder 解码器"></a>Decoder 解码器</h3><h4 id="Autoregressive-Decoder-自回归解码器"><a href="#Autoregressive-Decoder-自回归解码器" class="headerlink" title="Autoregressive Decoder 自回归解码器"></a>Autoregressive Decoder 自回归解码器</h4><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023057892.png" alt="image-20220414023057892"></p>
+<p>以语音识别为例，Decoder 将 Encoder 的输出作为输入，在得到开始信号（BEGIN）之后，计算得到第一个输出结果，并将这一结果连同 Encoder 输出作为新的输入，计算得到下一个输出结果，如此反复直到输出结束</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png" alt="image-20220414023356616"></p>
+<p>事实上，编解码器结构是比较相似的。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DeepLearning/">DeepLearning</a><a href="/tags/Transformer/">Transformer</a><a href="/tags/MachineLearning/">MachineLearning</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/08/06/机器学习05-Transformer/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/08/04/机器学习04-自监督学习/"><span>机器学习04 自监督学习</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/08/04/机器学习04-自监督学习/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-04T05:30:00.000Z">
+          2022-08-04
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="Self-supervised-Learning-自监督学习"><a href="#Self-supervised-Learning-自监督学习" class="headerlink" title="Self-supervised Learning 自监督学习"></a>Self-supervised Learning 自监督学习</h1><h2 id="Supervised-监督"><a href="#Supervised-监督" class="headerlink" title="Supervised 监督"></a>Supervised 监督</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013529142.png" alt="image-20220414013529142"></p>
+<p>数据集需要人工标注，让机器知道学习方向</p>
+<h2 id="Self-Supervised-自监督"><a href="#Self-Supervised-自监督" class="headerlink" title="Self-Supervised 自监督"></a>Self-Supervised 自监督</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013744717.png" alt="image-20220414013744717"></p>
+<p>将数据集分为两部分，一部分作为输入，一部分用于校验输出效果（当作标注结果）</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DeepLearning/">DeepLearning</a><a href="/tags/MachineLearning/">MachineLearning</a><a href="/tags/Self-Supervised-Learning/">Self-Supervised-Learning</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/08/04/机器学习04-自监督学习/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/08/02/机器学习03-CNN/"><span>机器学习03 CNN</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/08/02/机器学习03-CNN/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-02T12:08:00.000Z">
+          2022-08-02
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="Convolutional-Neural-Network（CNN）"><a href="#Convolutional-Neural-Network（CNN）" class="headerlink" title="Convolutional Neural Network（CNN）"></a>Convolutional Neural Network（CNN）</h1><p>CNN 通常用于图片识别上</p>
+<h2 id="图片对计算机来说是什么？"><a href="#图片对计算机来说是什么？" class="headerlink" title="图片对计算机来说是什么？"></a>图片对计算机来说是什么？</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220430192356542.png" alt="image-20220430192356542"></p>
+<p>对于计算机而言，图片是一个3维度的张量（tensor），分别是：长、宽、通道数值。 </p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DeepLearning/">DeepLearning</a><a href="/tags/MachineLearning/">MachineLearning</a><a href="/tags/CNN/">CNN</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/08/02/机器学习03-CNN/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/07/30/机器学习02-常见问题/"><span>机器学习02 常见问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/07/30/机器学习02-常见问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-07-30T12:08:00.000Z">
+          2022-07-30
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>当学习结果不够好的时候，通常是按照如下步骤进行 的：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414194117158.png" alt="image-20220414194117158"></p>
+<p>首先检查训练数据上的 LOSS，如果 LOSS 已经很大，那么基本上是两种情况：一种是模型偏差，一种是最优解没有找到</p>
+<h2 id="模型偏差-Model-Bias"><a href="#模型偏差-Model-Bias" class="headerlink" title="模型偏差 Model Bias"></a>模型偏差 Model Bias</h2><p>模型过于简单，无论何种参数都无法获得较好的 LOSS，这是通常要改变模型设计，通过增加 Feature 、增加更多 Layer 等方法使模型更加复杂多变。</p>
+<h2 id="最优解问题-Optimization-Issue"><a href="#最优解问题-Optimization-Issue" class="headerlink" title="最优解问题 Optimization Issue"></a>最优解问题 Optimization Issue</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414194526695.png" alt="image-20220414194526695"></p>
+<p>仅仅获得了局部最优解，没有找到真正的最优解，可以先尝试使用简单模型（易于求解最优解的方法），或使用更深层次（如果更深层次表现反而不好，多数情况下是最优解问题）</p>
+<p>在训练数据上已经获得了较好的 LOSS 之后，再查看测试数据上的 LOSS，如果测试数据上的 LOSS 已经够小，则问题已经基本解决，如果测试数据上的 LOSS 仍然较大，则可能是出现了 <strong>Overfitting 过拟合</strong> 问题</p>
+<h2 id="过拟合-Overfitting"><a href="#过拟合-Overfitting" class="headerlink" title="过拟合 Overfitting"></a>过拟合 Overfitting</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414200050052.png" alt="image-20220414200050052"></p>
+<p>训练得到的函数在训练数据上表现得好，但在没有训练数据的部分上“自由发挥”了，导致 LOSS 较大</p>
+<p>如何解决呢？</p>
+<ol>
+<li>增加训练数据或创造更多数据（从已有数据生成，如图像识别问题，可以左右翻转图片）</li>
+<li>限制模型，降低模型弹性（降低参数数量、神经元数量、共享参数等）</li>
+<li>减少 Feature</li>
+<li>Early stopping</li>
+<li>Regularization</li>
+<li>Dropout</li>
+</ol>
+<p>也可以将训练数据分为训练集和确认集，用确认集来模拟测试的过程，分解方式可以选择如下的方式：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414204910006.png" alt="image-20220414204910006"></p>
+<p>将数据等分为多份，之后将不同的部分轮流作为确认集进行测试。</p>
+<h2 id="Mismatch-误配"><a href="#Mismatch-误配" class="headerlink" title="Mismatch 误配"></a>Mismatch 误配</h2><p>除了 Overfitting 问题外，实际情况上的模型表现不好，也有可能是出现了 Mismatch 问题，由于一些其他原因导致，而非模型本身的问题。</p>
+<h2 id="Saddle-Point-鞍点"><a href="#Saddle-Point-鞍点" class="headerlink" title="Saddle Point 鞍点"></a>Saddle Point 鞍点</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220425121948271.png" alt="image-20220425121948271"></p>
+<p>除了 Local Minima 局部最优的情况之外，还有另一种情况，loss也很难下降，这种情况下某一方向上是极小值，某一方向上又是极大值，使得其微分为0，也就是 Saddle Point 鞍点，与 Local Minima 统称为 Critical point 临界点。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DeepLearning/">DeepLearning</a><a href="/tags/MachineLearning/">MachineLearning</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/07/30/机器学习02-常见问题/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/07/25/机器学习01-介绍/"><span>机器学习01 介绍</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/07/25/机器学习01-介绍/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-07-25T12:08:00.000Z">
+          2022-07-25
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>台大李宏毅老师机器学习课程学习笔记，暑期重新整理：</p>
+<p>近年来 AI 技术越来越热，各种 AI 技术被吹捧的神乎其神，当前的 AI 技术到底发展到了什么程度？又在朝着哪里发展？</p>
+<p>事实上目前所说的“AI”与科幻小说中通人情，高智商的强人工智能还相去甚远，大部分都还只是 Machine Learning，是一种“暴力”方式解决问题的技术。</p>
+<h2 id="Machine-Learning-≈-Looking-for-Function"><a href="#Machine-Learning-≈-Looking-for-Function" class="headerlink" title="Machine Learning ≈ Looking for Function"></a>Machine Learning ≈ Looking for Function</h2><p>简单来说，机器学习的实质是<strong>寻找一个难以用人力创造的函数</strong></p>
+<p>如下图：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314151118633.png" alt="image-20220314151118633"></p>
+<p>很多复杂问题都能概括为寻求一个函数，给定输入，以期望得到某个正确的输出。</p>
+<ul>
+<li>语音识别：给定音频信号，输出对应语言的文字</li>
+<li>图像识别：给定图片数据，输出对应事物的名称</li>
+<li>围棋AI：给定棋盘数据，得到胜率最高达的下一步坐标</li>
+</ul>
+<p>但这些问题通常难以解决，特别是涉及高维和低维信息之间转换的问题，难以用传统方法寻求二者之间的联系。</p>
+<p>随着计算机算力水平的提升，用机器每秒上百万次的强大运算能力来“暴力破解”输入输出之间的关系也不再是空谈，这就是机器学习。</p>
+<h2 id="机器学习的分类"><a href="#机器学习的分类" class="headerlink" title="机器学习的分类"></a>机器学习的分类</h2><p>简单来说机器学习可以分为以下三类：</p>
+<p><strong>Regression（回归）</strong>：让函数得到某个数值。如 PM2.5 预测</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314151404348.png" alt="image-20220314151404348"></p>
+<p><strong>Classification（分类）</strong>：给出一些选项（类别），函数输出正确的选项。如垃圾邮件分类</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314151527247.png" alt="image-20220314151527247"></p>
+<p> <strong>Structured Learning（结构）</strong>：构建出具有结构的输出。如生成图像，文档</p>
+<h2 id="如何获得这个函数？"><a href="#如何获得这个函数？" class="headerlink" title="如何获得这个函数？"></a>如何获得这个函数？</h2><p>函数由表达式、输入和输出组成，第一步就是写出表达式：</p>
+<h3 id="1-写出带有未知参数的函数"><a href="#1-写出带有未知参数的函数" class="headerlink" title="1.写出带有未知参数的函数"></a>1.写出带有未知参数的函数</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314164944251.png" alt="image-20220314164944251"></p>
+<p>其中，y是函数结果，x1是输入。</p>
+<p>通常而言，我们不表达式都不是上图这种简单的线性方程，具体函数形式基于不同的问题而定，上面的例子中，习惯将w称作权重，b称作偏差。</p>
+<p>如何选择合适的表达式，构建出符合问题要求的模型，是当下机器学习领域的重点之一。</p>
+<p>不难看出，上述表达式中存在很多未知的参数，这些参数就是要求解部分，得到参数后，对于任意给定的输入均能得到对应输出。</p>
+<p>那么参数如何计算得到呢？</p>
+<p>要计算参数，可以通过对已知结果逆运算得出，这些已知的“输入”被称为特征，“输出”被称为标记，共同构成了训练数据。</p>
+<p>如果有海量的训练数据，就能通过这些数据反推出合适的参数，从而得到最终的表达式。为此需要有一个衡量参数好坏的函数，在每一次使用训练数据计算参数时，对参数进行评估，从而方便下一步对参数进行调整。</p>
+<h3 id="2-基于训练数据计算-Loss"><a href="#2-基于训练数据计算-Loss" class="headerlink" title="2.基于训练数据计算 Loss"></a>2.基于训练数据计算 <strong>Loss</strong></h3><p>Loss 是计算结果偏差的函数，用于衡量当前得到的未知参数的好坏。</p>
+<p>在第一次计算时，我们可以随机对参数进行赋值，将输入代入表达式，得到预测结果，之后与 <strong>Label（真实数据）</strong> 计算Loss（通常是MAE、MSE等差额计算）。从而反映出本次表达式所使用的的参数的优劣程度。</p>
+<p>如果将各种可能的未知参数都尝试一遍，计算出相应的 Loss，绘制出 <strong>”Error Surface“</strong>，可以观测到最合适的未知参数。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314170218911.png" alt="image-20220314170218911"></p>
+<p>但真实情况中，由于参数众多，形式复杂，很难用图像直观表达出来，只能得到不同情况下参数对应的 Loss 值。</p>
+<p>在得到 Loss 后，我们就了解了目前的参数的优劣，之后就需要将参数进行调整，使计算结果更加贴近真实值，让 Loss 越来越小，也就是 Optimization（优化） 的过程。</p>
+<h3 id="3-优化"><a href="#3-优化" class="headerlink" title="3.优化"></a>3.优化</h3><p>获得最佳的未知参数，可以使用 <em><strong>Gradient Descent（梯度下降）</strong></em> ，单个参数的该算法步骤如下：</p>
+<p>首先，随机选取一个 w 作为初始值</p>
+<p>其次，计算该 w 对应的 loss 值，并计算 L 在 w 上的微分（即斜率）</p>
+<p>​        通过这一步，我们可以确定此时的 w 值是偏大还是偏小，如果斜率为正，说明 w 增加会增大 Loss，w 减少则会减少 Loss，斜率为负值则相反，</p>
+<p>之后，我们需要设定一个 <strong>η（学习速率）</strong>，来划定我们每次对 w 的变化大小， 对 w 进行变化（用 η 乘上微分）后反复如上的计算，从而获得最佳的未知参数。这些由我们自己设定的参数被称为 <em><strong>Hyperparameters（超参数）</strong></em></p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314171705030.png" alt="image-20220314171705030"></p>
+<p>然而，我们很容易发现，这种方法在微分值为0时就会停止，得到的参数可能只是局部最佳值，而非全局最佳值。不过尽管 Gradient Descent 存在这一问题，但在实际生产实践中可以通过取多次随机点的方式轻松解决，这一方法的真正痛点另有别处。</p>
+<p>相应的，多参数方法也很容易得到：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314172110989.png" alt="image-20220314172110989"></p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314172226936.png" alt="image-20220314172226936"></p>
+<h2 id="如何改进？"><a href="#如何改进？" class="headerlink" title="如何改进？"></a>如何改进？</h2><p>经过上述的三个基本步骤，我们很容易就能计算出“最佳”的未知参数，但事实上，这种预测往往存在较大偏差，在上述例子中，我们选用的是最简单的 <strong>Liner Model（线性模型）</strong>，即使用权重和偏差值来进行预估的简单模型，这种模型考虑的因素少，性能有限，只能表现线性的单调变化。</p>
+<p>实际问题中，我们往往需要更加贴合实际问题的模型，这才是机器学习的难点所在。</p>
+<h3 id="Sigmoid-Function（S形函数）"><a href="#Sigmoid-Function（S形函数）" class="headerlink" title="Sigmoid Function（S形函数）"></a>Sigmoid Function（S形函数）</h3><p>由于函数变化多种多样，我们可以将函数分为多段，每一段视为一个斜率近似固定的直线，这样我们就将一条曲线分解为了多段曲线之和，每一段曲线的其他部分均为常数，只有在与其斜率吻合的部分是有斜率的，即下图的 <strong>Hard Sigmoid（硬S函数）</strong></p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314182644869.png" alt="image-20220314182644869"></p>
+<p>由于分段函数表达式不便于计算，我们使用 <strong>Sigmoid Function（S形函数）</strong>来近似的表达这些曲线。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314183750691.png" alt="image-20220314183750691"></p>
+<p>其中，w 用于改变斜率，b 用于改变左右位置，c 改变高度</p>
+<p>这样我们就能将曲线拆分为多个 Sigmoid Function 之和：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314183859065.png" alt="image-20220314183859065"></p>
+<p>将这一程序化过程用线性代数表示即为如下方式：<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314184826782.png" alt="image-20220314184826782"></p>
+<p>将其中的未知参数拼接为向量 θ ：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314185208598.png" alt="image-20220314185208598"></p>
+<p>此时，Loss 计算方法不变，仍然是给定一组 θ ，与真实值 label 进行对比即可：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314195756458.png" alt="image-20220314195756458"></p>
+<p>参数优化方法也仍然相似：</p>
+<p>​	找出初始值（随机）；</p>
+<p>​	求参数向量的微分向量（ <em>gradient</em> ）；</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314195956073.png" alt="image-20220314195956073"></p>
+<p>​	更新 θ 向量：    </p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314200128627.png" alt="image-20220314200128627"></p>
+<p> 重复计算和更新，直到计算结束（无法计算或重复一定次数）</p>
+<h3 id="分组（Batch）优化"><a href="#分组（Batch）优化" class="headerlink" title="分组（Batch）优化"></a>分组（Batch）优化</h3><p>之前计算 Loss 时，我们将全部输入与真实值对比得到 Loss，另一种方法是，将整个数据集分为一个个 <strong>Batch</strong>，每个 Batch 大小相同，具体大小随意。</p>
+<p>每次对一个组进行 Loss 计算，之后使用这个 Loss 计算 gradient，使用这个 gradient 更新参数向量 θ，再将这个新的 θ 放到 下一个组中计算 Loss，如此重复直到所有的组完成一次计算，这样就对<strong>所有数据完成了一次训练</strong>，即一次 <strong>Epoch</strong>。</p>
+<p>在这一次 epoch 中，更新了相当于 batch 数量的 update 次数。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202247672.png" alt="image-20220314202247672"></p>
+<h3 id="Rectified-Linear-Unit（ReLU函数"><a href="#Rectified-Linear-Unit（ReLU函数" class="headerlink" title="Rectified Linear Unit（ReLU函数)"></a>Rectified Linear Unit（ReLU函数)</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202456620.png" alt="image-20220314202456620"></p>
+<p>除了 S 形函数外，也可以使用上图所示的 ReLU 函数 ，两个 ReLU 函数相加就能得到一个 S 形函数表示的折线：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202848249.png" alt="image-20220314202848249"></p>
+<p>在列出表达式时需要注意：<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202931594.png" alt="image-20220314202931594"></p>
+<p>相较于线性模型，使用 ReLU 可以带来较为显著的提升，课程样例的结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203137316.png" alt="image-20220314203137316"></p>
+<p>可以看到当 ReLU 数量较少时效果一般，但当 ReLU 数量较多时，更加贴合的曲线就能带来更好的预测效果。</p>
+<h3 id="“套娃”"><a href="#“套娃”" class="headerlink" title="“套娃”"></a>“套娃”</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203526849.png" alt="image-20220314203526849"></p>
+<p>我们也可以使用 ReLU 等模型进行反复“套娃处理”，多进行几层，增加更多的参数，进行更相似的拟合，得到更好的预测效果：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203800478.png" alt="image-20220314203800478"></p>
+<p>经过上述优化，我们得到的曲线如下图蓝色曲线所示，尽管已经非常贴近，但一些意外（如下图拟合失误的部分，正处于除夕，计算机无法预测到这一影响）</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203951386.png" alt="image-20220314203951386"></p>
+<h2 id="神经网络-amp-深度学习"><a href="#神经网络-amp-深度学习" class="headerlink" title="神经网络 &amp; 深度学习"></a>神经网络 &amp; 深度学习</h2><p>由于整个计算过程中有大量的 Sigmoid 或者 ReLU 这样的小单元，就好像一个个神经元一样，我们将每个 Sigmoid 或者 ReLU 称为 <strong>Neuron（神经元）</strong>，整个模型被称为 <strong>Neural Network（神经网络）</strong></p>
+<p>像上文提到的<strong>“套娃”</strong>一样，有着多层嵌套结构的机器学习，就称为 <strong>Deep Learning 深度学习</strong></p>
+<h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>1.既然任何曲线都可用多段的 ReLU 或 Sigmoid 拼接，为什么不使用更多的神经元来模拟，而进行这种增加层数的操作呢？</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314210841598.png" alt="image-20220314210841598"></p>
+<p>2.层数越多越好吗？然而现实中，经常出现 <strong>Overfitting（过拟合）</strong>问题，即训练资料上表现好，但在预测中表现不好，那我们该采用多少层的模型呢？又如何解决 Overfitting 问题呢？</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314211103505.png" alt="image-20220314211103505"></p>
+<p>（事实上，大所数有更多层次的模型表现不好的问题根源在于最优解没有找到，由于梯度下降方法往往只能得到局部最优解，所以产生了更差的效果，并非过拟合的情况）</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DeepLearning/">DeepLearning</a><a href="/tags/MachineLearning/">MachineLearning</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/07/25/机器学习01-介绍/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/07/24/论文阅读01-TransE/"><span>论文阅读01 TransE</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/07/24/论文阅读01-TransE/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-07-24T05:57:14.839Z">
+          2022-07-24
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前段时间忙家里各种杂事，只看了师兄给的一篇表示学习综述，大概了解了一下知识图谱和表示学习相关的技术，接下来计划将一些重要模型进一步学习，自己尝试实现一下，这里就以 TransE 作为开头，开个新坑。</p>
+<h1 id="TransE-原理"><a href="#TransE-原理" class="headerlink" title="TransE 原理"></a>TransE 原理</h1><p>TransE 模型来源于 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.5555/2999792.2999923">Translating embeddings for modeling multi-relational data</a> 这篇论文，从标题上不难看出，TransE 将表示学习的过程看做是<strong>“翻译”</strong>的过程。其基本思想是，将知识三元组中的 relation 看做从 head 到 tail 的翻译过程，如果将这些关系都用向量表示，则应满足</p>
+<p>$$<br>head + relation \approx tail<br>$$<br>为了让 relation 的表示能够达到以上要求，TransE 定义了一个距离函数 $d(h + r, t)$来计算头实体和为尾实体之间的距离，原论文使用的是欧氏距离，也可以使用曼哈顿距离。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-c271aad4fc8f9026b19dc31246c3b50c_1440w.jpg" alt="img"></p>
+<p>如果成功构建了这样规则下的网络关系，那么就可以根据一个实体和关系来预测另一个实体，或者通过两个实体直接预测它们的关系。</p>
+<h1 id="TransE-训练"><a href="#TransE-训练" class="headerlink" title="TransE 训练"></a>TransE 训练</h1><p>训练时首先随机生成初始实体向量和关系向量，用于表示知识图谱。整个训练的目的就是求解正确的向量数值，损失函数可以使用 $d(h + r, t)$ 来计算，分为两个方向，正确的三元组应当有更小的 $d$，错误的三元组的 $d$ 则是越大越好。这种方法就是 <strong>negative sampling</strong>，<strong>即相对于负例，正例的得分更高</strong>。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190504222759459.png" alt="在这里插入图片描述"></p>
+<p>其中 $(h’,l,t’)$ 称为 <strong>corrupted triplet</strong>，是非同时随机替换头或尾实体得到的负例（也可以替换relation）。$\gamma$ 为 margin。事实上这就是在计算 Soft-margin Loss，可以认为，transE针对给定三元组进行二分类任务，其中负例是通过替换自行构造的，目标是使得最相近的正负例样本距离最大化。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/PaperReading/">PaperReading</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/TransE/">TransE</a><a href="/tags/RepresentationLearning/">RepresentationLearning</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/07/24/论文阅读01-TransE/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/07/22/重启Github博客/"><span>重启Github博客</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/07/22/重启Github博客/" rel="bookmark">
         <time class="entry-date published" datetime="2022-07-22T03:55:24.912Z">
           2022-07-22
         </time>
@@ -115,7 +857,7 @@
 
     <span class="post-tags">
       <i class="icon-tags"></i>
-        <a href="/tags/日常/">日常</a>
+        <a href="/tags/Github/">Github</a><a href="/tags/Blog/">Blog</a>
     </span>
     
 
@@ -126,7 +868,112 @@
       <span>
         <i class="icon-comments"></i>
         <span>
-          <a href="/2022/07/22/hello-world/#comment">评论</a>
+          <a href="/2022/07/22/重启Github博客/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/04/05/机器学习00-PyTorch环境配置/"><span>机器学习00 PyTorch环境配置</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/04/05/机器学习00-PyTorch环境配置/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-04-05T05:30:00.000Z">
+          2022-04-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="PyTorch-环境配置："><a href="#PyTorch-环境配置：" class="headerlink" title="PyTorch 环境配置："></a>PyTorch 环境配置：</h1><p>毕设需要用到 PyTorch，网上的教程比较老了，版本都很旧，PyTorch 已经不支持 10.2 的 cuda 了，这里重新记录一下配置过程。</p>
+<h2 id="1-Anaconda-安装："><a href="#1-Anaconda-安装：" class="headerlink" title="1. Anaconda 安装："></a>1. Anaconda 安装：</h2><p>在 <a target="_blank" rel="noopener" href="https://www.anaconda.com/">Anaconda  官网</a> 下载 Anaconda 安装包，按引导安装（选择All Users，不配置环境变量）</p>
+<p>环境变量配置如下：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123333832.png" alt="image-20220412123333832"></p>
+<p>cmd 中输入 conda –version，出现如下结果表示成功</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123431028.png" alt="image-20220412123431028"></p>
+<h2 id="2-CUDA-toolkit-安装："><a href="#2-CUDA-toolkit-安装：" class="headerlink" title="2. CUDA toolkit 安装："></a>2. CUDA toolkit 安装：</h2><p>首先安装 Visual Studio 2017（千万不要装2019，如果已经安装了2019，建议卸载重新安装），至少选择 C++ 桌面开发：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411232126734.png" alt="image-20220411232126734"></p>
+<p>接下来安装 CUDA，为配合 PyTorch 建议使用 11.3 版本（10系以上N卡应该都支持）： </p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.cn/cuda-11.3.0-download-archive?target_os=Windows&target_arch=x86_64&target_version=10">安装地址</a>，选择系统及版本，建议使用本地 exe 安装：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230456273.png" alt="image-20220411230456273"></p>
+<p>安装时仅选择 CUDA 组件即可：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230856055.png" alt="image-20220411230856055"></p>
+<p>完成后在终端中输入 “ nvcc -V ”检测，如图则安装完毕</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411231948925.png" alt="image-20220411231948925"></p>
+<p>除此之外，还需安装 cuDNN，与 11.3 版本 CUDA 相匹配的版本为 8.2.1 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.1.32/11.3_06072021/cudnn-11.3-windows-x64-v8.2.1.32.zip">下载地址</a></p>
+<p>下载完成后解压，复制到CUDA安装目录下</p>
+<h2 id="3-PyTorch-配置："><a href="#3-PyTorch-配置：" class="headerlink" title="3. PyTorch 配置："></a>3. PyTorch 配置：</h2><p>首先创建新虚拟环境，cmd 中输入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n PyTorch python=3.7</span><br></pre></td></tr></table></figure>
+
+<p>出现提示后，输入 y 确定即安装完毕（网络问题可以换清华源解决）</p>
+<p>创建完成后输入如下代码，激活虚拟环境：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate PyTorch</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在 <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">PyTorch 官网</a> 中选择好 PyTorch 版本、系统、包管理器、语言、CUDA版本：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411224428741.png" alt="image-20220411224428741"></p>
+<p>获得如下 Conda 命令，输入 cmd 进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch</span><br></pre></td></tr></table></figure>
+
+<p>出现提示后，输入 y 确定即安装完毕</p>
+<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h2><p>输入如下代码测试：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(torch.cuda.is_available())</span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(device)</span><br><span class="line"><span class="built_in">print</span>(torch.cuda.get_device_name(<span class="number">0</span>))</span><br><span class="line"><span class="built_in">print</span>(torch.rand(<span class="number">3</span>,<span class="number">3</span>).cuda())</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412170940291.png" alt="image-20220412170940291"></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/MachineLearning/">MachineLearning</a><a href="/tags/Configuration/">Configuration</a><a href="/tags/PyTorch/">PyTorch</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/04/05/机器学习00-PyTorch环境配置/#comment">评论</a>
         </span>
       </span>
     </div>

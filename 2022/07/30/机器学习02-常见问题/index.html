@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习02 常见问题 | TakuZen&#39;s Blog | Code is Poetry</title>
+
+  
+  <meta name="author" content="ZhuoRan-TakuZen">
+  
+
+  
+  <meta name="description" content="A personal Blog about Machine Learning.">
+  
+
+  
+  
+  <meta name="keywords" content="DeepLearning,MachineLearning">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="机器学习02 常见问题"/>
+
+  <meta property="og:site_name" content="TakuZen&#39;s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="TakuZen&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">TakuZen&#39;s Blog</a>
+    </h1>
+    <p class="site-description">Code is Poetry</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>机器学习02 常见问题</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/07/30/机器学习02-常见问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-07-30T12:08:00.000Z">
+          2022-07-30
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>当学习结果不够好的时候，通常是按照如下步骤进行 的：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414194117158.png" alt="image-20220414194117158"></p>
+<p>首先检查训练数据上的 LOSS，如果 LOSS 已经很大，那么基本上是两种情况：一种是模型偏差，一种是最优解没有找到</p>
+<h2 id="模型偏差-Model-Bias"><a href="#模型偏差-Model-Bias" class="headerlink" title="模型偏差 Model Bias"></a>模型偏差 Model Bias</h2><p>模型过于简单，无论何种参数都无法获得较好的 LOSS，这是通常要改变模型设计，通过增加 Feature 、增加更多 Layer 等方法使模型更加复杂多变。</p>
+<h2 id="最优解问题-Optimization-Issue"><a href="#最优解问题-Optimization-Issue" class="headerlink" title="最优解问题 Optimization Issue"></a>最优解问题 Optimization Issue</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414194526695.png" alt="image-20220414194526695"></p>
+<p>仅仅获得了局部最优解，没有找到真正的最优解，可以先尝试使用简单模型（易于求解最优解的方法），或使用更深层次（如果更深层次表现反而不好，多数情况下是最优解问题）</p>
+<p>在训练数据上已经获得了较好的 LOSS 之后，再查看测试数据上的 LOSS，如果测试数据上的 LOSS 已经够小，则问题已经基本解决，如果测试数据上的 LOSS 仍然较大，则可能是出现了 <strong>Overfitting 过拟合</strong> 问题</p>
+<h2 id="过拟合-Overfitting"><a href="#过拟合-Overfitting" class="headerlink" title="过拟合 Overfitting"></a>过拟合 Overfitting</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414200050052.png" alt="image-20220414200050052"></p>
+<p>训练得到的函数在训练数据上表现得好，但在没有训练数据的部分上“自由发挥”了，导致 LOSS 较大</p>
+<p>如何解决呢？</p>
+<ol>
+<li>增加训练数据或创造更多数据（从已有数据生成，如图像识别问题，可以左右翻转图片）</li>
+<li>限制模型，降低模型弹性（降低参数数量、神经元数量、共享参数等）</li>
+<li>减少 Feature</li>
+<li>Early stopping</li>
+<li>Regularization</li>
+<li>Dropout</li>
+</ol>
+<p>也可以将训练数据分为训练集和确认集，用确认集来模拟测试的过程，分解方式可以选择如下的方式：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414204910006.png" alt="image-20220414204910006"></p>
+<p>将数据等分为多份，之后将不同的部分轮流作为确认集进行测试。</p>
+<h2 id="Mismatch-误配"><a href="#Mismatch-误配" class="headerlink" title="Mismatch 误配"></a>Mismatch 误配</h2><p>除了 Overfitting 问题外，实际情况上的模型表现不好，也有可能是出现了 Mismatch 问题，由于一些其他原因导致，而非模型本身的问题。</p>
+<h2 id="Saddle-Point-鞍点"><a href="#Saddle-Point-鞍点" class="headerlink" title="Saddle Point 鞍点"></a>Saddle Point 鞍点</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220425121948271.png" alt="image-20220425121948271"></p>
+<p>除了 Local Minima 局部最优的情况之外，还有另一种情况，loss也很难下降，这种情况下某一方向上是极小值，某一方向上又是极大值，使得其微分为0，也就是 Saddle Point 鞍点，与 Local Minima 统称为 Critical point 临界点。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DeepLearning/">DeepLearning</a><a href="/tags/MachineLearning/">MachineLearning</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+	<section id="comment" class="comment">
+		<div id="vcomments"></div>
+	</section>
+	<!-- LeanCloud -->
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+	<!-- Valine -->
+	<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+	<script>
+		new Valine({
+			el: '#vcomments',
+			appId: 'FGQ8zuHTdVNgVWaNK9TI1Md9-gzGzoHsz',
+			appKey: 'etVGbTl6l7ovK2VGnoOaXSHo'
+		})
+	</script>
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2022 ZhuoRan-TakuZen
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

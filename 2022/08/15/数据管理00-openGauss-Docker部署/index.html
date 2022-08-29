@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据管理00 openGauss Docker部署 | TakuZen&#39;s Blog | Code is Poetry</title>
+
+  
+  <meta name="author" content="ZhuoRan-TakuZen">
+  
+
+  
+  <meta name="description" content="A personal Blog about Machine Learning.">
+  
+
+  
+  
+  <meta name="keywords" content="openGauss,DB,Docker,Configuration">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="数据管理00 openGauss Docker部署"/>
+
+  <meta property="og:site_name" content="TakuZen&#39;s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="TakuZen&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">TakuZen&#39;s Blog</a>
+    </h1>
+    <p class="site-description">Code is Poetry</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>数据管理00 openGauss Docker部署</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/08/15/数据管理00-openGauss-Docker部署/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-15T05:33:41.618Z">
+          2022-08-15
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="openGauss-架构学习"><a href="#openGauss-架构学习" class="headerlink" title="openGauss 架构学习"></a>openGauss 架构学习</h1><p>openGauss 是华为研发的开源关系型数据库，具有高性能、高可用、高安全、易运维、全开放特点。</p>
+<h3 id="openGauss-系统架构："><a href="#openGauss-系统架构：" class="headerlink" title="openGauss 系统架构："></a>openGauss 系统架构：</h3><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815141035566.png" alt="image-20220815141035566" style="zoom:50%;" />
+
+<p>OM（Operation Manager）：运维管理模块，提供集群日常运维、配置管理的接口和工具，包括安装、升级以及系统层面的一些功能。</p>
+<p>CM（Cluster Manager）：集群管理模块，提供集群启停、主备切换、状态查询等功能。</p>
+<p>openGauss 主备（Data Node)：在企业部署中，往往采用主备的形式，主机备机通常部署在不同的物理节点上。社区版 openGauss 支持最多 7 个备份。</p>
+<p>客户端驱动（Client Driver）：面向用户，接受访问请求，返回查询结果。提供 SQL 查询、JDBC、ODBC等功能。</p>
+<p>Storage：支持本地存储、云存储等不同形式介质的访问。</p>
+<p>openGauss 内核：提供内存管理、进程管理、SQL引擎等核心功能。</p>
+<h3 id="openGauss-内核架构："><a href="#openGauss-内核架构：" class="headerlink" title="openGauss 内核架构："></a>openGauss 内核架构：</h3><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815142021363.png" alt="image-20220815142021363" style="zoom:50%;" />
+
+<p>用户在业务侧通过 GSQL、JDBC、Python 等客户端驱动连接到数据库，由业务处理线程进行处理；经过词法&#x2F;语法分析，进行语义处理；再在 SQL 优化器中对语句进行优化改写，生成执行计划，下发到执行引擎中；执行时，对象等信息存储在数据字典缓冲区，磁盘数据存储在数据缓冲区，方便下次查询，日志缓冲区用于暂存日志。</p>
+<p>除了业务处理线程外，还有系统监控、检查点、后台写、日志写、归档等多个后台线程，提供其他各类行动，这些线程协作运行，构建出 openGauss 的内核体系架构。</p>
+<h3 id="openGauss-线程管理："><a href="#openGauss-线程管理：" class="headerlink" title="openGauss 线程管理："></a>openGauss 线程管理：</h3><p><strong>采用多线程的原因：</strong></p>
+<ul>
+<li>多进程应用的不同进程之间数据共享复杂，同步简单；多线程应用数据共享简单，同步复杂</li>
+<li>多进程应用占用内存多、切换复杂、速度慢、CPU 利用率低下；多线程应用占用内存少、切换简单、CPU 利用率高</li>
+</ul>
+<p>尽管有更大的开发和维护难度，线程管理模式能为 openGauss 提供更极致的性能，减少频繁创建或切换进程带来的开销，更高效的利用资源。</p>
+<p><strong>线程分类：</strong></p>
+<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220816150647613.png" alt="image-20220816150647613" style="zoom:50%;" />
+
+<p>主线程 - PostmasterMain：初始化、启动辅助线程、循环监听</p>
+<p>业务处理线程 - PostgresMain：处理客户端连接请求、执行相关 SQL 业务</p>
+<p>辅助线程：日志读写、读脏、检查点、统计信息等等</p>
+<h1 id="容器安装"><a href="#容器安装" class="headerlink" title="容器安装"></a>容器安装</h1><p>使用 Docker 安装 openGauss 镜像，省去搭建 CentOS 虚拟机的步骤</p>
+<h3 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h3><p>构建 CentOS 7.6 镜像，之后按顺序执行命令，构建 OpenGauss 镜像。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos:<span class="number">7.6</span>.<span class="number">1810</span></span><br><span class="line"><span class="comment">#安装依赖包</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> yum update -y &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">	yum install -y <span class="built_in">which</span> gcc gcc-c++ gdb git make cmake wget libaio-devel flex bison ncurses-devel glibc-devel patch lsb_release readline-devel</span></span><br><span class="line"><span class="comment">#创建用户，openGauss基于postgresql，和postresql一样，不能在root用户下启动</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;123456&#x27;</span> | passwd --stdin root &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    groupadd dbgroup &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    useradd -g dbgroup omm</span></span><br><span class="line"><span class="comment">#切换工作目录，下面几条命令都在此目录下执行</span></span><br><span class="line"><span class="keyword">USER</span> omm</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /home/omm</span></span><br><span class="line"><span class="comment">#下载openGauss-third_party_binarylibs解压</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> wget https://opengauss.obs.cn-south-1.myhuaweicloud.com/latest/openGauss-third_party_binarylibs.tar.gz &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    tar -zxf openGauss-third_party_binarylibs.tar.gz &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    <span class="built_in">mv</span> openGauss-third_party_binarylibs binarylibs</span></span><br><span class="line"><span class="comment">#clone源码，编译，编译后安装在/home/omm/openGauss-server/mppdb_temp_install下</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> git <span class="built_in">clone</span> https://gitee.com/opengauss/openGauss-server.git &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    <span class="built_in">cd</span> openGauss-server &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    sh build.sh -m debug -3rd /home/omm/binarylibs &amp;&amp;\</span></span><br><span class="line"><span class="language-bash">    <span class="built_in">cp</span> -r simpleInstall/ mppdb_temp_install/</span></span><br><span class="line"><span class="comment">#清理垃圾文件</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">rm</span> openGauss-third_party_binarylibs.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><p>PowerShell 中使用 docker 命令构建镜像</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从gite仓库访问dockerfile脚本构建镜像,指定构建好的镜像名称为：open-gauss-debug:v1</span></span><br><span class="line">docker build openGaussDockerfile <span class="literal">-t</span> <span class="built_in">open-gauss</span><span class="literal">-debug</span>:v1</span><br></pre></td></tr></table></figure>
+
+<p>之后等待约15分钟（设备配置决定）即可构建完成</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/Snipaste_2022-08-14_20-12-10.png" alt="Snipaste_2022-08-14_20-12-10"></p>
+<p>之后使用 docker images 命令查看已安装镜像，可以看到 open-gauss-debug 镜像已经存在，并使用 docker run 命令启动镜像，进入默认安装文件夹，可以看到数据库已经安装完毕</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -u 参数指定登录的用户，openGauss不能在root用户下启动</span></span><br><span class="line">docker run <span class="literal">-u</span> omm <span class="literal">-it</span> <span class="built_in">open-gauss</span><span class="literal">-debug</span>:v1</span><br></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/Snipaste_2022-08-14_20-12-45.png" alt="Snipaste_2022-08-14_20-12-45" style="zoom:150%;" />
+
+<p>之后进入 simpleInstall 文件夹，运行安装脚本 install.sh，该脚本可配置环境变量并初始化一个用于测试的 demo 数据库</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> simpleInstall/</span><br><span class="line"><span class="comment"># -w 是指定初始化数据库的密码</span></span><br><span class="line">sh install.sh <span class="literal">-w</span> Gauss_123</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/Snipaste_2022-08-14_20-13-09.png" alt="Snipaste_2022-08-14_20-13-09"></p>
+<p>脚本安装完成后会询问是否创建 demo 数据库，输入 yes，完成数据库搭建</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815135918319.png" alt="image-20220815135918319"></p>
+<p>之后还需要刷新环境变量，才能连接数据库</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让bash重新加载.bashrc文件</span></span><br><span class="line">source ~/.bashrc</span><br><span class="line"><span class="comment">#连接数据库</span></span><br><span class="line">gsql <span class="literal">-d</span> postgres</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815140100463.png" alt="image-20220815140100463"></p>
+<p>使用 \l 命令测试，出现查询结果，即安装完成</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220815140219461.png" alt="image-20220815140219461"></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/openGauss/">openGauss</a><a href="/tags/DB/">DB</a><a href="/tags/Docker/">Docker</a><a href="/tags/Configuration/">Configuration</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+	<section id="comment" class="comment">
+		<div id="vcomments"></div>
+	</section>
+	<!-- LeanCloud -->
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+	<!-- Valine -->
+	<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+	<script>
+		new Valine({
+			el: '#vcomments',
+			appId: 'FGQ8zuHTdVNgVWaNK9TI1Md9-gzGzoHsz',
+			appKey: 'etVGbTl6l7ovK2VGnoOaXSHo'
+		})
+	</script>
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2022 ZhuoRan-TakuZen
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

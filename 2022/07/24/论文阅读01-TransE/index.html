@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>论文阅读01 TransE | TakuZen&#39;s Blog | Code is Poetry</title>
+
+  
+  <meta name="author" content="ZhuoRan-TakuZen">
+  
+
+  
+  <meta name="description" content="A personal Blog about Machine Learning.">
+  
+
+  
+  
+  <meta name="keywords" content="TransE,RepresentationLearning">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="论文阅读01 TransE"/>
+
+  <meta property="og:site_name" content="TakuZen&#39;s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="TakuZen&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">TakuZen&#39;s Blog</a>
+    </h1>
+    <p class="site-description">Code is Poetry</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>论文阅读01 TransE</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/07/24/论文阅读01-TransE/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-07-24T05:57:14.839Z">
+          2022-07-24
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>前段时间忙家里各种杂事，只看了师兄给的一篇表示学习综述，大概了解了一下知识图谱和表示学习相关的技术，接下来计划将一些重要模型进一步学习，自己尝试实现一下，这里就以 TransE 作为开头，开个新坑。</p>
+<h1 id="TransE-原理"><a href="#TransE-原理" class="headerlink" title="TransE 原理"></a>TransE 原理</h1><p>TransE 模型来源于 <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.5555/2999792.2999923">Translating embeddings for modeling multi-relational data</a> 这篇论文，从标题上不难看出，TransE 将表示学习的过程看做是<strong>“翻译”</strong>的过程。其基本思想是，将知识三元组中的 relation 看做从 head 到 tail 的翻译过程，如果将这些关系都用向量表示，则应满足</p>
+<p>$$<br>head + relation \approx tail<br>$$<br>为了让 relation 的表示能够达到以上要求，TransE 定义了一个距离函数 $d(h + r, t)$来计算头实体和为尾实体之间的距离，原论文使用的是欧氏距离，也可以使用曼哈顿距离。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-c271aad4fc8f9026b19dc31246c3b50c_1440w.jpg" alt="img"></p>
+<p>如果成功构建了这样规则下的网络关系，那么就可以根据一个实体和关系来预测另一个实体，或者通过两个实体直接预测它们的关系。</p>
+<h1 id="TransE-训练"><a href="#TransE-训练" class="headerlink" title="TransE 训练"></a>TransE 训练</h1><p>训练时首先随机生成初始实体向量和关系向量，用于表示知识图谱。整个训练的目的就是求解正确的向量数值，损失函数可以使用 $d(h + r, t)$ 来计算，分为两个方向，正确的三元组应当有更小的 $d$，错误的三元组的 $d$ 则是越大越好。这种方法就是 <strong>negative sampling</strong>，<strong>即相对于负例，正例的得分更高</strong>。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190504222759459.png" alt="在这里插入图片描述"></p>
+<p>其中 $(h’,l,t’)$ 称为 <strong>corrupted triplet</strong>，是非同时随机替换头或尾实体得到的负例（也可以替换relation）。$\gamma$ 为 margin。事实上这就是在计算 Soft-margin Loss，可以认为，transE针对给定三元组进行二分类任务，其中负例是通过替换自行构造的，目标是使得最相近的正负例样本距离最大化。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/PaperReading/">PaperReading</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/TransE/">TransE</a><a href="/tags/RepresentationLearning/">RepresentationLearning</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+	<section id="comment" class="comment">
+		<div id="vcomments"></div>
+	</section>
+	<!-- LeanCloud -->
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+	<!-- Valine -->
+	<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+	<script>
+		new Valine({
+			el: '#vcomments',
+			appId: 'FGQ8zuHTdVNgVWaNK9TI1Md9-gzGzoHsz',
+			appKey: 'etVGbTl6l7ovK2VGnoOaXSHo'
+		})
+	</script>
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2022 ZhuoRan-TakuZen
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习05 Transformer | TakuZen&#39;s Blog | Code is Poetry</title>
+
+  
+  <meta name="author" content="ZhuoRan-TakuZen">
+  
+
+  
+  <meta name="description" content="A personal Blog about Machine Learning.">
+  
+
+  
+  
+  <meta name="keywords" content="DeepLearning,Transformer,MachineLearning">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="机器学习05 Transformer"/>
+
+  <meta property="og:site_name" content="TakuZen&#39;s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="TakuZen&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">TakuZen&#39;s Blog</a>
+    </h1>
+    <p class="site-description">Code is Poetry</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>机器学习05 Transformer</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/08/06/机器学习05-Transformer/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-06T05:30:00.000Z">
+          2022-08-06
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><h2 id="Transformer-是什么？"><a href="#Transformer-是什么？" class="headerlink" title="Transformer 是什么？"></a>Transformer 是什么？</h2><p>本质上是一种 Sequence to sequence (Seq2seq) 的转换</p>
+<p>输入是序列，输出也是序列（输出长度不确定）</p>
+<p>适合用于语音识别（现在多使用 RNN-Transducer）、文本翻译、QA、NLP（转化为QA）等（输出序列长度不确定，没有明确关系）</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414014551597.png" alt="image-20220414014551597"></p>
+<p>也可用于 Multi-label Classification 多标签分类</p>
+<p>输入符合输出结果中的多种标签，是一对多的分类问题，比如输入是一篇文章，输出既有语言，又有体裁，又有正负面评价等等标签。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414020620729.png" alt="image-20220414020620729"></p>
+<p>Multi-class Classification 多类别分类（传统分类问题，与前者区分）</p>
+<p>输入属于输出结果中的某一个类，是一对一的分类问题，比如输入是一段语音，输出分类为中文或英文（看似与多标签分类问题相似，实际两者很难用同一类模型解决）</p>
+<h2 id="Seq2seq-基本结构"><a href="#Seq2seq-基本结构" class="headerlink" title="Seq2seq 基本结构"></a>Seq2seq 基本结构</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021014715.png" alt="image-20220414021014715"></p>
+<p>基本结构：输入序列经过 **编码器 Encoder **部分处理，交由 **解码器 Decoder **处理为输出序列</p>
+<h3 id="Encoder-编码器"><a href="#Encoder-编码器" class="headerlink" title="Encoder 编码器"></a>Encoder 编码器</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021341139.png" alt="image-20220414021341139"></p>
+<p>Encoder 的任务是将一个向量输入转化为另一个向量输出，可以使用 RNN、CNN 等各种模型。</p>
+<h3 id="Decoder-解码器"><a href="#Decoder-解码器" class="headerlink" title="Decoder 解码器"></a>Decoder 解码器</h3><h4 id="Autoregressive-Decoder-自回归解码器"><a href="#Autoregressive-Decoder-自回归解码器" class="headerlink" title="Autoregressive Decoder 自回归解码器"></a>Autoregressive Decoder 自回归解码器</h4><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023057892.png" alt="image-20220414023057892"></p>
+<p>以语音识别为例，Decoder 将 Encoder 的输出作为输入，在得到开始信号（BEGIN）之后，计算得到第一个输出结果，并将这一结果连同 Encoder 输出作为新的输入，计算得到下一个输出结果，如此反复直到输出结束</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png" alt="image-20220414023356616"></p>
+<p>事实上，编解码器结构是比较相似的。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DeepLearning/">DeepLearning</a><a href="/tags/Transformer/">Transformer</a><a href="/tags/MachineLearning/">MachineLearning</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+	<section id="comment" class="comment">
+		<div id="vcomments"></div>
+	</section>
+	<!-- LeanCloud -->
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+	<!-- Valine -->
+	<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+	<script>
+		new Valine({
+			el: '#vcomments',
+			appId: 'FGQ8zuHTdVNgVWaNK9TI1Md9-gzGzoHsz',
+			appKey: 'etVGbTl6l7ovK2VGnoOaXSHo'
+		})
+	</script>
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2022 ZhuoRan-TakuZen
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>
