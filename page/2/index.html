@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>第 2 页 | TakuZen&#39;s Blog | Code is Poetry</title>
+
+  
+  <meta name="author" content="ZhuoRan-TakuZen">
+  
+
+  
+  <meta name="description" content="A personal Blog about Machine Learning.">
+  
+
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="TakuZen&#39;s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="TakuZen&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">TakuZen&#39;s Blog</a>
+    </h1>
+    <p class="site-description">Code is Poetry</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/04/05/机器学习00-PyTorch环境配置/"><span>机器学习00 PyTorch环境配置</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/04/05/机器学习00-PyTorch环境配置/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-04-05T05:30:00.000Z">
+          2022-04-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="PyTorch-环境配置："><a href="#PyTorch-环境配置：" class="headerlink" title="PyTorch 环境配置："></a>PyTorch 环境配置：</h1><p>毕设需要用到 PyTorch，网上的教程比较老了，版本都很旧，PyTorch 已经不支持 10.2 的 cuda 了，这里重新记录一下配置过程。</p>
+<h2 id="1-Anaconda-安装："><a href="#1-Anaconda-安装：" class="headerlink" title="1. Anaconda 安装："></a>1. Anaconda 安装：</h2><p>在 <a target="_blank" rel="noopener" href="https://www.anaconda.com/">Anaconda  官网</a> 下载 Anaconda 安装包，按引导安装（选择All Users，不配置环境变量）</p>
+<p>环境变量配置如下：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123333832.png" alt="image-20220412123333832"></p>
+<p>cmd 中输入 conda –version，出现如下结果表示成功</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123431028.png" alt="image-20220412123431028"></p>
+<h2 id="2-CUDA-toolkit-安装："><a href="#2-CUDA-toolkit-安装：" class="headerlink" title="2. CUDA toolkit 安装："></a>2. CUDA toolkit 安装：</h2><p>首先安装 Visual Studio 2017（千万不要装2019，如果已经安装了2019，建议卸载重新安装），至少选择 C++ 桌面开发：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411232126734.png" alt="image-20220411232126734"></p>
+<p>接下来安装 CUDA，为配合 PyTorch 建议使用 11.3 版本（10系以上N卡应该都支持）： </p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.cn/cuda-11.3.0-download-archive?target_os=Windows&target_arch=x86_64&target_version=10">安装地址</a>，选择系统及版本，建议使用本地 exe 安装：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230456273.png" alt="image-20220411230456273"></p>
+<p>安装时仅选择 CUDA 组件即可：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230856055.png" alt="image-20220411230856055"></p>
+<p>完成后在终端中输入 “ nvcc -V ”检测，如图则安装完毕</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411231948925.png" alt="image-20220411231948925"></p>
+<p>除此之外，还需安装 cuDNN，与 11.3 版本 CUDA 相匹配的版本为 8.2.1 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.1.32/11.3_06072021/cudnn-11.3-windows-x64-v8.2.1.32.zip">下载地址</a></p>
+<p>下载完成后解压，复制到CUDA安装目录下</p>
+<h2 id="3-PyTorch-配置："><a href="#3-PyTorch-配置：" class="headerlink" title="3. PyTorch 配置："></a>3. PyTorch 配置：</h2><p>首先创建新虚拟环境，cmd 中输入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n PyTorch python=3.7</span><br></pre></td></tr></table></figure>
+
+<p>出现提示后，输入 y 确定即安装完毕（网络问题可以换清华源解决）</p>
+<p>创建完成后输入如下代码，激活虚拟环境：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate PyTorch</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在 <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">PyTorch 官网</a> 中选择好 PyTorch 版本、系统、包管理器、语言、CUDA版本：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411224428741.png" alt="image-20220411224428741"></p>
+<p>获得如下 Conda 命令，输入 cmd 进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch</span><br></pre></td></tr></table></figure>
+
+<p>出现提示后，输入 y 确定即安装完毕</p>
+<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h2><p>输入如下代码测试：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(torch.cuda.is_available())</span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(device)</span><br><span class="line"><span class="built_in">print</span>(torch.cuda.get_device_name(<span class="number">0</span>))</span><br><span class="line"><span class="built_in">print</span>(torch.rand(<span class="number">3</span>,<span class="number">3</span>).cuda())</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412170940291.png" alt="image-20220412170940291"></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/MachineLearning/">MachineLearning</a><a href="/tags/Configuration/">Configuration</a><a href="/tags/PyTorch/">PyTorch</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/04/05/机器学习00-PyTorch环境配置/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+
+<nav class="pagination">
+  
+  <a href="/" class="pagination-prev">上一页</a>
+  
+  
+</nav>
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2022 ZhuoRan-TakuZen
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>

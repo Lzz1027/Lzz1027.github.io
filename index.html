@@ -67,15 +67,86 @@
 
   
     
-    <h3 class="article-title"><a href="/2022/08/29/论文阅读02-知识图谱构建技术综述/"><span>论文阅读02 知识图谱构建技术综述</span></a></h3>
+    <h3 class="article-title"><a href="/2022/08/31/数据管理01-Neo4j学习/"><span>数据管理01 Neo4j学习</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2022/08/29/论文阅读02-知识图谱构建技术综述/" rel="bookmark">
-        <time class="entry-date published" datetime="2022-08-29T05:00:00.000Z">
-          2022-08-29
+      <a href="/2022/08/31/数据管理01-Neo4j学习/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-31T06:28:27.422Z">
+          2022-08-31
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="Neo4j-学习笔记"><a href="#Neo4j-学习笔记" class="headerlink" title="Neo4j 学习笔记"></a>Neo4j 学习笔记</h1><p>图数据库是基于图论实现的一种 NoSQL 数据库，其数据存储结构和数据查询方式都以图论为基础，主要用于存储更多的连接数据。</p>
+<p>在关系复杂的数据上，图数据库相比关系型数据库有着更快的查询速度，即使是对于深度和复杂的查询也是如此。</p>
+<p>在图数据库中，用<strong>节点</strong>和<strong>关系</strong>来取代关系型数据库中的<strong>表</strong>和<strong>外键</strong>。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Note/">Note</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/DB/">DB</a><a href="/tags/Neo4j/">Neo4j</a><a href="/tags/Cypher/">Cypher</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2022/08/31/数据管理01-Neo4j学习/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2022/08/31/论文阅读02-知识图谱构建技术综述/"><span>论文阅读02 知识图谱构建技术综述</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/08/31/论文阅读02-知识图谱构建技术综述/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-08-31T05:00:00.000Z">
+          2022-08-31
         </time>
       </a>
     </span>
@@ -88,7 +159,65 @@
     <div class="entry">
       
         <p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220829130310059.png" alt="image-20220829130310059"></p>
-<p>本周阅读的是《知识图谱构建技术综述》这篇论文，于 2016 年发表于《计算机研究与发展》，是课题组知识图谱研究方向的必读论文之一。本篇综述从技术框架和图谱定义出发，介绍了知识图谱的各类构建技术。</p>
+<p>​        </p>
+<p>​        本周阅读的是《知识图谱构建技术综述》这篇论文，于 2016 年发表于《计算机研究与发展》，是课题组知识图谱研究方向的必读论文之一。本篇综述从技术框架和图谱定义出发，介绍了知识图谱的各类构建技术及其发展历程。以下是重点概念的笔记：</p>
+<h2 id="1-知识图谱定义与架构"><a href="#1-知识图谱定义与架构" class="headerlink" title="1.知识图谱定义与架构"></a>1.知识图谱定义与架构</h2><p><strong>定义：</strong>结构化语义知识库，以<strong>符号形式</strong>描述物理世界中的<strong>概念</strong>及其<strong>相互关系</strong>。</p>
+<p><strong>基本组成单位：</strong>“实体-关系-实体”三元组，“实体-属性”值对。</p>
+<p><strong>研究价值：</strong>能够<strong>在 Web 网页之上</strong>建立概念间的链接关系，从而<strong>以最小代价</strong>将互联网累计的知识组织起来，成为<strong>真正可用的知识</strong>。</p>
+<p><strong>应用价值：</strong>改变现有的“字符串模糊匹配”信息检索方式，通过推理<strong>实现真正的概念检索</strong>，并以图形化方式向用户<strong>展示经过分类整理的结构化知识</strong>。</p>
+<p><strong>逻辑架构：</strong>包括将知识以事实为单位存储在图数据库的<strong>数据层</strong>，该层以“实体-关系-实体”三元组为事实的基本表达方式，大量数据构成实体关系网络，形成“图谱”；还包括存储经提炼之后的知识的<strong>模式层</strong>，该层为知识图谱的核心，往往采用本体库来管理该层。</p>
+<p><strong>技术架构：</strong>知识图谱的构建是不断更新迭代的过程。每轮迭代包括三个阶段：<strong>信息抽取</strong>、<strong>知识融合</strong>、<strong>知识加工</strong>。即可以借助百科网站等结构化数据源以<strong>自顶向下</strong>的方式构建，也可以从公开数据中提取资源模式，选择置信度高的新模式，以<strong>自底向上</strong>的方式构建。</p>
+<h2 id="2-知识图谱构建技术"><a href="#2-知识图谱构建技术" class="headerlink" title="2.知识图谱构建技术"></a>2.知识图谱构建技术</h2><h3 id="2-1-信息抽取"><a href="#2-1-信息抽取" class="headerlink" title="2.1.信息抽取"></a>2.1.信息抽取</h3><p>关键问题是<strong>如何从异构数据源中自动抽取信息得到候选知识单元</strong>。具体涉及到的关键技术包括：实体抽取、关系抽取 、属性抽取。</p>
+<h4 id="2-1-1-实体抽取："><a href="#2-1-1-实体抽取：" class="headerlink" title="2.1.1,实体抽取："></a>2.1.1,实体抽取：</h4><p>也叫命名实体识别（named entity recognition，NER），从文本数据集中自动识别出命名实体，由于实体抽取的质量对后续的知识获取效率及质量影响极大，因此是信息抽取中<strong>最为基础和关键的部分</strong>。</p>
+<p>早起使用<strong>基于规则的方法</strong>，但有明显局限性，且耗费巨大人力；</p>
+<p>随后开始使用<strong>统计机器学习的方法</strong>辅助解决命名实体抽取问题；最近也开始采用<strong>有监督学习与规则结合</strong>的方法；</p>
+<p>现今，学术界开始关注开放域的信息抽取问题，不在限定于特定知识领域，而面向开放的互联网。<strong>建立科学完整的命名实体分类体系</strong>也成为了了重要问题。</p>
+<h4 id="2-1-2-关系抽取："><a href="#2-1-2-关系抽取：" class="headerlink" title="2.1.2.关系抽取："></a>2.1.2.关系抽取：</h4><p>经过实体抽取后只能得到离散的命名实体，还需要通过关系抽取提取实体之间的关联关系，才能形成网状知识结构。</p>
+<p>早起采用人工构造语法语义规则，模式匹配的方式，有较大的局限性，对规则制定者有较高专业要求，工作量较大；</p>
+<p>之后开始使用统计机器学习方法，且近年来逐渐转向半监督和无监督的学习方式；</p>
+<p>此外，还有无需预先定义实体关系类型的面向开放域的关系抽取技术，这方面的研究重点是<strong>如何提升关系抽取的准确率和召回率</strong>，以及<strong>对隐含语义关系而非词汇关系的抽取</strong></p>
+<h4 id="2-1-3-属性抽取："><a href="#2-1-3-属性抽取：" class="headerlink" title="2.1.3.属性抽取："></a>2.1.3.属性抽取：</h4><p>属性抽取的目标是<strong>从不同信息源中采集特定实体的属性信息</strong>，也可以将属性抽取问题转化为名字性的关系抽取问题</p>
+<p>当前主要以百科类网站提供的半结构化数据为实体属性抽取研究的数据来源；</p>
+<p><strong>如何从海量的非结构化数据中抽取实体属性</strong>是值得关注的理论研究问题：一种思路是基于百科类半结构化数据训练出模型，再应用于非结构化数据；另一种思路是基于数据挖掘直接获取实体与属性之间的关系模式。</p>
+<h3 id="2-2-知识融合"><a href="#2-2-知识融合" class="headerlink" title="2.2.知识融合"></a>2.2.知识融合</h3><p>主要包括知识链接和知识合并，经过知识融合可以消除歧义，剔除冗余和错误概念，从而提升知识质量。</p>
+<h4 id="2-2-1-实体链接："><a href="#2-2-1-实体链接：" class="headerlink" title="2.2.1.实体链接："></a>2.2.1.实体链接：</h4><p>实体链接（entity linking）对于从文本中抽取得到的实体对象，将其链接到知识库中对应的正确实体对象的操作。</p>
+<p>基本思路是：对于给定实体，从知识库中筛选出一组候选对象，再计算相似度，从而链接到正确实体对象。</p>
+<p>基本流程是：从文本中抽取实体，进行实体消歧，和共指消解，连接到对应实体</p>
+<h5 id="2-2-1-1-实体消歧："><a href="#2-2-1-1-实体消歧：" class="headerlink" title="2.2.1.1.实体消歧："></a>2.2.1.1.实体消歧：</h5><p>实体消歧（entity disambiguation）专门用于解决同名实体产生歧义的技术，用于解决<strong>某个实体对应于多个实体对象的问题</strong>（例：李娜可以指向歌手李娜也可以指向网球运动员李娜）。</p>
+<p>聚类法消歧可以将所有指向同一实体对象的指称项聚集到该对象的中心类别之下，常用的方法有：空间向量模型（词袋模型）、语义模型、社会网络模型、百科知识模型等</p>
+<h5 id="2-2-1-2-共指消解："><a href="#2-2-1-2-共指消解：" class="headerlink" title="2.2.1.2.共指消解："></a>2.2.1.2.共指消解：</h5><p>共指消解（entity resolution）用于解决<strong>多个指称项对应于同一实体对象的问题</strong>（例：在同一篇新闻中，”Barack Obama” 和 “president Obama” 以及 “the president” 等指称项可能指向的是同一个实体对象）</p>
+<h4 id="2-2-2-知识合并："><a href="#2-2-2-知识合并：" class="headerlink" title="2.2.2.知识合并："></a>2.2.2.知识合并：</h4><p><strong>合并外部数据库：</strong>数据层融合需要解决实例与关系之间的冲突问题以及冗余问题；模式层融合可将新得到的本体融入已有本体库中。</p>
+<p>基本流程为：获取知识、概念匹配、实体匹配、知识评估。</p>
+<p><strong>合并关系型数据库：</strong>将关系型数据库的数据转换为 RDF 三元组数据，该类技术也可应用于其他半结构化数据。</p>
+<h3 id="2-3-知识加工"><a href="#2-3-知识加工" class="headerlink" title="2.3.知识加工"></a>2.3.知识加工</h3><p>主要包括：本体构建、知识推理和质量评估。</p>
+<h4 id="2-3-1-本体构建："><a href="#2-3-1-本体构建：" class="headerlink" title="2.3.1.本体构建："></a>2.3.1.本体构建：</h4><p>本体是对概念进行建模的规范，是描述客观世界的抽象模型。</p>
+<p>本体反映的知识是一种明确定义的公式，是共享的；本体是树状结构的，相邻层次之间有严格的 “Is A” 关系</p>
+<h4 id="2-3-2-知识推理："><a href="#2-3-2-知识推理：" class="headerlink" title="2.3.2.知识推理："></a>2.3.2.知识推理：</h4><p>知识推理是指从已有实体关系数据出发，经计算机推理得到实体间的新管理，从而拓展和丰富知识网络的过程。</p>
+<p>推理方法可以分为：基于逻辑的推理（一阶谓词逻辑、描述逻辑、基于规则的逻辑）和基于图的推理（神经网络模型、Path Ranking 算法）。</p>
+<h4 id="2-3-3-质量评估："><a href="#2-3-3-质量评估：" class="headerlink" title="2.3.3.质量评估："></a>2.3.3.质量评估：</h4><p>质量评估是知识库扣减技术的重要组成部分，引入质量评估可以对知识的可信度进行量化，并通过舍弃置信度较低的知识来保障并提升知识库质量。</p>
+<h3 id="2-4-知识更新"><a href="#2-4-知识更新" class="headerlink" title="2.4.知识更新"></a>2.4.知识更新</h3><p>知识图谱的构建是不断更新迭代的过程，有两种方式：</p>
+<p>全面更新：以更新后的全部数据为输入，从零开始重新构建；特点是操作简单，资源消耗大，维护开销大；</p>
+<p>增量更新，以当前新增数据作为输入，向现有图谱中新增；特点是操作复杂，资源消耗小，干预开销大。</p>
+<h2 id="3-跨语言知识图谱构建"><a href="#3-跨语言知识图谱构建" class="headerlink" title="3.跨语言知识图谱构建"></a>3.跨语言知识图谱构建</h2><p><strong>意义：</strong></p>
+<ol>
+<li>各语种知识分布不均匀，跨语言构建知识图谱可以弥补单语种知识库的不足；</li>
+<li>可以充分利用多语种在知识表达方式上的互补性，从而增加知识覆盖率和共享度；</li>
+<li>通过不同语言对同一知识的表述实现错误信息过滤。</li>
+</ol>
+<h2 id="4-知识图谱应用"><a href="#4-知识图谱应用" class="headerlink" title="4.知识图谱应用"></a>4.知识图谱应用</h2><ol>
+<li><p>智能语义搜索应用：对搜索关键字进行解析和推理，映射到图谱中的概念上，再返回图形化的知识结构（如百度、谷歌搜索得到的知识卡片）；</p>
+<img src="C:\Users\19658\AppData\Roaming\Typora\typora-user-images\image-20220830223809812.png" alt="image-20220830223809812" style="zoom:50%;" />
+</li>
+<li><p>深度问答应用：对问题进行语义分析和语法分析，转化为结构化的查询语句，再在图谱中查询答案（对与知识库中没有答案的情况，采用知识推理技术给出）；</p>
+</li>
+</ol>
+<h2 id="5-问题与挑战"><a href="#5-问题与挑战" class="headerlink" title="5.问题与挑战"></a>5.问题与挑战</h2><ol>
+<li>面向开放域的信息抽取方法仍处于起步阶段；</li>
+<li>知识融合环节中，如何实现准确的实体链接；</li>
+<li>知识加工过程中的推理技术亟待突破；</li>
+<li>知识更新环节严重依赖人工干预；</li>
+<li>如何解决知识的表达、存储与查询问题。</li>
+</ol>
 
       
     </div>
@@ -123,7 +252,7 @@
       <span>
         <i class="icon-comments"></i>
         <span>
-          <a href="/2022/08/29/论文阅读02-知识图谱构建技术综述/#comment">评论</a>
+          <a href="/2022/08/31/论文阅读02-知识图谱构建技术综述/#comment">评论</a>
         </span>
       </span>
     </div>
@@ -878,114 +1007,11 @@
 
 
 
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2022/04/05/机器学习00-PyTorch环境配置/"><span>机器学习00 PyTorch环境配置</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2022/04/05/机器学习00-PyTorch环境配置/" rel="bookmark">
-        <time class="entry-date published" datetime="2022-04-05T05:30:00.000Z">
-          2022-04-05
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h1 id="PyTorch-环境配置："><a href="#PyTorch-环境配置：" class="headerlink" title="PyTorch 环境配置："></a>PyTorch 环境配置：</h1><p>毕设需要用到 PyTorch，网上的教程比较老了，版本都很旧，PyTorch 已经不支持 10.2 的 cuda 了，这里重新记录一下配置过程。</p>
-<h2 id="1-Anaconda-安装："><a href="#1-Anaconda-安装：" class="headerlink" title="1. Anaconda 安装："></a>1. Anaconda 安装：</h2><p>在 <a target="_blank" rel="noopener" href="https://www.anaconda.com/">Anaconda  官网</a> 下载 Anaconda 安装包，按引导安装（选择All Users，不配置环境变量）</p>
-<p>环境变量配置如下：</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123333832.png" alt="image-20220412123333832"></p>
-<p>cmd 中输入 conda –version，出现如下结果表示成功</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123431028.png" alt="image-20220412123431028"></p>
-<h2 id="2-CUDA-toolkit-安装："><a href="#2-CUDA-toolkit-安装：" class="headerlink" title="2. CUDA toolkit 安装："></a>2. CUDA toolkit 安装：</h2><p>首先安装 Visual Studio 2017（千万不要装2019，如果已经安装了2019，建议卸载重新安装），至少选择 C++ 桌面开发：</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411232126734.png" alt="image-20220411232126734"></p>
-<p>接下来安装 CUDA，为配合 PyTorch 建议使用 11.3 版本（10系以上N卡应该都支持）： </p>
-<p><a target="_blank" rel="noopener" href="https://developer.nvidia.cn/cuda-11.3.0-download-archive?target_os=Windows&target_arch=x86_64&target_version=10">安装地址</a>，选择系统及版本，建议使用本地 exe 安装：</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230456273.png" alt="image-20220411230456273"></p>
-<p>安装时仅选择 CUDA 组件即可：</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230856055.png" alt="image-20220411230856055"></p>
-<p>完成后在终端中输入 “ nvcc -V ”检测，如图则安装完毕</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411231948925.png" alt="image-20220411231948925"></p>
-<p>除此之外，还需安装 cuDNN，与 11.3 版本 CUDA 相匹配的版本为 8.2.1 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.1.32/11.3_06072021/cudnn-11.3-windows-x64-v8.2.1.32.zip">下载地址</a></p>
-<p>下载完成后解压，复制到CUDA安装目录下</p>
-<h2 id="3-PyTorch-配置："><a href="#3-PyTorch-配置：" class="headerlink" title="3. PyTorch 配置："></a>3. PyTorch 配置：</h2><p>首先创建新虚拟环境，cmd 中输入：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n PyTorch python=3.7</span><br></pre></td></tr></table></figure>
-
-<p>出现提示后，输入 y 确定即安装完毕（网络问题可以换清华源解决）</p>
-<p>创建完成后输入如下代码，激活虚拟环境：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate PyTorch</span><br></pre></td></tr></table></figure>
-
-
-
-<p>在 <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">PyTorch 官网</a> 中选择好 PyTorch 版本、系统、包管理器、语言、CUDA版本：</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411224428741.png" alt="image-20220411224428741"></p>
-<p>获得如下 Conda 命令，输入 cmd 进行安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch</span><br></pre></td></tr></table></figure>
-
-<p>出现提示后，输入 y 确定即安装完毕</p>
-<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h2><p>输入如下代码测试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(torch.cuda.is_available())</span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(device)</span><br><span class="line"><span class="built_in">print</span>(torch.cuda.get_device_name(<span class="number">0</span>))</span><br><span class="line"><span class="built_in">print</span>(torch.rand(<span class="number">3</span>,<span class="number">3</span>).cuda())</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412170940291.png" alt="image-20220412170940291"></p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/Note/">Note</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/MachineLearning/">MachineLearning</a><a href="/tags/Configuration/">Configuration</a><a href="/tags/PyTorch/">PyTorch</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2022/04/05/机器学习00-PyTorch环境配置/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
 
 <nav class="pagination">
   
+  
+  <a href="/page/2/" class="pagination-next">下一页</a>
   
 </nav>
     </main>
