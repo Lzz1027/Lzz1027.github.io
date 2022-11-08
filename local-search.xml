@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>数据结构01-并查集</title>
+    <link href="/2022/11/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%8401-%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    <url>/2022/11/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%8401-%E5%B9%B6%E6%9F%A5%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<h1 id="并查集（Union-Find）"><a href="#并查集（Union-Find）" class="headerlink" title="并查集（Union-Find）"></a>并查集（Union-Find）</h1><h2 id="基本定义："><a href="#基本定义：" class="headerlink" title="基本定义："></a>基本定义：</h2><p>并查集是指：对集合有“并”和“查”两种操作的一种数据结构；（这里的集合可以理解为无向图）</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105213338279.png" alt="image-20221105213338279"></p><p>并操作：将两个节点连通；</p><p>查操作：两个节点是否是连通的；</p><h2 id="连通性："><a href="#连通性：" class="headerlink" title="连通性："></a><strong>连通性：</strong></h2><p><strong>自反性</strong>：p 与 q 连通 即 p 被与 q 连通</p><p><strong>对称性</strong>：p 与 q 连通，则 q 与 p 连通</p><p><strong>传递性</strong>：如果 p 连通 q，q 连通r，则 p 连通 r</p><h2 id="连通子图："><a href="#连通子图：" class="headerlink" title="连通子图："></a>连通子图：</h2><p>相互连通的最大集合，例：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105214300593.png" alt="image-20221105214300593"></p><h2 id="实现操作："><a href="#实现操作：" class="headerlink" title="实现操作："></a>实现操作：</h2><p>对于一个有 N 个节点的并查集，可能有 M 个“并”或“查”的操作混合使用，实现操作的目的是当 N 和 M 非常大的时候仍让保持”并“和”查“高效，</p><h3 id="思路1：快速查找"><a href="#思路1：快速查找" class="headerlink" title="思路1：快速查找"></a>思路1：快速查找</h3><p><strong>思路：</strong>使用大小为 N 的数组存储连通关系，当且仅当数组中的两个值相等时，其下标所指的节点是连通的；初始化时，每个节点的原始值即为本身；</p><p><strong>例：</strong></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105215053780.png" alt="image-20221105215053780"></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105215039652.png" alt="image-20221105215039652"></p><p>这种思路下，<strong>很容易进行查找操作</strong>，对于节点 i 和节点 j，只需要比较 id[i] 和 id[j] 的值，相等则连通，不相等则不连通，时间复杂度为 O(1)。</p><p>但在<strong>进行“并”操作时代价较高</strong>，如果要连接 p 节点和 q 节点，不仅需要将其将 q 点的值修改为 p 点的值，还需将所有与 q点 的值相等的节点的值都修改为 p 点的值，这需要对整个数组进行一次遍历，时间复杂度为 O(N)。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105215732878.png" alt="image-20221105215732878"></p><h3 id="思路2：快速合并"><a href="#思路2：快速合并" class="headerlink" title="思路2：快速合并"></a>思路2：快速合并</h3><p><strong>思路：</strong>这一思路采用树形结构来存储，同样使用大小为 N 的数组，但存储的是节点的父节点，初始化时，每个节点的原始值即为本身；</p><p><strong>例：</strong></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105220558868.png" alt="image-20221105220558868"></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105220611012.png" alt="image-20221105220611012"></p><p>这种思路下，<strong>很容易进行连接操作</strong>，对于节点 p 和节点 q，只需要将 q 的值修改为 p 的值（q的父节点为q）即可，时间复杂度为 O(1)；</p><p>但在<strong>进行“查找”操作时代价较高</strong>，要判断两节点是否连通，需要判断两节点是否有相同的“根”</p><p>如要比较 2 号 和 3 号节点，<strong>需要先找到 2 的根节点：</strong>2 的父节点是 9, 9 的父节点是 9 本身，所以 2 的根节点为 9；<strong>再寻找3的根节点：</strong>3 的父节点是 4, 4 的父节点是 9, 9 的父节点是 9 本身，所以 3 的根节点也为 9；因此两者是连通的。</p><p>在寻找时，需要逐层向上寻找父节点，最坏情况下，如果整个并查集是一个深度为 N 的树，则时间复杂度达到 O(N)</p><h3 id="改进思路1：加权快速合并"><a href="#改进思路1：加权快速合并" class="headerlink" title="改进思路1：加权快速合并"></a>改进思路1：加权快速合并</h3><p><strong>思路：</strong>快速合并的问题在于，树的深度过高会影响查找速度，那么可以通过优化树的高度来改进：</p><p>快速合并在进行连接操作时，如要将 p 和 q 连接，由于总是将 p 连接到 q，可能将<strong>更高的树</strong>的<strong>父节点</strong>设置为<strong>更矮的树</strong>，这使得树的高度被进一步增高；</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105222000514.png" alt="image-20221105222000514"></p><p>如果能够记录树的深度，每次连接时都能将<strong>更矮的树</strong>的<strong>父节点</strong>设置为<strong>更高的树</strong>，就能缩短树的高度。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105222514690.png" alt="image-20221105222514690"></p><p>在实现时，需要额外增加一个数组，用于记录根为 i 的树中的节点数目，增加了一定的空间开销（空间换时间）；</p><h3 id="改进思路2：路径压缩"><a href="#改进思路2：路径压缩" class="headerlink" title="改进思路2：路径压缩"></a>改进思路2：路径压缩</h3><p><strong>思路：</strong>仍然通过优化树的高度来改进：</p><p>路径压缩优化不在连接的时候进行，<strong>在查找操作时进行</strong>：当查询到某节点的根节点时，直接将节点的父节点设置为根节点，缩短了字树的高度，在<strong>下次查找时就能节省时间</strong>了；</p><p><strong>例：</strong>查询 9 的根节点时，需要逐层查询 9、6、3、1 的父节点，其根节点都为 0，则将这些点的,父节点都设置为 0</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105223637199.png" alt="image-20221105223637199"></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105223800468.png" alt="image-20221105223800468"></p><p>这一操作使得树变得“扁平”，且不增加时间复杂度（只需要一个额外的赋值操作）</p><h3 id="总结：时间复杂度分析"><a href="#总结：时间复杂度分析" class="headerlink" title="总结：时间复杂度分析"></a>总结：时间复杂度分析</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221105224224396.png" alt="image-20221105224224396"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>DataStructure</tag>
+      
+      <tag>UnionFind</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>形式语言与自动机04-NFA</title>
+    <link href="/2022/09/15/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA04-NFA/"/>
+    <url>/2022/09/15/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA04-NFA/</url>
+    
+    <content type="html"><![CDATA[<p>如果要构建一个在字母表 {0, 1}上的，接受以 101 为结尾的字符串的 DFA，答案如下：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221003162924197.png" alt="image-20221003162924197"></p><p>假设我们可以猜测我们正在读取的字符串何时只剩下3个符号，那么我们可以简单地寻找序列101，如果我们看到它就接受它</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221003163031244.png" alt="image-20221003163031244"></p><p>由于你无法确定什么时候字符串快要结束，这一自动不再具有确定性</p><p>这种非确定性是一种猜测的能力，我们可以稍后验证</p><p>以 101 结尾的字符串语言的非正式化的非确定性算法：</p><ol><li>猜测你是否接近输入的结束</li><li>如果猜测为是，寻找101并且当看到他的时候接受</li><li>如果猜测为否，再读入一个字符串并跳转到一步</li></ol><h2 id="非确定有限自动机-Nondeterministic-finite-automata"><a href="#非确定有限自动机-Nondeterministic-finite-automata" class="headerlink" title="非确定有限自动机 Nondeterministic finite automata"></a>非确定有限自动机 Nondeterministic finite automata</h2><p>这时一种允许你进行猜测的自动机，例如：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221003163616822.png" alt="image-20221003163616822"></p><ul><li>NFA 的每个状态可以有 0 个、1 个或多个用相同符号标记的跃迁</li><li>状态 $q_0$ 有两个标记为 1 的跃迁</li><li>当读到 1 时，我们可以选择保持 $q_0$ 还是移动到 $q_1$ </li><li>状态  $q_1$ 没有标记为 1 的跃迁</li><li>在 $q_1$ 读入 1 时，就“死掉”了；读入 0，继续到  $q_2$ </li><li>状态  $q_3$ 没有向外的跃迁，当在  $q_3$ 读入任何字符时，也会“死掉”</li></ul><h3 id="NFA-由五个元组组成："><a href="#NFA-由五个元组组成：" class="headerlink" title="NFA 由五个元组组成："></a>NFA 由五个元组组成：</h3><ul><li>$Q$ 是有限的状态集合</li><li>$\Sigma$ 是字母表</li><li>$ \delta : Q \times \Sigma \to Q$的子集，是转移函数</li><li>$q_0 \in Q$ 是初始状态</li><li>$F \subseteq Q$ 是接受状态的集合（最终状态，在图表中用双圈表示）</li></ul><p>只在 $ \delta $ 上和DFA有区别，$ \delta$ 是一个状态集合</p><h3 id="下面是一个-NFA-的图例："><a href="#下面是一个-NFA-的图例：" class="headerlink" title="下面是一个 NFA 的图例："></a>下面是一个 NFA 的图例：</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221003164555774.png" alt="image-20221003164555774"></p><h3 id="NFA-的语言："><a href="#NFA-的语言：" class="headerlink" title="NFA 的语言："></a>NFA 的语言：</h3><p>NFA 的语言是所有字符串的集合，其中存在某种路径，从初始状态开始，当字符串从左向右读取时，该路径将导致接受状态。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221003164700117.png" alt="image-20221003164700117"></p><p>NFA 可以做到一切 DFA 可以做到的事，但它不能做更多。</p><p>语言 L 如果可以被一些 DFA 接受，那么它一定可以被一些 NFA 接受。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Formal Languages</tag>
+      
+      <tag>Alphabet</tag>
+      
+      <tag>string</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>形式语言与自动机03-DFA</title>
+    <link href="/2022/09/14/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA03-DFA/"/>
+    <url>/2022/09/14/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA03-DFA/</url>
+    
+    <content type="html"><![CDATA[<h1 id="有限自动机-Finite-Automata"><a href="#有限自动机-Finite-Automata" class="headerlink" title="有限自动机 Finite Automata"></a>有限自动机 Finite Automata</h1><h2 id="一个有限自动机的例子"><a href="#一个有限自动机的例子" class="headerlink" title="一个有限自动机的例子"></a>一个有限自动机的例子</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220915095950200.png" alt="image-20220915095950200"></p><p>这是第一节课中给出的单开关灯泡电路的案例，这个例子中，有“开”和“关”两个状态，自动机的初始状态是“关”，并且尝试到达“好状态”——“开”。</p><p>那么要经历什么样的 f 操作序列才能到达好状态呢？</p><p>答案是：${ f, fff, fffff, …} &#x3D; {f ^n:n \ is \ odd }$</p><p>这是一个在字母表${f}$上的特定有限自动机的例子。</p><h2 id="确定有限自动机-Deterministic-finite-automata"><a href="#确定有限自动机-Deterministic-finite-automata" class="headerlink" title="确定有限自动机 Deterministic finite automata"></a>确定有限自动机 Deterministic finite automata</h2><h3 id="DFA-由五个元组组成："><a href="#DFA-由五个元组组成：" class="headerlink" title="DFA 由五个元组组成："></a>DFA 由五个元组组成：</h3><ul><li>$Q$ 是有限的状态集合</li><li>$\Sigma$ 是字母表</li><li>$ \delta : Q \times \Sigma \to Q$，一个转移函数</li><li>$q_0 \in Q$ 是初始状态</li><li>$F \subseteq Q$ 是接受状态的集合（最终状态，在图表中用双圈表示）</li></ul><h3 id="下面是一个-DFA-的图例："><a href="#下面是一个-DFA-的图例：" class="headerlink" title="下面是一个 DFA 的图例："></a>下面是一个 DFA 的图例：</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220918191913128.png" alt="image-20220918191913128"></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220918192934803.png" alt="image-20220918192934803"></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220918192833529.png" alt="image-20220918192833529"></p><h3 id="DFA-的语言："><a href="#DFA-的语言：" class="headerlink" title="DFA 的语言："></a>DFA 的语言：</h3><p>一个 DFA 的语言是在其字母表 Σ 上的字符串的集合，且若按照字符串顺序从左到右执行转化操作，可以从初始状态开始到达某个结束状态。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220918194221004.png" alt="image-20220918194221004"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Formal Languages</tag>
+      
+      <tag>Alphabet</tag>
+      
+      <tag>string</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>形式语言与自动机02-字母表和字符串</title>
+    <link href="/2022/09/13/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA02-%E5%AD%97%E6%AF%8D%E8%A1%A8%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <url>/2022/09/13/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA02-%E5%AD%97%E6%AF%8D%E8%A1%A8%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="字母表和字符串"><a href="#字母表和字符串" class="headerlink" title="字母表和字符串"></a>字母表和字符串</h1><p>将词语、数字、词组等表示成字符串是一种常用方式，要定义字符串，就需要字母表；</p><p><strong>字母表是一个有限且非空的符号集合</strong>，例：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912173147921.png" alt="image-20220912173147921" style="zoom:67%;" /><p><strong>字母表 Σ 上的字符串是一个 Σ 中符号的有限序列</strong>，空字符串表示为ε，例：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912173540107.png" alt="image-20220912173540107" style="zoom:67%;" /><p><strong>语言是字母表上的字符串的集合</strong>，语言可以用于表示有 “YES&#x2F;NO” 答案的问题；</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912184330339.png" alt="image-20220912184330339" style="zoom:67%;" /><p>字母表总是有限的，而语言总是无限的（有限语言的研究价值太低）；</p><p>基于以上思想，我们将计算问题转化为集合归属问题来解决，例如：</p><p>一个计算问题为：数字 x 是素数吗？</p><p>可以转化为： $ x \in PRIMES &#x3D; {2,3,5,7,11,13,17,…} ?$</p><p>这里的 PRIMES 是一种语言， 是由字母表 $ \Sigma_2$ 中的字符串中的素数形成的语言；</p><h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><p>Concatenation 串联，无符号，直接连写即可<br>$$<br>w &#x3D; a_1a_2…a_n &amp;abba\<br>v &#x3D; b_1b_2…b_m &amp;bbbaaa\<br>wv&#x3D;a_1a_2…a_nb_1b_2…b_m &amp;abbabbbaaa<br>$$<br>Reverse 翻转，右上角 R，翻转字符串<br>$$<br>w &#x3D; a_1a_2…a_n &amp;abbab\<br>w^R&#x3D;a_n…a_2a_1 &amp;babba<br>$$<br>Length 取长度，绝对值符号，获取字符串长度<br>$$<br>w &#x3D; a_1a_2…a_n &amp;abba\<br>|w|&#x3D;n &amp;4<br>$$<br>对于空集 ε<br>$$<br>|\epsilon| &#x3D; 0\<br>\epsilon w &#x3D; w\epsilon &#x3D; w \<br>\epsilon abbac &#x3D; abb \epsilon ac &#x3D; abbac\epsilon &#x3D; abbac<br>$$<br>Substring 子字符串，一个连续字符的子序列</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912190914117.png" alt="image-20220912190914117" style="zoom:50%;" /><p>Prefix 前缀，Suffix 后缀，一个字符串可以分解为前缀和后缀两部分</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191039457.png" alt="image-20220912191039457" style="zoom:50%;" /><p>Exponent 指数操作，即重复 n 次</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191212589.png" alt="image-20220912191212589" style="zoom:50%;" /><p>* 操作，得到所有可能的字符串，总是无限的</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191411160.png" alt="image-20220912191411160" style="zoom:50%;" /><p>+ 操作，得到除空集外的所有可能字符串，总是无限的</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191633494.png" alt="image-20220912191633494" style="zoom: 50%;" /><p>现在我们可以得到语言的集合定义，即 <strong>任何一个在字母表 Σ 上的语言，都是 Σ* 的子集</strong>；</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191920122.png" alt="image-20220912191920122" style="zoom:67%;" /><p>注意，空集也是一种语言，只有空字符串的集合也是语言；且这二者大小不同；</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192349835.png" alt="image-20220912192349835" style="zoom:67%;" /><p>由于有限语言的研究价值较低，我们考虑无限的语言，如：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192217951.png" alt="image-20220912192217951" style="zoom:67%;" /><p>这里的语言 L 表示 a 的 n 次幂与 b 的 n 次幂的串联</p><h1 id="语言操作"><a href="#语言操作" class="headerlink" title="语言操作"></a>语言操作</h1><p>由于语言是一种集合，我们可以使用所有集合操作：</p><p>交、并、差：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192525934.png" alt="image-20220912192525934" style="zoom:67%;" /><p>补：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192604519.png" alt="image-20220912192604519" style="zoom:67%;" /><p>Reverse 翻转：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192730122.png" alt="image-20220912192730122" style="zoom: 67%;" /><p>串联：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192828517.png" alt="image-20220912192828517" style="zoom:67%;" /><p>注意，如果 L1 或 L2 为空集，连接的结果也为空集</p><p>幂次：</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192859248.png" alt="image-20220912192859248" style="zoom:67%;" /><p>Star-Closure （ Kleene *)</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912193007657.png" alt="image-20220912193007657" style="zoom:67%;" /><p>Positive closure (+)</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912193101645.png" alt="image-20220912193101645" style="zoom:67%;" /><p>注意这里不能写为 L+ &#x3D; L* - ε，如果 L 中本身就有 ε，则会出错</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Formal Languages</tag>
+      
+      <tag>Alphabet</tag>
+      
+      <tag>string</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>形式语言与自动机01-自动机理论</title>
+    <link href="/2022/09/12/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA01-%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%90%86%E8%AE%BA/"/>
+    <url>/2022/09/12/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%9C%BA01-%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%90%86%E8%AE%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 id="什么是自动机理论？"><a href="#什么是自动机理论？" class="headerlink" title="什么是自动机理论？"></a>什么是自动机理论？</h1><ul><li>自动机理论是抽象计算设备（真实计算机的简化抽象模型）的研究</li><li>抽象模型可以帮助我们理解计算机，了解我们能用计算机做什么、做不了什么</li></ul><h2 id="一个简单例子"><a href="#一个简单例子" class="headerlink" title="一个简单例子"></a>一个简单例子</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912164641093.png" alt="image-20220912164641093"></p><p>左图可以视为一个简单计算机系统，以开关信号作为<strong>输入</strong>，以灯泡作为<strong>输出</strong>，唯一的<strong>操作</strong>是“拨动开关，那么整个系统只存在两个<strong>状态</strong>：灯开和灯关；</p><p>该系统可以抽象为右侧的模型，并将初始状态设为灯关的情况，抽象为这样的模型后，我们可以直观的看到，当操作 f 执行奇数次的时候，灯是开启状态，执行偶数次则是关闭状态；</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912165223158.png" alt="image-20220912165223158"></p><p>当存在两个开关时，情况变得复杂了，抽象为右侧模型后，我们可以发现：只有两个开关都拨动奇数次时，灯才会是开的</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912165808224.png" alt="image-20220912165808224"></p><p>如果要设计一个电路系统， 使得当且仅当所有开关拨动相同次数时，灯会开启，如何设计系统？</p><p>这样的复杂问题就需要更加强大的模型抽象能力去解决了，也就是自动机理论要解决的问题：我们能不能设计出这样的系统？如何设计这样的系统？</p><p>这些抽象模型可以用来描述许多小型计算机系统，比如微波炉或闹钟的控制组件；</p><p>这些模型同样也应用于词法分析器中，用于辨别编程语言的表达式是否正确，如：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// is a legal name of a variable in c</span><br><span class="hljs-type">int</span> ab1;<br><br><span class="hljs-comment">// is not</span><br><span class="hljs-type">int</span> <span class="hljs-number">5u</span>=;<br></code></pre></td></tr></table></figure><h2 id="不同种类的自动机"><a href="#不同种类的自动机" class="headerlink" title="不同种类的自动机"></a>不同种类的自动机</h2><p>上述的只是一种计算机设备，还有很多其他的种类：</p><table><thead><tr><th>自动机</th><th>内存</th><th>使用范围</th></tr></thead><tbody><tr><td>finite automata 有限自动机</td><td>设备内存有限；</td><td>用于建模小型计算机；</td></tr><tr><td>push-down automata 下推自动机</td><td>设备内存无限，以受限形式访问；</td><td>用于建模解析器等；</td></tr><tr><td>Turing Machines 图灵机</td><td>设备内存无限；</td><td>用于建模任何计算机；</td></tr><tr><td>time-bounded Turing Machines 有界图灵机</td><td>设备内存无线，但限制运行时间；</td><td>用于建模任何以“合理”时间运行的计算机程序</td></tr></tbody></table><p>本课程学习前两者：</p><p><strong>有限自动机：</strong>我们将学习有限内存的设备可以做什么，不可以做什么；介绍“模拟”：一个设备模仿另一个设备的能力；介绍“不确定性”：设备做出任意选择的能力；</p><p><strong>下推自动机：</strong>与语法有关的设备，描述了编程语言（以及自然语言）的结构；</p><p><strong>图灵机：</strong>是计算机的通用模型，计算出我们希望能计算的任何事物，；</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我们要形式化的问题一定是有：”Yes&#x2F;No” 回答的问题， 比如：</p><ul><li>给定一个词语，是否含有给定的另一个词缀；</li><li>给定一个数 n ，能否被 7 整除？</li><li>给定一个含有括号的表达式，每个左括号都有与之匹配的右括号吗？</li></ul><p>这种问题中只有确定答案，不会出现：“寻找xxx”，“有多少xxx”的问题，这些问题我们暂不考虑</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Formal Languages</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>论文阅读02 知识图谱构建技术综述</title>
+    <link href="/2022/08/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/"/>
+    <url>/2022/08/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220829130310059.png" alt="image-20220829130310059"></p><p>​        </p><p>​        本周阅读的是《知识图谱构建技术综述》这篇论文，于 2016 年发表于《计算机研究与发展》，是课题组知识图谱研究方向的必读论文之一。本篇综述从技术框架和图谱定义出发，介绍了知识图谱的各类构建技术及其发展历程。以下是重点概念的笔记：</p><h2 id="1-知识图谱定义与架构"><a href="#1-知识图谱定义与架构" class="headerlink" title="1.知识图谱定义与架构"></a>1.知识图谱定义与架构</h2><p><strong>定义：</strong>结构化语义知识库，以<strong>符号形式</strong>描述物理世界中的<strong>概念</strong>及其<strong>相互关系</strong>。</p><p><strong>基本组成单位：</strong>“实体-关系-实体”三元组，“实体-属性”值对。</p><p><strong>研究价值：</strong>能够<strong>在 Web 网页之上</strong>建立概念间的链接关系，从而<strong>以最小代价</strong>将互联网累计的知识组织起来，成为<strong>真正可用的知识</strong>。</p><p><strong>应用价值：</strong>改变现有的“字符串模糊匹配”信息检索方式，通过推理<strong>实现真正的概念检索</strong>，并以图形化方式向用户<strong>展示经过分类整理的结构化知识</strong>。</p><p><strong>逻辑架构：</strong>包括将知识以事实为单位存储在图数据库的<strong>数据层</strong>，该层以“实体-关系-实体”三元组为事实的基本表达方式，大量数据构成实体关系网络，形成“图谱”；还包括存储经提炼之后的知识的<strong>模式层</strong>，该层为知识图谱的核心，往往采用本体库来管理该层。</p><p><strong>技术架构：</strong>知识图谱的构建是不断更新迭代的过程。每轮迭代包括三个阶段：<strong>信息抽取</strong>、<strong>知识融合</strong>、<strong>知识加工</strong>。即可以借助百科网站等结构化数据源以<strong>自顶向下</strong>的方式构建，也可以从公开数据中提取资源模式，选择置信度高的新模式，以<strong>自底向上</strong>的方式构建。</p><h2 id="2-知识图谱构建技术"><a href="#2-知识图谱构建技术" class="headerlink" title="2.知识图谱构建技术"></a>2.知识图谱构建技术</h2><h3 id="2-1-信息抽取"><a href="#2-1-信息抽取" class="headerlink" title="2.1.信息抽取"></a>2.1.信息抽取</h3><p>关键问题是<strong>如何从异构数据源中自动抽取信息得到候选知识单元</strong>。具体涉及到的关键技术包括：实体抽取、关系抽取 、属性抽取。</p><h4 id="2-1-1-实体抽取："><a href="#2-1-1-实体抽取：" class="headerlink" title="2.1.1,实体抽取："></a>2.1.1,实体抽取：</h4><p>也叫命名实体识别（named entity recognition，NER），从文本数据集中自动识别出命名实体，由于实体抽取的质量对后续的知识获取效率及质量影响极大，因此是信息抽取中<strong>最为基础和关键的部分</strong>。</p><p>早起使用<strong>基于规则的方法</strong>，但有明显局限性，且耗费巨大人力；</p><p>随后开始使用<strong>统计机器学习的方法</strong>辅助解决命名实体抽取问题；最近也开始采用<strong>有监督学习与规则结合</strong>的方法；</p><p>现今，学术界开始关注开放域的信息抽取问题，不在限定于特定知识领域，而面向开放的互联网。<strong>建立科学完整的命名实体分类体系</strong>也成为了了重要问题。</p><h4 id="2-1-2-关系抽取："><a href="#2-1-2-关系抽取：" class="headerlink" title="2.1.2.关系抽取："></a>2.1.2.关系抽取：</h4><p>经过实体抽取后只能得到离散的命名实体，还需要通过关系抽取提取实体之间的关联关系，才能形成网状知识结构。</p><p>早起采用人工构造语法语义规则，模式匹配的方式，有较大的局限性，对规则制定者有较高专业要求，工作量较大；</p><p>之后开始使用统计机器学习方法，且近年来逐渐转向半监督和无监督的学习方式；</p><p>此外，还有无需预先定义实体关系类型的面向开放域的关系抽取技术，这方面的研究重点是<strong>如何提升关系抽取的准确率和召回率</strong>，以及<strong>对隐含语义关系而非词汇关系的抽取</strong></p><h4 id="2-1-3-属性抽取："><a href="#2-1-3-属性抽取：" class="headerlink" title="2.1.3.属性抽取："></a>2.1.3.属性抽取：</h4><p>属性抽取的目标是<strong>从不同信息源中采集特定实体的属性信息</strong>，也可以将属性抽取问题转化为名字性的关系抽取问题</p><p>当前主要以百科类网站提供的半结构化数据为实体属性抽取研究的数据来源；</p><p><strong>如何从海量的非结构化数据中抽取实体属性</strong>是值得关注的理论研究问题：一种思路是基于百科类半结构化数据训练出模型，再应用于非结构化数据；另一种思路是基于数据挖掘直接获取实体与属性之间的关系模式。</p><h3 id="2-2-知识融合"><a href="#2-2-知识融合" class="headerlink" title="2.2.知识融合"></a>2.2.知识融合</h3><p>主要包括知识链接和知识合并，经过知识融合可以消除歧义，剔除冗余和错误概念，从而提升知识质量。</p><h4 id="2-2-1-实体链接："><a href="#2-2-1-实体链接：" class="headerlink" title="2.2.1.实体链接："></a>2.2.1.实体链接：</h4><p>实体链接（entity linking）对于从文本中抽取得到的实体对象，将其链接到知识库中对应的正确实体对象的操作。</p><p>基本思路是：对于给定实体，从知识库中筛选出一组候选对象，再计算相似度，从而链接到正确实体对象。</p><p>基本流程是：从文本中抽取实体，进行实体消歧，和共指消解，连接到对应实体</p><h5 id="2-2-1-1-实体消歧："><a href="#2-2-1-1-实体消歧：" class="headerlink" title="2.2.1.1.实体消歧："></a>2.2.1.1.实体消歧：</h5><p>实体消歧（entity disambiguation）专门用于解决同名实体产生歧义的技术，用于解决<strong>某个实体对应于多个实体对象的问题</strong>（例：李娜可以指向歌手李娜也可以指向网球运动员李娜）。</p><p>聚类法消歧可以将所有指向同一实体对象的指称项聚集到该对象的中心类别之下，常用的方法有：空间向量模型（词袋模型）、语义模型、社会网络模型、百科知识模型等</p><h5 id="2-2-1-2-共指消解："><a href="#2-2-1-2-共指消解：" class="headerlink" title="2.2.1.2.共指消解："></a>2.2.1.2.共指消解：</h5><p>共指消解（entity resolution）用于解决<strong>多个指称项对应于同一实体对象的问题</strong>（例：在同一篇新闻中，”Barack Obama” 和 “president Obama” 以及 “the president” 等指称项可能指向的是同一个实体对象）</p><h4 id="2-2-2-知识合并："><a href="#2-2-2-知识合并：" class="headerlink" title="2.2.2.知识合并："></a>2.2.2.知识合并：</h4><p><strong>合并外部数据库：</strong>数据层融合需要解决实例与关系之间的冲突问题以及冗余问题；模式层融合可将新得到的本体融入已有本体库中。</p><p>基本流程为：获取知识、概念匹配、实体匹配、知识评估。</p><p><strong>合并关系型数据库：</strong>将关系型数据库的数据转换为 RDF 三元组数据，该类技术也可应用于其他半结构化数据。</p><h3 id="2-3-知识加工"><a href="#2-3-知识加工" class="headerlink" title="2.3.知识加工"></a>2.3.知识加工</h3><p>主要包括：本体构建、知识推理和质量评估。</p><h4 id="2-3-1-本体构建："><a href="#2-3-1-本体构建：" class="headerlink" title="2.3.1.本体构建："></a>2.3.1.本体构建：</h4><p>本体是对概念进行建模的规范，是描述客观世界的抽象模型。</p><p>本体反映的知识是一种明确定义的公式，是共享的；本体是树状结构的，相邻层次之间有严格的 “Is A” 关系</p><h4 id="2-3-2-知识推理："><a href="#2-3-2-知识推理：" class="headerlink" title="2.3.2.知识推理："></a>2.3.2.知识推理：</h4><p>知识推理是指从已有实体关系数据出发，经计算机推理得到实体间的新管理，从而拓展和丰富知识网络的过程。</p><p>推理方法可以分为：基于逻辑的推理（一阶谓词逻辑、描述逻辑、基于规则的逻辑）和基于图的推理（神经网络模型、Path Ranking 算法）。</p><h4 id="2-3-3-质量评估："><a href="#2-3-3-质量评估：" class="headerlink" title="2.3.3.质量评估："></a>2.3.3.质量评估：</h4><p>质量评估是知识库扣减技术的重要组成部分，引入质量评估可以对知识的可信度进行量化，并通过舍弃置信度较低的知识来保障并提升知识库质量。</p><h3 id="2-4-知识更新"><a href="#2-4-知识更新" class="headerlink" title="2.4.知识更新"></a>2.4.知识更新</h3><p>知识图谱的构建是不断更新迭代的过程，有两种方式：</p><p>全面更新：以更新后的全部数据为输入，从零开始重新构建；特点是操作简单，资源消耗大，维护开销大；</p><p>增量更新，以当前新增数据作为输入，向现有图谱中新增；特点是操作复杂，资源消耗小，干预开销大。</p><h2 id="3-跨语言知识图谱构建"><a href="#3-跨语言知识图谱构建" class="headerlink" title="3.跨语言知识图谱构建"></a>3.跨语言知识图谱构建</h2><p><strong>意义：</strong></p><ol><li>各语种知识分布不均匀，跨语言构建知识图谱可以弥补单语种知识库的不足；</li><li>可以充分利用多语种在知识表达方式上的互补性，从而增加知识覆盖率和共享度；</li><li>通过不同语言对同一知识的表述实现错误信息过滤。</li></ol><h2 id="4-知识图谱应用"><a href="#4-知识图谱应用" class="headerlink" title="4.知识图谱应用"></a>4.知识图谱应用</h2><ol><li><p>智能语义搜索应用：对搜索关键字进行解析和推理，映射到图谱中的概念上，再返回图形化的知识结构（如百度、谷歌搜索得到的知识卡片）；</p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220830223809812.png" alt="image-20220830223809812" style="zoom:50%;" /></li><li><p>深度问答应用：对问题进行语义分析和语法分析，转化为结构化的查询语句，再在图谱中查询答案（对与知识库中没有答案的情况，采用知识推理技术给出）；</p></li></ol><h2 id="5-问题与挑战"><a href="#5-问题与挑战" class="headerlink" title="5.问题与挑战"></a>5.问题与挑战</h2><ol><li>面向开放域的信息抽取方法仍处于起步阶段；</li><li>知识融合环节中，如何实现准确的实体链接；</li><li>知识加工过程中的推理技术亟待突破；</li><li>知识更新环节严重依赖人工干预；</li><li>如何解决知识的表达、存储与查询问题。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>PaperReading</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>KnowledgeGraph</tag>
+      
+      <tag>Summarize</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>机器学习05 Transformer</title>
+    <link href="/2022/08/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A005-Transformer/"/>
+    <url>/2022/08/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A005-Transformer/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><h2 id="Transformer-是什么？"><a href="#Transformer-是什么？" class="headerlink" title="Transformer 是什么？"></a>Transformer 是什么？</h2><p>本质上是一种 Sequence to sequence (Seq2seq) 的转换</p><p>输入是序列，输出也是序列（输出长度不确定）</p><p>适合用于语音识别（现在多使用 RNN-Transducer）、文本翻译、QA、NLP（转化为QA）等（输出序列长度不确定，没有明确关系）</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414014551597.png" alt="image-20220414014551597"></p><p>也可用于 Multi-label Classification 多标签分类</p><p>输入符合输出结果中的多种标签，是一对多的分类问题，比如输入是一篇文章，输出既有语言，又有体裁，又有正负面评价等等标签。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414020620729.png" alt="image-20220414020620729"></p><p>Multi-class Classification 多类别分类（传统分类问题，与前者区分）</p><p>输入属于输出结果中的某一个类，是一对一的分类问题，比如输入是一段语音，输出分类为中文或英文（看似与多标签分类问题相似，实际两者很难用同一类模型解决）</p><h2 id="Seq2seq-基本结构"><a href="#Seq2seq-基本结构" class="headerlink" title="Seq2seq 基本结构"></a>Seq2seq 基本结构</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021014715.png" alt="image-20220414021014715"></p><p>基本结构：输入序列经过 **编码器 Encoder **部分处理，交由 **解码器 Decoder **处理为输出序列</p><h3 id="Encoder-编码器"><a href="#Encoder-编码器" class="headerlink" title="Encoder 编码器"></a>Encoder 编码器</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021341139.png" alt="image-20220414021341139"></p><p>Encoder 的任务是将一个向量输入转化为另一个向量输出，可以使用 RNN、CNN 等各种模型。</p><h3 id="Decoder-解码器"><a href="#Decoder-解码器" class="headerlink" title="Decoder 解码器"></a>Decoder 解码器</h3><h4 id="Autoregressive-Decoder-自回归解码器"><a href="#Autoregressive-Decoder-自回归解码器" class="headerlink" title="Autoregressive Decoder 自回归解码器"></a>Autoregressive Decoder 自回归解码器</h4><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023057892.png" alt="image-20220414023057892"></p><p>以语音识别为例，Decoder 将 Encoder 的输出作为输入，在得到开始信号（BEGIN）之后，计算得到第一个输出结果，并将这一结果连同 Encoder 输出作为新的输入，计算得到下一个输出结果，如此反复直到输出结束</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png" alt="image-20220414023356616"></p><p>事实上，编解码器结构是比较相似的。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MachineLearning</tag>
+      
+      <tag>DeepLearning</tag>
+      
+      <tag>Transformer</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>机器学习04 自监督学习</title>
+    <link href="/2022/08/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A004-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
+    <url>/2022/08/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A004-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Self-supervised-Learning-自监督学习"><a href="#Self-supervised-Learning-自监督学习" class="headerlink" title="Self-supervised Learning 自监督学习"></a>Self-supervised Learning 自监督学习</h1><h2 id="Supervised-监督"><a href="#Supervised-监督" class="headerlink" title="Supervised 监督"></a>Supervised 监督</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013529142.png" alt="image-20220414013529142"></p><p>数据集需要人工标注，让机器知道学习方向</p><h2 id="Self-Supervised-自监督"><a href="#Self-Supervised-自监督" class="headerlink" title="Self-Supervised 自监督"></a>Self-Supervised 自监督</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013744717.png" alt="image-20220414013744717"></p><p>将数据集分为两部分，一部分作为输入，一部分用于校验输出效果（当作标注结果）</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MachineLearning</tag>
+      
+      <tag>DeepLearning</tag>
+      
+      <tag>Self-Supervised-Learning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>机器学习03 CNN</title>
+    <link href="/2022/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A003-CNN/"/>
+    <url>/2022/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A003-CNN/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Convolutional-Neural-Network（CNN）"><a href="#Convolutional-Neural-Network（CNN）" class="headerlink" title="Convolutional Neural Network（CNN）"></a>Convolutional Neural Network（CNN）</h1><p>CNN 通常用于图片识别上</p><h2 id="图片对计算机来说是什么？"><a href="#图片对计算机来说是什么？" class="headerlink" title="图片对计算机来说是什么？"></a>图片对计算机来说是什么？</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220430192356542.png" alt="image-20220430192356542"></p><p>对于计算机而言，图片是一个3维度的张量（tensor），分别是：长、宽、通道数值。 </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MachineLearning</tag>
+      
+      <tag>DeepLearning</tag>
+      
+      <tag>CNN</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>机器学习02 常见问题</title>
+    <link href="/2022/07/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    <url>/2022/07/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p>当学习结果不够好的时候，通常是按照如下步骤进行 的：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414194117158.png" alt="image-20220414194117158"></p><p>首先检查训练数据上的 LOSS，如果 LOSS 已经很大，那么基本上是两种情况：一种是模型偏差，一种是最优解没有找到</p><h2 id="模型偏差-Model-Bias"><a href="#模型偏差-Model-Bias" class="headerlink" title="模型偏差 Model Bias"></a>模型偏差 Model Bias</h2><p>模型过于简单，无论何种参数都无法获得较好的 LOSS，这是通常要改变模型设计，通过增加 Feature 、增加更多 Layer 等方法使模型更加复杂多变。</p><h2 id="最优解问题-Optimization-Issue"><a href="#最优解问题-Optimization-Issue" class="headerlink" title="最优解问题 Optimization Issue"></a>最优解问题 Optimization Issue</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414194526695.png" alt="image-20220414194526695"></p><p>仅仅获得了局部最优解，没有找到真正的最优解，可以先尝试使用简单模型（易于求解最优解的方法），或使用更深层次（如果更深层次表现反而不好，多数情况下是最优解问题）</p><p>在训练数据上已经获得了较好的 LOSS 之后，再查看测试数据上的 LOSS，如果测试数据上的 LOSS 已经够小，则问题已经基本解决，如果测试数据上的 LOSS 仍然较大，则可能是出现了 <strong>Overfitting 过拟合</strong> 问题</p><h2 id="过拟合-Overfitting"><a href="#过拟合-Overfitting" class="headerlink" title="过拟合 Overfitting"></a>过拟合 Overfitting</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414200050052.png" alt="image-20220414200050052"></p><p>训练得到的函数在训练数据上表现得好，但在没有训练数据的部分上“自由发挥”了，导致 LOSS 较大</p><p>如何解决呢？</p><ol><li>增加训练数据或创造更多数据（从已有数据生成，如图像识别问题，可以左右翻转图片）</li><li>限制模型，降低模型弹性（降低参数数量、神经元数量、共享参数等）</li><li>减少 Feature</li><li>Early stopping</li><li>Regularization</li><li>Dropout</li></ol><p>也可以将训练数据分为训练集和确认集，用确认集来模拟测试的过程，分解方式可以选择如下的方式：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414204910006.png" alt="image-20220414204910006"></p><p>将数据等分为多份，之后将不同的部分轮流作为确认集进行测试。</p><h2 id="Mismatch-误配"><a href="#Mismatch-误配" class="headerlink" title="Mismatch 误配"></a>Mismatch 误配</h2><p>除了 Overfitting 问题外，实际情况上的模型表现不好，也有可能是出现了 Mismatch 问题，由于一些其他原因导致，而非模型本身的问题。</p><h2 id="Saddle-Point-鞍点"><a href="#Saddle-Point-鞍点" class="headerlink" title="Saddle Point 鞍点"></a>Saddle Point 鞍点</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220425121948271.png" alt="image-20220425121948271"></p><p>除了 Local Minima 局部最优的情况之外，还有另一种情况，loss也很难下降，这种情况下某一方向上是极小值，某一方向上又是极大值，使得其微分为0，也就是 Saddle Point 鞍点，与 Local Minima 统称为 Critical point 临界点。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MachineLearning</tag>
+      
+      <tag>DeepLearning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>机器学习01 介绍</title>
+    <link href="/2022/07/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E4%BB%8B%E7%BB%8D/"/>
+    <url>/2022/07/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E4%BB%8B%E7%BB%8D/</url>
+    
+    <content type="html"><![CDATA[<p>台大李宏毅老师机器学习课程学习笔记，重新整理：</p><h2 id="Machine-Learning-≈-Looking-for-Function"><a href="#Machine-Learning-≈-Looking-for-Function" class="headerlink" title="Machine Learning ≈ Looking for Function"></a>Machine Learning ≈ Looking for Function</h2><p>简单来说，机器学习的实质是<strong>寻找一个难以用人力创造的函数</strong></p><p>如下图：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314151118633.png" alt="image-20220314151118633"></p><p>很多复杂问题都能概括为寻求一个函数，给定输入，以期望得到某个正确的输出。</p><ul><li>语音识别：给定音频信号，输出对应语言的文字</li><li>图像识别：给定图片数据，输出对应事物的名称</li><li>围棋AI：给定棋盘数据，得到胜率最高达的下一步坐标</li></ul><p>但这些问题通常难以解决，特别是涉及高维和低维信息之间转换的问题，难以用传统方法寻求二者之间的联系。</p><p>随着计算机算力水平的提升，用机器每秒上百万次的强大运算能力来“暴力破解”输入输出之间的关系也不再是空谈，这就是机器学习。</p><h2 id="机器学习的分类"><a href="#机器学习的分类" class="headerlink" title="机器学习的分类"></a>机器学习的分类</h2><p>简单来说机器学习可以分为以下三类：</p><p><strong>Regression（回归）</strong>：让函数得到某个数值。如 PM2.5 预测</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314151404348.png" alt="image-20220314151404348"></p><p><strong>Classification（分类）</strong>：给出一些选项（类别），函数输出正确的选项。如垃圾邮件分类</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314151527247.png" alt="image-20220314151527247"></p><p> <strong>Structured Learning（结构）</strong>：构建出具有结构的输出。如生成图像，文档</p><h2 id="如何获得这个函数？"><a href="#如何获得这个函数？" class="headerlink" title="如何获得这个函数？"></a>如何获得这个函数？</h2><p>函数由表达式、输入和输出组成，第一步就是写出表达式：</p><h3 id="1-写出带有未知参数的函数"><a href="#1-写出带有未知参数的函数" class="headerlink" title="1.写出带有未知参数的函数"></a>1.写出带有未知参数的函数</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314164944251.png" alt="image-20220314164944251"></p><p>其中，y是函数结果，x1是输入。</p><p>通常而言，我们不表达式都不是上图这种简单的线性方程，具体函数形式基于不同的问题而定，上面的例子中，习惯将w称作权重，b称作偏差。</p><p>如何选择合适的表达式，构建出符合问题要求的模型，是当下机器学习领域的重点之一。</p><p>不难看出，上述表达式中存在很多未知的参数，这些参数就是要求解部分，得到参数后，对于任意给定的输入均能得到对应输出。</p><p>那么参数如何计算得到呢？</p><p>要计算参数，可以通过对已知结果逆运算得出，这些已知的“输入”被称为特征，“输出”被称为标记，共同构成了训练数据。</p><p>如果有海量的训练数据，就能通过这些数据反推出合适的参数，从而得到最终的表达式。为此需要有一个衡量参数好坏的函数，在每一次使用训练数据计算参数时，对参数进行评估，从而方便下一步对参数进行调整。</p><h3 id="2-基于训练数据计算-Loss"><a href="#2-基于训练数据计算-Loss" class="headerlink" title="2.基于训练数据计算 Loss"></a>2.基于训练数据计算 <strong>Loss</strong></h3><p>Loss 是计算结果偏差的函数，用于衡量当前得到的未知参数的好坏。</p><p>在第一次计算时，我们可以随机对参数进行赋值，将输入代入表达式，得到预测结果，之后与 <strong>Label（真实数据）</strong> 计算Loss（通常是MAE、MSE等差额计算）。从而反映出本次表达式所使用的的参数的优劣程度。</p><p>如果将各种可能的未知参数都尝试一遍，计算出相应的 Loss，绘制出 <strong>”Error Surface“</strong>，可以观测到最合适的未知参数。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314170218911.png" alt="image-20220314170218911"></p><p>但真实情况中，由于参数众多，形式复杂，很难用图像直观表达出来，只能得到不同情况下参数对应的 Loss 值。</p><p>在得到 Loss 后，我们就了解了目前的参数的优劣，之后就需要将参数进行调整，使计算结果更加贴近真实值，让 Loss 越来越小，也就是 Optimization（优化） 的过程。</p><h3 id="3-优化"><a href="#3-优化" class="headerlink" title="3.优化"></a>3.优化</h3><p>获得最佳的未知参数，可以使用 <em><strong>Gradient Descent（梯度下降）</strong></em> ，单个参数的该算法步骤如下：</p><p>首先，随机选取一个 w 作为初始值</p><p>其次，计算该 w 对应的 loss 值，并计算 L 在 w 上的微分（即斜率）</p><p>​        通过这一步，我们可以确定此时的 w 值是偏大还是偏小，如果斜率为正，说明 w 增加会增大 Loss，w 减少则会减少 Loss，斜率为负值则相反，</p><p>之后，我们需要设定一个 <strong>η（学习速率）</strong>，来划定我们每次对 w 的变化大小， 对 w 进行变化（用 η 乘上微分）后反复如上的计算，从而获得最佳的未知参数。这些由我们自己设定的参数被称为 <em><strong>Hyperparameters（超参数）</strong></em></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314171705030.png" alt="image-20220314171705030"></p><p>然而，我们很容易发现，这种方法在微分值为0时就会停止，得到的参数可能只是局部最佳值，而非全局最佳值。不过尽管 Gradient Descent 存在这一问题，但在实际生产实践中可以通过取多次随机点的方式轻松解决，这一方法的真正痛点另有别处。</p><p>相应的，多参数方法也很容易得到：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314172110989.png" alt="image-20220314172110989"></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314172226936.png" alt="image-20220314172226936"></p><h2 id="如何改进？"><a href="#如何改进？" class="headerlink" title="如何改进？"></a>如何改进？</h2><p>经过上述的三个基本步骤，我们很容易就能计算出“最佳”的未知参数，但事实上，这种预测往往存在较大偏差，在上述例子中，我们选用的是最简单的 <strong>Liner Model（线性模型）</strong>，即使用权重和偏差值来进行预估的简单模型，这种模型考虑的因素少，性能有限，只能表现线性的单调变化。</p><p>实际问题中，我们往往需要更加贴合实际问题的模型，这才是机器学习的难点所在。</p><h3 id="Sigmoid-Function（S形函数）"><a href="#Sigmoid-Function（S形函数）" class="headerlink" title="Sigmoid Function（S形函数）"></a>Sigmoid Function（S形函数）</h3><p>由于函数变化多种多样，我们可以将函数分为多段，每一段视为一个斜率近似固定的直线，这样我们就将一条曲线分解为了多段曲线之和，每一段曲线的其他部分均为常数，只有在与其斜率吻合的部分是有斜率的，即下图的 <strong>Hard Sigmoid（硬S函数）</strong></p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314182644869.png" alt="image-20220314182644869"></p><p>由于分段函数表达式不便于计算，我们使用 <strong>Sigmoid Function（S形函数）</strong>来近似的表达这些曲线。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314183750691.png" alt="image-20220314183750691"></p><p>其中，w 用于改变斜率，b 用于改变左右位置，c 改变高度</p><p>这样我们就能将曲线拆分为多个 Sigmoid Function 之和：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314183859065.png" alt="image-20220314183859065"></p><p>将这一程序化过程用线性代数表示即为如下方式：<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314184826782.png" alt="image-20220314184826782"></p><p>将其中的未知参数拼接为向量 θ ：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314185208598.png" alt="image-20220314185208598"></p><p>此时，Loss 计算方法不变，仍然是给定一组 θ ，与真实值 label 进行对比即可：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314195756458.png" alt="image-20220314195756458"></p><p>参数优化方法也仍然相似：</p><p>​找出初始值（随机）；</p><p>​求参数向量的微分向量（ <em>gradient</em> ）；</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314195956073.png" alt="image-20220314195956073"></p><p>​更新 θ 向量：    </p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314200128627.png" alt="image-20220314200128627"></p><p> 重复计算和更新，直到计算结束（无法计算或重复一定次数）</p><h3 id="分组（Batch）优化"><a href="#分组（Batch）优化" class="headerlink" title="分组（Batch）优化"></a>分组（Batch）优化</h3><p>之前计算 Loss 时，我们将全部输入与真实值对比得到 Loss，另一种方法是，将整个数据集分为一个个 <strong>Batch</strong>，每个 Batch 大小相同，具体大小随意。</p><p>每次对一个组进行 Loss 计算，之后使用这个 Loss 计算 gradient，使用这个 gradient 更新参数向量 θ，再将这个新的 θ 放到 下一个组中计算 Loss，如此重复直到所有的组完成一次计算，这样就对<strong>所有数据完成了一次训练</strong>，即一次 <strong>Epoch</strong>。</p><p>在这一次 epoch 中，更新了相当于 batch 数量的 update 次数。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202247672.png" alt="image-20220314202247672"></p><h3 id="Rectified-Linear-Unit（ReLU函数"><a href="#Rectified-Linear-Unit（ReLU函数" class="headerlink" title="Rectified Linear Unit（ReLU函数)"></a>Rectified Linear Unit（ReLU函数)</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202456620.png" alt="image-20220314202456620"></p><p>除了 S 形函数外，也可以使用上图所示的 ReLU 函数 ，两个 ReLU 函数相加就能得到一个 S 形函数表示的折线：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202848249.png" alt="image-20220314202848249"></p><p>在列出表达式时需要注意：<img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314202931594.png" alt="image-20220314202931594"></p><p>相较于线性模型，使用 ReLU 可以带来较为显著的提升，课程样例的结果如下：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203137316.png" alt="image-20220314203137316"></p><p>可以看到当 ReLU 数量较少时效果一般，但当 ReLU 数量较多时，更加贴合的曲线就能带来更好的预测效果。</p><h3 id="“套娃”"><a href="#“套娃”" class="headerlink" title="“套娃”"></a>“套娃”</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203526849.png" alt="image-20220314203526849"></p><p>我们也可以使用 ReLU 等模型进行反复“套娃处理”，多进行几层，增加更多的参数，进行更相似的拟合，得到更好的预测效果：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203800478.png" alt="image-20220314203800478"></p><p>经过上述优化，我们得到的曲线如下图蓝色曲线所示，尽管已经非常贴近，但一些意外（如下图拟合失误的部分，正处于除夕，计算机无法预测到这一影响）</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314203951386.png" alt="image-20220314203951386"></p><h2 id="神经网络-amp-深度学习"><a href="#神经网络-amp-深度学习" class="headerlink" title="神经网络 &amp; 深度学习"></a>神经网络 &amp; 深度学习</h2><p>由于整个计算过程中有大量的 Sigmoid 或者 ReLU 这样的小单元，就好像一个个神经元一样，我们将每个 Sigmoid 或者 ReLU 称为 <strong>Neuron（神经元）</strong>，整个模型被称为 <strong>Neural Network（神经网络）</strong></p><p>像上文提到的<strong>“套娃”</strong>一样，有着多层嵌套结构的机器学习，就称为 <strong>Deep Learning 深度学习</strong></p><h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>1.既然任何曲线都可用多段的 ReLU 或 Sigmoid 拼接，为什么不使用更多的神经元来模拟，而进行这种增加层数的操作呢？</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314210841598.png" alt="image-20220314210841598"></p><p>2.层数越多越好吗？然而现实中，经常出现 <strong>Overfitting（过拟合）</strong>问题，即训练资料上表现好，但在预测中表现不好，那我们该采用多少层的模型呢？又如何解决 Overfitting 问题呢？</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220314211103505.png" alt="image-20220314211103505"></p><p>（事实上，大所数有更多层次的模型表现不好的问题根源在于最优解没有找到，由于梯度下降方法往往只能得到局部最优解，所以产生了更差的效果，并非过拟合的情况）</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MachineLearning</tag>
+      
+      <tag>DeepLearning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>论文阅读01 TransE</title>
+    <link href="/2022/07/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB02-TransE/"/>
+    <url>/2022/07/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB02-TransE/</url>
+    
+    <content type="html"><![CDATA[<p>前段时间忙家里各种杂事，只看了师兄给的一篇表示学习综述，大概了解了一下知识图谱和表示学习相关的技术，接下来计划将一些重要模型进一步学习，自己尝试实现一下，这里就以 TransE 作为开头，开个新坑。</p><h1 id="TransE-原理"><a href="#TransE-原理" class="headerlink" title="TransE 原理"></a>TransE 原理</h1><p>TransE 模型来源于 <a href="https://dl.acm.org/doi/10.5555/2999792.2999923">Translating embeddings for modeling multi-relational data</a> 这篇论文，从标题上不难看出，TransE 将表示学习的过程看做是<strong>“翻译”</strong>的过程。其基本思想是，将知识三元组中的 relation 看做从 head 到 tail 的翻译过程，如果将这些关系都用向量表示，则应满足</p><p>$$<br>head + relation \approx tail<br>$$<br>为了让 relation 的表示能够达到以上要求，TransE 定义了一个距离函数 $d(h + r, t)$来计算头实体和为尾实体之间的距离，原论文使用的是欧氏距离，也可以使用曼哈顿距离。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/v2-c271aad4fc8f9026b19dc31246c3b50c_1440w.jpg" alt="img"></p><p>如果成功构建了这样规则下的网络关系，那么就可以根据一个实体和关系来预测另一个实体，或者通过两个实体直接预测它们的关系。</p><h1 id="TransE-训练"><a href="#TransE-训练" class="headerlink" title="TransE 训练"></a>TransE 训练</h1><p>训练时首先随机生成初始实体向量和关系向量，用于表示知识图谱。整个训练的目的就是求解正确的向量数值，损失函数可以使用 $d(h + r, t)$ 来计算，分为两个方向，正确的三元组应当有更小的 $d$，错误的三元组的 $d$ 则是越大越好。这种方法就是 <strong>negative sampling</strong>，<strong>即相对于负例，正例的得分更高</strong>。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/20190504222759459.png" alt="在这里插入图片描述"></p><p>其中 $(h’,l,t’)$ 称为 <strong>corrupted triplet</strong>，是非同时随机替换头或尾实体得到的负例（也可以替换relation）。$\gamma$ 为 margin。事实上这就是在计算 Soft-margin Loss，可以认为，transE针对给定三元组进行二分类任务，其中负例是通过替换自行构造的，目标是使得最相近的正负例样本距离最大化。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>PaperReading</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>RepresentationLearning</tag>
+      
+      <tag>TransE</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>重启Github博客</title>
+    <link href="/2022/07/22/%E9%87%8D%E5%90%AFGithub%E5%8D%9A%E5%AE%A2/"/>
+    <url>/2022/07/22/%E9%87%8D%E5%90%AFGithub%E5%8D%9A%E5%AE%A2/</url>
+    
+    <content type="html"><![CDATA[<p>前段时间码云大面积封禁了图床仓库，前面大概几十篇博客的图链都挂了，要逐一去修改这几百张图的链接想想都头大…</p><p>之前用码云还是因为国内用 Github 不是很方便，经常打不开。但考虑到之前码云对 Git page 的整改，以及最近针对图床和仓库的各种操作，还是打算换回 Github 用。</p><p>回头看大学这几年的博客，就是自己这四年的缩影：大一初识编程，博客里除了七零八碎的小知识就是期末复习；大二开始接触各类前后端框架，就开始满是环境配置和框架特性了；再到大三考研备考，博客不怎么写了，但甚至有一篇马原的总结；最后大四了才开始了解机器学习，又是一片新天地。</p><p>初期博客写作质量不够高，大多是知识的简单复述，博客主题也有点过于花里胡哨。这次换了个纯粹简约一些的主题，更多精力放在写作和技术本身上面。</p><p>总之，有幸能继续在天大研习，这三年得进一步充实自己，勤学习，多更新。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Daily</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Github</tag>
+      
+      <tag>Blog</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>论文阅读01-知识表示学习研究进展</title>
+    <link href="/2022/06/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB01-%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/"/>
+    <url>/2022/06/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB01-%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221108130319057.png" alt="image-20221108130319057"></p><h1 id="知识表示学习研究进展论文笔记"><a href="#知识表示学习研究进展论文笔记" class="headerlink" title="知识表示学习研究进展论文笔记"></a>知识表示学习研究进展论文笔记</h1><h2 id="1-知识库"><a href="#1-知识库" class="headerlink" title="1.知识库"></a>1.知识库</h2><p>现实世界中，知识是蕴藏在无（半）结构的信息中的，比如：</p><blockquote><p>人工智能（Artificial Intelligence），英文缩写为AI。它是研究、开发用于模拟、延伸和扩展人的智能的理论、方法、技术及应用系统的一门新的技术科学。</p></blockquote><p>这句话中蕴含着人工智能这一学科的基本定义，但这些知识是非结构化的，其中一条可以提取为：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/8bae01647c2ab1b9.png" alt="image-20220614181603499"></p><p>从现实世界中的无（半）结构的信息中提取结构化的知识，就是知识库的任务。知识库将知识表示为**实体(entity)<strong>间的</strong>关系(relation)**，将人类知识经过系统组织后形成结构化知识系统。作为人类知识的结晶，知识库是推动人工智能和信息服务发展的重要基础技术。</p><p>不难看出，知识表示是知识获取与应用的基础，因此，知识表示学习问题是贯穿知识库构建于应用全过程的关键问题。</p><p>知识库通用表示方式为<strong>三元组</strong>，即（实体1，关系，实体2）的形式，对应两个有某种关联的实体。实体可以是人名、地名、机构名、概念等，关系可以是包含、等价等关系。</p><p>但这种网络形式的知识表示面临两大问题：</p><ol><li>计算效率问题：这种表示方法在计算语义及推理关系时需要设计专门的图算法，有较高复杂度和较差的可拓展性，知识库较大时计算效率低，难以满足实时计算需求。</li><li>数据稀疏问题：由于知识库遵循长尾效应，在长尾部分存在严重的数据系数问题，且只有极少知识或路径涉及它们，对这些实体的语义或推理关系计算准确率极低。</li></ol><h2 id="2-表示学习"><a href="#2-表示学习" class="headerlink" title="2.表示学习"></a>2.表示学习</h2><p>为了解决上述问题，可以使用基于深度学习的表示学习技术，将研究对象的语义信息转化为稠密的低维向量，用向量之间相对位置的远近来表示语义相似度，这样就可以高效的计算实体间语义关系，有效解决数据稀疏问题。</p><p>知识库中的 实体$e$ 和 关系$r$ 可以通过表示学习得到对应向量 $l_e$ 和 $l_r$，之后可以通过计算欧氏距离或余弦距离的方式计算语义相似度。</p><p>此前常用的独热表示的方法构建词袋模型，独热向量之间相互正交，无法计算欧氏距离或余弦距离，丢失大量语义信息。且独热表示存在严重的数据稀疏问题，特别是在语言表示中。而表示学习向量维度较低，有利于<strong>提高计算效率，缓解数据稀疏问题</strong></p><p>表示学习是分布式的，即孤立地看向量中的一维没有明确意义，要综合各维度才能表示对象的语义信息。这一点与人脑神经元的原理相似，这里不做过多展开。表示学习也是层次结构的，这与物质的组成结构原理相似，即大的物体一般由更小的单位组成（多个维度组成表示某含义的向量）。</p><p>在构建知识图谱时，往往需要不断补充实体间关系，利用表示学习方法，可以预测两实体之间的关系，即<strong>知识图谱补全(Knowledge graph completion)</strong></p><p>此外，由于现实生活中同一知识体系可能在不同知识库中被记录，但在不同知识库中存在不同的表示方式，难以使用传统方法融合，如果能使用表示学习方法，将多个知识库中的知识用同一方法表示出来，就能更高效的进行多知识库的有机融合，实现异质信息融合。</p><h2 id="3-表示学习主要方法"><a href="#3-表示学习主要方法" class="headerlink" title="3.表示学习主要方法"></a>3.表示学习主要方法</h2><p>将知识库表示为 $G&#x3D;(E,R,S)$，其中 $E &#x3D; {e_1,e_2,…,e_{|E|}}$ 表示实体集合，包含 $|E|$ 种不同实体，$R &#x3D; {r_1,r_2,…,r_{|R|}}$ 是关系集合，包含 $|R|$ 种不同关系，$S \in E \times R \times E$ 表示三元组集合，单个三元组表示为 $(h,r,t)$，即头实体，关系，尾实体，如（史蒂夫·乔布斯，创始人，苹果公司）</p><h3 id="3-1-距离模型-Structured-Embedding-SE"><a href="#3-1-距离模型-Structured-Embedding-SE" class="headerlink" title="3.1 距离模型(Structured Embedding, SE)"></a>3.1 距离模型(Structured Embedding, SE)</h3><p>每个实体用 $d$ 维的向量表示，所有实体投影到同一个 $d$ 维的向量空间中。</p><p>每个关系 $r$ 都有两个矩阵 $M_{r,1}, M_{r,2} \in R^{d \times d}$，分别用于头实体和尾实体的投影操作。</p><p>损失函数为：<br>$$<br>f_r(h,t)&#x3D;|M_{r,1}l_h - M_{r,2}l_t|<br>$$<br>可以看出，损失函数使用关系矩阵将实体投影到同一空间，之后计算距离，从而反映在r下的语义相关度，距离越小则越存在这一关系。</p><p>SE将知识库中的三元组作为学习样例，以实体向量和关系矩阵为参数，不断优化，从而实现知识表示。</p><p>缺点：使用两个不同矩阵对头尾投影，协同性差。</p><h3 id="3-2-单层神经网络模型-Single-Layer-Model-SLM"><a href="#3-2-单层神经网络模型-Single-Layer-Model-SLM" class="headerlink" title="3.2 单层神经网络模型(Single Layer Model, SLM)"></a>3.2 单层神经网络模型(Single Layer Model, SLM)</h3><p>SLM 使用单层神经网络改进 SE，对每个三元组定义评分函数：<br>$$<br>f_r(h,t) &#x3D; u^T_r g(M_{r,1}l_h + M_{r,2}l_t)<br>$$<br>其中 $u^T_r$ 为关系的表示向量。</p><p>SLM 使用 $g()$ 这一 $tanh$ 双曲正切函数的非线性操作来视图寻找实体与关系间的联系。</p><p>缺点：SLM的非线性操作仅提供微弱联系，却带来较高计算复杂度。</p><h3 id="3-3-能量模型-Semantic-Matching-Energy-SME"><a href="#3-3-能量模型-Semantic-Matching-Energy-SME" class="headerlink" title="3.3 能量模型(Semantic Matching Energy, SME)"></a>3.3 能量模型(Semantic Matching Energy, SME)</h3><p>语义匹配能量模型将每个实体和关系使用低维向量表示，同时定义投影矩阵用于刻画实体与关系间的内在联系，即定义两个评分函数：<br>$$<br>f_r(h,t)&#x3D;(M_1l_h + M_2l_r + b_1)^T(M_3l_t + M_4l_r + b_2)<br>$$</p><p>$$<br>f_r(h,t)&#x3D;(M_1l_h \otimes M_2l_r + b_1)^T(M_3l_t \otimes M_4l_r + b_2)<br>$$</p><p>使用了四个投影矩阵，分别使用线性相加形式和哈达玛积的形式，再增加偏置向量，从而提高模型复杂度。</p><h3 id="3-4-双线性模型-LFM、DistMult"><a href="#3-4-双线性模型-LFM、DistMult" class="headerlink" title="3.4 双线性模型(LFM、DistMult)"></a>3.4 双线性模型(LFM、DistMult)</h3><p>隐变量模型（Latent factor model，LFM）使用基于关系的双线性变化来刻画实体与关系之间的联系。评分函数为<br>$$<br>f_r(h,t)&#x3D;l^T_hM_rl_t<br>$$<br>其中 $M_r$ 为 $r$ 对应的双线性变换矩阵（连续空间和离散空间之间转化的一种映射方法），相较于以往模型，LFM 使用简单有效的方法刻画出实体和关系间的语义联系，计算复杂度低。</p><p>DistMult 模型将 LFM 的 $M_r$ 设为对角阵，进一步简化计算的同时，模型效果得到显著提升。</p><h3 id="3-5-张量神经网络模型（Neural-Tensor-Network）"><a href="#3-5-张量神经网络模型（Neural-Tensor-Network）" class="headerlink" title="3.5 张量神经网络模型（Neural Tensor Network）"></a>3.5 张量神经网络模型（Neural Tensor Network）</h3><p>用双线性张量取代传统神经网络中的线性变换层，在不同维度下降头尾实体向量连接起来。</p><p>NTN 为每个三元组定义的评分函数如下：<br>$$<br>f_r(h,t) &#x3D; u^T_r g(l_hM_Rl_t + M_{r,1}l_h+M_{r,2}l_t+b_r)<br>$$<br>这一评分函数计算两个实体间存在关系 $r$ 的可能性。其中 $u^T_r$ 是与关系相关的线性层，$g()$ 为 $tanh$ 函数，$M_r$为三阶张量，$M_{r,1},M_{r,2}$为投影矩阵。可以看出 SLM 即为 NTN 的张量层数为0时的简化版本。</p><p>此外，NTN 中的实体向量为实体中所有单词向量的均值，由于实体单词数量远小于实体数量，可以重复利用单词向量构建实体表示，降低稀疏性问题，同时增强不同实体间的语义联系。</p><p>NTN引入张量操作，能更精准地刻画实体与关系之间的复杂联系，但计算复杂度非常高，需要大量训练数据。且实验表明，NTN在大规模稀疏知识图谱上效果较差。</p><h3 id="3-6-矩阵分解模型"><a href="#3-6-矩阵分解模型" class="headerlink" title="3.6 矩阵分解模型"></a>3.6 矩阵分解模型</h3><p>RESACL 模型将知识库的三元组构成一个大的张量 $X$，如果三元组 (h, r, t) 存在，则 $X_{hrt} &#x3D; 1$，否则为0，之后通过张量分解的方式，将三元组对应张量值 $X_{hrt}$ 分解为实体和关系表示，使 $X_{hrt}$ 尽可能接近 $l_hM_rl_t$</p><p>实际上，RESACL 与前面的 LFM 相似，但 RESACL 也会优化值为0的位置，而 LFM 只优化存在的三元组。</p><h3 id="3-7-翻译模型"><a href="#3-7-翻译模型" class="headerlink" title="3.7 翻译模型"></a>3.7 翻译模型</h3><p>受 word2vec 等模型展现的平移不变现象（词向量能够捕捉形如 king 和 queen、man 和 woman 之间的隐含语义关系）启发，TransE 模型被提出。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/cefc1b9132b5b42b.png" alt="image-20220617083253939"></p><p>TransE 将知识库中关系看做平移向量，对每个三元组 (h, r, t)，使用关系 r 的向量 $l_r$ 作为头实体向量和尾实体相连之间的平移，也可看作从头实体到尾实体的翻译，因此 TransE 也被称作翻译模型。</p><p>TransE 希望，对于每个三元组，有：<br>$$<br>l_h + l_r \approx l_t<br>$$<br>因此，TransE 定义如下损失函数：<br>$$<br>f_r(h,t)&#x3D;|l_h + l_r - l_t|_{L_1&#x2F;L_2}<br>$$<br>即计算向量 $l_h + l_r$ 和 向量 $l_t$ 的 $L_1$ 或 $L_2$ 距离。</p><p>相较于以往的模型，TransE 使用较少的参数，以较低的计算复杂度构建出实体与关系间的复杂联系，性能提升显著，且在大规模稀疏矩阵上表现惊人。</p><p>TransE 也面临一些问题：</p><ol><li>由于 TransE 结构简单，难以除杂知识库中形如 N-N 的多对多复杂关系。相关解决方案有 TransH、TransR、TransD、TransSparse、TransA、TransG、KG2E 等模型。</li><li>TransE 没有有效利用实体和关系的描述信息、类别信息，也不能处理互联网文本等非结构化信息，难以实现多元信息融合。代表工作包括 DKRL 模型等.</li><li>TransE 孤立地学习每个三元组，不能很好地发现关系路径。代表工作包括 PTransE 等。</li></ol><h2 id="前景展望"><a href="#前景展望" class="headerlink" title="前景展望"></a>前景展望</h2><ol><li>不同知识类型的知识表示学习（树形、网格、一维、有向等类型的知识）</li><li>多元信息融合的知识表示学习（非结构化知识、多知识库知识、知识库其他信息）</li><li>复杂推理模式的知识表示学习（利用关系路径、三元组间复杂关系）</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>PaperReading</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MachineLearning</tag>
+      
+      <tag>DeepLearning</tag>
+      
+      <tag>Self-Supervised-Learning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>机器学习00 PyTorch环境配置</title>
+    <link href="/2022/04/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A000-PyTorch%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    <url>/2022/04/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A000-PyTorch%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="PyTorch-环境配置："><a href="#PyTorch-环境配置：" class="headerlink" title="PyTorch 环境配置："></a>PyTorch 环境配置：</h1><p>毕设需要用到 PyTorch，网上的教程比较老了，版本都很旧，PyTorch 已经不支持 10.2 的 cuda 了，这里重新记录一下配置过程。</p><h2 id="1-Anaconda-安装："><a href="#1-Anaconda-安装：" class="headerlink" title="1. Anaconda 安装："></a>1. Anaconda 安装：</h2><p>在 <a href="https://www.anaconda.com/">Anaconda  官网</a> 下载 Anaconda 安装包，按引导安装（选择All Users，不配置环境变量）</p><p>环境变量配置如下：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123333832.png" alt="image-20220412123333832"></p><p>cmd 中输入 conda –version，出现如下结果表示成功</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412123431028.png" alt="image-20220412123431028"></p><h2 id="2-CUDA-toolkit-安装："><a href="#2-CUDA-toolkit-安装：" class="headerlink" title="2. CUDA toolkit 安装："></a>2. CUDA toolkit 安装：</h2><p>首先安装 Visual Studio 2017（千万不要装2019，如果已经安装了2019，建议卸载重新安装），至少选择 C++ 桌面开发：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411232126734.png" alt="image-20220411232126734"></p><p>接下来安装 CUDA，为配合 PyTorch 建议使用 11.3 版本（10系以上N卡应该都支持）： </p><p><a href="https://developer.nvidia.cn/cuda-11.3.0-download-archive?target_os=Windows&target_arch=x86_64&target_version=10">安装地址</a>，选择系统及版本，建议使用本地 exe 安装：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230456273.png" alt="image-20220411230456273"></p><p>安装时仅选择 CUDA 组件即可：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411230856055.png" alt="image-20220411230856055"></p><p>完成后在终端中输入 “ nvcc -V ”检测，如图则安装完毕</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411231948925.png" alt="image-20220411231948925"></p><p>除此之外，还需安装 cuDNN，与 11.3 版本 CUDA 相匹配的版本为 8.2.1 <a href="https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.1.32/11.3_06072021/cudnn-11.3-windows-x64-v8.2.1.32.zip">下载地址</a></p><p>下载完成后解压，复制到CUDA安装目录下</p><h2 id="3-PyTorch-配置："><a href="#3-PyTorch-配置：" class="headerlink" title="3. PyTorch 配置："></a>3. PyTorch 配置：</h2><p>首先创建新虚拟环境，cmd 中输入：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">conda create -n PyTorch python=3.7<br></code></pre></td></tr></table></figure><p>出现提示后，输入 y 确定即安装完毕（网络问题可以换清华源解决）</p><p>创建完成后输入如下代码，激活虚拟环境：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">conda activate PyTorch<br></code></pre></td></tr></table></figure><p>在 <a href="https://pytorch.org/get-started/locally/">PyTorch 官网</a> 中选择好 PyTorch 版本、系统、包管理器、语言、CUDA版本：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220411224428741.png" alt="image-20220411224428741"></p><p>获得如下 Conda 命令，输入 cmd 进行安装：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch<br></code></pre></td></tr></table></figure><p>出现提示后，输入 y 确定即安装完毕</p><h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h2><p>输入如下代码测试：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-built_in">print</span>(torch.cuda.is_available())<br>device = torch.device(<span class="hljs-string">&quot;cuda:0&quot;</span>)<br><br><span class="hljs-built_in">print</span>(device)<br><span class="hljs-built_in">print</span>(torch.cuda.get_device_name(<span class="hljs-number">0</span>))<br><span class="hljs-built_in">print</span>(torch.rand(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>).cuda())<br></code></pre></td></tr></table></figure><p>结果如下：</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220412170940291.png" alt="image-20220412170940291"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Note</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MachineLearning</tag>
+      
+      <tag>PyTorch</tag>
+      
+      <tag>Configuration</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>

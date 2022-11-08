@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ZhuoRan-TakuZen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="知识表示学习研究进展论文笔记1.知识库现实世界中，知识是蕴藏在无（半）结构的信息中的，比如：  人工智能（Artificial Intelligence），英文缩写为AI。它是研究、开发用于模拟、延伸和扩展人的智能的理论、方法、技术及应用系统的一门新的技术科学。  这句话中蕴含着人工智能这一学科的基本定义，但这些知识是非结构化的，其中一条可以提取为：  从现实世界中的无（半）结构的信息中提取结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文阅读01-知识表示学习研究进展">
+<meta property="og:url" content="https://username.github.io/2022/06/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB01-%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/index.html">
+<meta property="og:site_name" content="TakuZen&#39;s Blog">
+<meta property="og:description" content="知识表示学习研究进展论文笔记1.知识库现实世界中，知识是蕴藏在无（半）结构的信息中的，比如：  人工智能（Artificial Intelligence），英文缩写为AI。它是研究、开发用于模拟、延伸和扩展人的智能的理论、方法、技术及应用系统的一门新的技术科学。  这句话中蕴含着人工智能这一学科的基本定义，但这些知识是非结构化的，其中一条可以提取为：  从现实世界中的无（半）结构的信息中提取结构">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221108130319057.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/8bae01647c2ab1b9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/cefc1b9132b5b42b.png">
+<meta property="article:published_time" content="2022-06-16T05:30:00.000Z">
+<meta property="article:modified_time" content="2022-11-08T06:09:16.725Z">
+<meta property="article:author" content="ZhuoRan-TakuZen">
+<meta property="article:tag" content="MachineLearning">
+<meta property="article:tag" content="DeepLearning">
+<meta property="article:tag" content="Self-Supervised-Learning">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221108130319057.png">
+  
+  
+  
+  <title>论文阅读01-知识表示学习研究进展 - TakuZen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"username.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Takuzen&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="论文阅读01-知识表示学习研究进展"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-16 13:30" pubdate>
+          2022年6月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">论文阅读01-知识表示学习研究进展</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221108130319057.png" srcset="/img/loading.gif" lazyload alt="image-20221108130319057"></p>
+<h1 id="知识表示学习研究进展论文笔记"><a href="#知识表示学习研究进展论文笔记" class="headerlink" title="知识表示学习研究进展论文笔记"></a>知识表示学习研究进展论文笔记</h1><h2 id="1-知识库"><a href="#1-知识库" class="headerlink" title="1.知识库"></a>1.知识库</h2><p>现实世界中，知识是蕴藏在无（半）结构的信息中的，比如：</p>
+<blockquote>
+<p>人工智能（Artificial Intelligence），英文缩写为AI。它是研究、开发用于模拟、延伸和扩展人的智能的理论、方法、技术及应用系统的一门新的技术科学。</p>
+</blockquote>
+<p>这句话中蕴含着人工智能这一学科的基本定义，但这些知识是非结构化的，其中一条可以提取为：</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/8bae01647c2ab1b9.png" srcset="/img/loading.gif" lazyload alt="image-20220614181603499"></p>
+<p>从现实世界中的无（半）结构的信息中提取结构化的知识，就是知识库的任务。知识库将知识表示为**实体(entity)<strong>间的</strong>关系(relation)**，将人类知识经过系统组织后形成结构化知识系统。作为人类知识的结晶，知识库是推动人工智能和信息服务发展的重要基础技术。</p>
+<p>不难看出，知识表示是知识获取与应用的基础，因此，知识表示学习问题是贯穿知识库构建于应用全过程的关键问题。</p>
+<p>知识库通用表示方式为<strong>三元组</strong>，即（实体1，关系，实体2）的形式，对应两个有某种关联的实体。实体可以是人名、地名、机构名、概念等，关系可以是包含、等价等关系。</p>
+<p>但这种网络形式的知识表示面临两大问题：</p>
+<ol>
+<li>计算效率问题：这种表示方法在计算语义及推理关系时需要设计专门的图算法，有较高复杂度和较差的可拓展性，知识库较大时计算效率低，难以满足实时计算需求。</li>
+<li>数据稀疏问题：由于知识库遵循长尾效应，在长尾部分存在严重的数据系数问题，且只有极少知识或路径涉及它们，对这些实体的语义或推理关系计算准确率极低。</li>
+</ol>
+<h2 id="2-表示学习"><a href="#2-表示学习" class="headerlink" title="2.表示学习"></a>2.表示学习</h2><p>为了解决上述问题，可以使用基于深度学习的表示学习技术，将研究对象的语义信息转化为稠密的低维向量，用向量之间相对位置的远近来表示语义相似度，这样就可以高效的计算实体间语义关系，有效解决数据稀疏问题。</p>
+<p>知识库中的 实体$e$ 和 关系$r$ 可以通过表示学习得到对应向量 $l_e$ 和 $l_r$，之后可以通过计算欧氏距离或余弦距离的方式计算语义相似度。</p>
+<p>此前常用的独热表示的方法构建词袋模型，独热向量之间相互正交，无法计算欧氏距离或余弦距离，丢失大量语义信息。且独热表示存在严重的数据稀疏问题，特别是在语言表示中。而表示学习向量维度较低，有利于<strong>提高计算效率，缓解数据稀疏问题</strong></p>
+<p>表示学习是分布式的，即孤立地看向量中的一维没有明确意义，要综合各维度才能表示对象的语义信息。这一点与人脑神经元的原理相似，这里不做过多展开。表示学习也是层次结构的，这与物质的组成结构原理相似，即大的物体一般由更小的单位组成（多个维度组成表示某含义的向量）。</p>
+<p>在构建知识图谱时，往往需要不断补充实体间关系，利用表示学习方法，可以预测两实体之间的关系，即<strong>知识图谱补全(Knowledge graph completion)</strong></p>
+<p>此外，由于现实生活中同一知识体系可能在不同知识库中被记录，但在不同知识库中存在不同的表示方式，难以使用传统方法融合，如果能使用表示学习方法，将多个知识库中的知识用同一方法表示出来，就能更高效的进行多知识库的有机融合，实现异质信息融合。</p>
+<h2 id="3-表示学习主要方法"><a href="#3-表示学习主要方法" class="headerlink" title="3.表示学习主要方法"></a>3.表示学习主要方法</h2><p>将知识库表示为 $G&#x3D;(E,R,S)$，其中 $E &#x3D; {e_1,e_2,…,e_{|E|}}$ 表示实体集合，包含 $|E|$ 种不同实体，$R &#x3D; {r_1,r_2,…,r_{|R|}}$ 是关系集合，包含 $|R|$ 种不同关系，$S \in E \times R \times E$ 表示三元组集合，单个三元组表示为 $(h,r,t)$，即头实体，关系，尾实体，如（史蒂夫·乔布斯，创始人，苹果公司）</p>
+<h3 id="3-1-距离模型-Structured-Embedding-SE"><a href="#3-1-距离模型-Structured-Embedding-SE" class="headerlink" title="3.1 距离模型(Structured Embedding, SE)"></a>3.1 距离模型(Structured Embedding, SE)</h3><p>每个实体用 $d$ 维的向量表示，所有实体投影到同一个 $d$ 维的向量空间中。</p>
+<p>每个关系 $r$ 都有两个矩阵 $M_{r,1}, M_{r,2} \in R^{d \times d}$，分别用于头实体和尾实体的投影操作。</p>
+<p>损失函数为：<br>$$<br>f_r(h,t)&#x3D;|M_{r,1}l_h - M_{r,2}l_t|<br>$$<br>可以看出，损失函数使用关系矩阵将实体投影到同一空间，之后计算距离，从而反映在r下的语义相关度，距离越小则越存在这一关系。</p>
+<p>SE将知识库中的三元组作为学习样例，以实体向量和关系矩阵为参数，不断优化，从而实现知识表示。</p>
+<p>缺点：使用两个不同矩阵对头尾投影，协同性差。</p>
+<h3 id="3-2-单层神经网络模型-Single-Layer-Model-SLM"><a href="#3-2-单层神经网络模型-Single-Layer-Model-SLM" class="headerlink" title="3.2 单层神经网络模型(Single Layer Model, SLM)"></a>3.2 单层神经网络模型(Single Layer Model, SLM)</h3><p>SLM 使用单层神经网络改进 SE，对每个三元组定义评分函数：<br>$$<br>f_r(h,t) &#x3D; u^T_r g(M_{r,1}l_h + M_{r,2}l_t)<br>$$<br>其中 $u^T_r$ 为关系的表示向量。</p>
+<p>SLM 使用 $g()$ 这一 $tanh$ 双曲正切函数的非线性操作来视图寻找实体与关系间的联系。</p>
+<p>缺点：SLM的非线性操作仅提供微弱联系，却带来较高计算复杂度。</p>
+<h3 id="3-3-能量模型-Semantic-Matching-Energy-SME"><a href="#3-3-能量模型-Semantic-Matching-Energy-SME" class="headerlink" title="3.3 能量模型(Semantic Matching Energy, SME)"></a>3.3 能量模型(Semantic Matching Energy, SME)</h3><p>语义匹配能量模型将每个实体和关系使用低维向量表示，同时定义投影矩阵用于刻画实体与关系间的内在联系，即定义两个评分函数：<br>$$<br>f_r(h,t)&#x3D;(M_1l_h + M_2l_r + b_1)^T(M_3l_t + M_4l_r + b_2)<br>$$</p>
+<p>$$<br>f_r(h,t)&#x3D;(M_1l_h \otimes M_2l_r + b_1)^T(M_3l_t \otimes M_4l_r + b_2)<br>$$</p>
+<p>使用了四个投影矩阵，分别使用线性相加形式和哈达玛积的形式，再增加偏置向量，从而提高模型复杂度。</p>
+<h3 id="3-4-双线性模型-LFM、DistMult"><a href="#3-4-双线性模型-LFM、DistMult" class="headerlink" title="3.4 双线性模型(LFM、DistMult)"></a>3.4 双线性模型(LFM、DistMult)</h3><p>隐变量模型（Latent factor model，LFM）使用基于关系的双线性变化来刻画实体与关系之间的联系。评分函数为<br>$$<br>f_r(h,t)&#x3D;l^T_hM_rl_t<br>$$<br>其中 $M_r$ 为 $r$ 对应的双线性变换矩阵（连续空间和离散空间之间转化的一种映射方法），相较于以往模型，LFM 使用简单有效的方法刻画出实体和关系间的语义联系，计算复杂度低。</p>
+<p>DistMult 模型将 LFM 的 $M_r$ 设为对角阵，进一步简化计算的同时，模型效果得到显著提升。</p>
+<h3 id="3-5-张量神经网络模型（Neural-Tensor-Network）"><a href="#3-5-张量神经网络模型（Neural-Tensor-Network）" class="headerlink" title="3.5 张量神经网络模型（Neural Tensor Network）"></a>3.5 张量神经网络模型（Neural Tensor Network）</h3><p>用双线性张量取代传统神经网络中的线性变换层，在不同维度下降头尾实体向量连接起来。</p>
+<p>NTN 为每个三元组定义的评分函数如下：<br>$$<br>f_r(h,t) &#x3D; u^T_r g(l_hM_Rl_t + M_{r,1}l_h+M_{r,2}l_t+b_r)<br>$$<br>这一评分函数计算两个实体间存在关系 $r$ 的可能性。其中 $u^T_r$ 是与关系相关的线性层，$g()$ 为 $tanh$ 函数，$M_r$为三阶张量，$M_{r,1},M_{r,2}$为投影矩阵。可以看出 SLM 即为 NTN 的张量层数为0时的简化版本。</p>
+<p>此外，NTN 中的实体向量为实体中所有单词向量的均值，由于实体单词数量远小于实体数量，可以重复利用单词向量构建实体表示，降低稀疏性问题，同时增强不同实体间的语义联系。</p>
+<p>NTN引入张量操作，能更精准地刻画实体与关系之间的复杂联系，但计算复杂度非常高，需要大量训练数据。且实验表明，NTN在大规模稀疏知识图谱上效果较差。</p>
+<h3 id="3-6-矩阵分解模型"><a href="#3-6-矩阵分解模型" class="headerlink" title="3.6 矩阵分解模型"></a>3.6 矩阵分解模型</h3><p>RESACL 模型将知识库的三元组构成一个大的张量 $X$，如果三元组 (h, r, t) 存在，则 $X_{hrt} &#x3D; 1$，否则为0，之后通过张量分解的方式，将三元组对应张量值 $X_{hrt}$ 分解为实体和关系表示，使 $X_{hrt}$ 尽可能接近 $l_hM_rl_t$</p>
+<p>实际上，RESACL 与前面的 LFM 相似，但 RESACL 也会优化值为0的位置，而 LFM 只优化存在的三元组。</p>
+<h3 id="3-7-翻译模型"><a href="#3-7-翻译模型" class="headerlink" title="3.7 翻译模型"></a>3.7 翻译模型</h3><p>受 word2vec 等模型展现的平移不变现象（词向量能够捕捉形如 king 和 queen、man 和 woman 之间的隐含语义关系）启发，TransE 模型被提出。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/cefc1b9132b5b42b.png" srcset="/img/loading.gif" lazyload alt="image-20220617083253939"></p>
+<p>TransE 将知识库中关系看做平移向量，对每个三元组 (h, r, t)，使用关系 r 的向量 $l_r$ 作为头实体向量和尾实体相连之间的平移，也可看作从头实体到尾实体的翻译，因此 TransE 也被称作翻译模型。</p>
+<p>TransE 希望，对于每个三元组，有：<br>$$<br>l_h + l_r \approx l_t<br>$$<br>因此，TransE 定义如下损失函数：<br>$$<br>f_r(h,t)&#x3D;|l_h + l_r - l_t|_{L_1&#x2F;L_2}<br>$$<br>即计算向量 $l_h + l_r$ 和 向量 $l_t$ 的 $L_1$ 或 $L_2$ 距离。</p>
+<p>相较于以往的模型，TransE 使用较少的参数，以较低的计算复杂度构建出实体与关系间的复杂联系，性能提升显著，且在大规模稀疏矩阵上表现惊人。</p>
+<p>TransE 也面临一些问题：</p>
+<ol>
+<li>由于 TransE 结构简单，难以除杂知识库中形如 N-N 的多对多复杂关系。相关解决方案有 TransH、TransR、TransD、TransSparse、TransA、TransG、KG2E 等模型。</li>
+<li>TransE 没有有效利用实体和关系的描述信息、类别信息，也不能处理互联网文本等非结构化信息，难以实现多元信息融合。代表工作包括 DKRL 模型等.</li>
+<li>TransE 孤立地学习每个三元组，不能很好地发现关系路径。代表工作包括 PTransE 等。</li>
+</ol>
+<h2 id="前景展望"><a href="#前景展望" class="headerlink" title="前景展望"></a>前景展望</h2><ol>
+<li>不同知识类型的知识表示学习（树形、网格、一维、有向等类型的知识）</li>
+<li>多元信息融合的知识表示学习（非结构化知识、多知识库知识、知识库其他信息）</li>
+<li>复杂推理模式的知识表示学习（利用关系路径、三元组间复杂关系）</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PaperReading/" class="category-chain-item">PaperReading</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MachineLearning/">#MachineLearning</a>
+      
+        <a href="/tags/DeepLearning/">#DeepLearning</a>
+      
+        <a href="/tags/Self-Supervised-Learning/">#Self-Supervised-Learning</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>论文阅读01-知识表示学习研究进展</div>
+      <div>https://username.github.io/2022/06/16/论文阅读01-知识表示学习研究进展/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ZhuoRan-TakuZen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/22/%E9%87%8D%E5%90%AFGithub%E5%8D%9A%E5%AE%A2/" title="重启Github博客">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">重启Github博客</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A000-PyTorch%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="机器学习00 PyTorch环境配置">
+                        <span class="hidden-mobile">机器学习00 PyTorch环境配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
