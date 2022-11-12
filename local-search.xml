@@ -37,6 +37,33 @@
   
   
   <entry>
+    <title>Nginx 原理及安装</title>
+    <link href="/2022/11/08/Nginx-%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%89%E8%A3%85/"/>
+    <url>/2022/11/08/Nginx-%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%89%E8%A3%85/</url>
+    
+    <content type="html"><![CDATA[<h1 id="跨域问题："><a href="#跨域问题：" class="headerlink" title="跨域问题："></a>跨域问题：</h1><p>浏览器对于 js 的有同源策略的限制，例如 <a href="http://a.cn/">http://a.cn</a> 下的 js 不能调用 <a href="http://b.cn/">http://b.cn</a> 中的 js、对象或数据（因为 <a href="http://a.cn/">http://a.cn</a> 和  <a href="http://a.cn/">http://a.cn</a>  是不同域）</p><p>在做前后端完全分离的项目时，前端所有请求都发往后端，不会出现跨域问题。</p><p>但在前端直接向其他网站（包括统一域名的不同端口和不同协议）发送请求时就会产生跨域问题。</p><p>在 Vue 项目中，开发环境下解决跨域，常使用脚手架本身的 Proxy Server 来解决：</p><p>在 vue.config.js （Vue 2.x）中设置如下代码：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">dev</span>: &#123;<br>    <span class="hljs-attr">proxyTable</span>: &#123; <span class="hljs-comment">// 配置跨域</span><br>    <span class="hljs-string">&#x27;/api&#x27;</span>:&#123;<br>        <span class="hljs-attr">target</span>:<span class="hljs-string">`http://www.baidu.com`</span>, <span class="hljs-comment">//请求后台接口</span><br>        <span class="hljs-attr">changeOrigin</span>:<span class="hljs-literal">true</span>, <span class="hljs-comment">// 允许跨域</span><br>        <span class="hljs-attr">pathRewrite</span>:&#123;<br>            <span class="hljs-string">&#x27;^/api&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-comment">// 重写请求</span><br>        &#125;<br>    &#125;<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure><p>以如上代码为例，可以将所有以 &#x2F;api 开头的 http 请求代理转发到 target 中的地址，将请求开头的 &#x2F;api 转写为 <a href="http://www.baidu.com./">http://www.baidu.com。</a></p><p>其实际原理是开启一个代理转发服务器，将所有请求代理到当前端口，再在服务器内部转发请求，由于服务期间不存在跨域，就可以正常访问了。</p><p>但在生产环境下，Vue 不再提供代理转发服务器，需要自己解决跨域问题。</p><h1 id="NGINX"><a href="#NGINX" class="headerlink" title="NGINX"></a>NGINX</h1><p><a href="http://nginx.org/">NGINX</a> 是高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，因稳定性、丰富的功能集、简单的配置文件和低系统资源的消耗而闻名。</p><p>其特点是占有内存少，并发能力强，事实上 NGINX的并发能力在同类型的网页服务器中表现较好，中国大陆使用 NGINX 网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。 </p><p>NGINX 处理高并发能力是十分强大的，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。<br>NGINX 支持热部署，启动简单，可以做到7*24不间断运行。几个月都不需要重新启动。</p><h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112133655998.png" alt="image-20221112133655998"></p><p>正向代理：在本地搭建一个服务器来帮助访问（浏览器中配置代理服务器）</p><p>反向代理： 如：访问淘宝时，淘宝内部肯定不是只有一台服务器，它的内部有很多台服务器，那我们进行访问的时候，因为服务器中间 session 不共享，在服务器之间访问需要频繁登录，这时如果淘宝搭建一个过渡服务器，对客户来说是没有任何影响的，客户登录一次就可以访问所有服务器，这种情况就是反向代理。</p><p>对用户来说，客户端对代理是无感知的，客户端不需要任何配置就可以访问，我们只需要把请求发送给反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器的地址。（在服务器中配置代理服务器）</p><h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>现有的请求使服务器压力太大无法承受，需要搭建一个服务器集群，去分担原先一个服务器所承受的压力</p><p>当有多台服务器时，需要把请求分给这些服务器，但是服务器性能不同，如何分配请求，以使得不同性能的服务器得到最大程度的利用，就是负载均衡。</p><h3 id="Nginx-的三种负载均衡方式："><a href="#Nginx-的三种负载均衡方式：" class="headerlink" title="Nginx 的三种负载均衡方式："></a>Nginx 的三种负载均衡方式：</h3><p><strong>轮询法：</strong><br>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。<br>适合服务器配置相当，无状态且短平快的服务使用。也适用于图片服务器集群和纯静态页面服务器集群。<br><strong>加权轮询：</strong><br>指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。<br>这种方式比较灵活，当后端服务器性能存在差异的时候，通过配置权重，可以让服务器的性能得到充分发挥，有效利用资源。weight和访问比率成正比，用于后端服务器性能不均的情况。权重越高，被访问的概率越大。<br><strong>IP 哈希：</strong><br>上述方式存在一个问题：在负载均衡系统中，假如用户在某台服务器上登录了，那么该用户第二次请求的时候，请求可能会重新定位到服务器集群中的某一个，那么已经登录某一个服务器的用户再重新定位到另一个服务器，其登录信息将会丢失。<br>IP 哈希可以解决这个问题：如果客户已经访问了某个服务器，当用户再次访问时，会将该请求通过哈希算法，自动定位到该服务器。每个请求按访问 IP 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决 session 的问题。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Windows下：访问 <a href="http://nginx.org/en/download.html">nginx: download</a> 下载稳定版压缩包，解压即可</p><p>进入 NGINX，输入 nginx.exe 回车即可启动（路径不能包含中文）</p><p>打开浏览器：浏览器地址栏输入网址 <a href="http://localhost/">http://localhost:80</a> 回车，出现以下页面说明启动成功</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112134715523.png" alt="image-20221112134715523"></p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>通过修改 conf 文件夹下的 nginx.conf 文件来配置 nginx，每次改动后使用 <code>nginx -s reload</code> 即可让改动生效，无需重启 nginx；</p><p>关闭时使用 <code>nginx -s stop</code> 快速停止，或 <code>nginx -s quit</code> 安全停止。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Technology</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Nginx</tag>
+      
+      <tag>Proxy</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数据结构01-并查集</title>
     <link href="/2022/11/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%8401-%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     <url>/2022/11/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%8401-%E5%B9%B6%E6%9F%A5%E9%9B%86/</url>
