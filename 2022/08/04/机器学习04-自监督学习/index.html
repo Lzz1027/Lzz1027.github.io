@@ -23,16 +23,15 @@
 <meta property="og:site_name" content="TakuZen&#39;s Blog">
 <meta property="og:description" content="Self-supervised Learning 自监督学习Supervised 监督 数据集需要人工标注，让机器知道学习方向 Self-Supervised 自监督 将数据集分为两部分，一部分作为输入，一部分用于校验输出效果（当作标注结果）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013529142.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013744717.png">
 <meta property="article:published_time" content="2022-08-04T05:30:00.000Z">
-<meta property="article:modified_time" content="2022-08-29T05:20:17.928Z">
+<meta property="article:modified_time" content="2022-11-12T04:24:48.881Z">
 <meta property="article:author" content="ZhuoRan-TakuZen">
 <meta property="article:tag" content="MachineLearning">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Self-Supervised-Learning">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013529142.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414013744717.png">
   
   
   
@@ -410,6 +409,30 @@
             </div>
 
             
+  <article id="comments" lazyload>
+    
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '5d5bd14d39cea338e4ad85d8ec1c1736'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
           </article>
         </div>
       </div>
@@ -453,6 +476,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -646,6 +675,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

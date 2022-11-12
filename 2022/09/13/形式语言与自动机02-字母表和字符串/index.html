@@ -23,32 +23,15 @@
 <meta property="og:site_name" content="TakuZen&#39;s Blog">
 <meta property="og:description" content="字母表和字符串将词语、数字、词组等表示成字符串是一种常用方式，要定义字符串，就需要字母表； 字母表是一个有限且非空的符号集合，例：   字母表 Σ 上的字符串是一个 Σ 中符号的有限序列，空字符串表示为ε，例：   语言是字母表上的字符串的集合，语言可以用于表示有 “YES&#x2F;NO” 答案的问题；   字母表总是有限的，而语言总是无限的（有限语言的研究价值太低）； 基于以上思想，我们将计算">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912173147921.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912173540107.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912184330339.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912190914117.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191039457.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191212589.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191411160.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191633494.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912191920122.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192349835.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192217951.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192525934.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192604519.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192730122.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192828517.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912192859248.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912193007657.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912193101645.png">
 <meta property="article:published_time" content="2022-09-13T09:30:00.000Z">
-<meta property="article:modified_time" content="2022-11-08T06:09:45.851Z">
+<meta property="article:modified_time" content="2022-11-12T04:28:02.856Z">
 <meta property="article:author" content="ZhuoRan-TakuZen">
 <meta property="article:tag" content="Formal Languages">
 <meta property="article:tag" content="Alphabet">
 <meta property="article:tag" content="string">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912173147921.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220912173540107.png">
   
   
   
@@ -486,6 +469,30 @@
             </div>
 
             
+  <article id="comments" lazyload>
+    
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '1a730e0834b234f87988d8692800d469'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
           </article>
         </div>
       </div>
@@ -529,6 +536,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -722,6 +735,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

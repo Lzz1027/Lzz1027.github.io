@@ -230,7 +230,7 @@
           >
           
             <div class="about-avatar">
-              <img src="/img/avatar.png" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
+              <img src="/img/qqAvatar.jpg" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
             </div>
           
           <div class="container">
@@ -247,7 +247,7 @@
         
         
         
-        <a href=https://github.com class="
+        <a href=https://github.com/Lzz1027 class="
            hint--bottom hint--rounded"
            aria-label=GitHub
            target="_blank"
@@ -259,12 +259,24 @@
         
         
         
-        <a href=https://douban.com class="
+        <a href=https://gitee.com/zhuoran_DW class="
            hint--bottom hint--rounded"
-           aria-label=豆瓣
+           aria-label=Gitee
            target="_blank"
         >
-          <i class="iconfont icon-douban-fill" aria-hidden="true"></i>
+          <i class="iconfont icon-gitee-fill" aria-hidden="true"></i>
+          
+        </a>
+      
+        
+        
+        
+        <a href=https://space.bilibili.com/30138099 class="
+           hint--bottom hint--rounded"
+           aria-label=Bilibili
+           target="_blank"
+        >
+          <i class="iconfont icon-bilibili" aria-hidden="true"></i>
           
         </a>
       
@@ -278,7 +290,21 @@
         >
           <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
           
-            <img class="qr-img" src="/img/favicon.png" srcset="/img/loading.gif" lazyload alt="qrcode" />
+            <img class="qr-img" src="/img/Wechat_QR.jpg" srcset="/img/loading.gif" lazyload alt="qrcode" />
+          
+        </a>
+      
+        
+        
+        
+        <a  class="qr-trigger
+           "
+           
+           target="_self"
+        >
+          <i class="iconfont icon-qq-fill" aria-hidden="true"></i>
+          
+            <img class="qr-img" src="/img/QQ_QR.jpg" srcset="/img/loading.gif" lazyload alt="qrcode" />
           
         </a>
       
@@ -321,6 +347,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -477,6 +509,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

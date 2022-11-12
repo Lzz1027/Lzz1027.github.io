@@ -23,20 +23,15 @@
 <meta property="og:site_name" content="TakuZen&#39;s Blog">
 <meta property="og:description" content="TransformerTransformer 是什么？本质上是一种 Sequence to sequence (Seq2seq) 的转换 输入是序列，输出也是序列（输出长度不确定） 适合用于语音识别（现在多使用 RNN-Transducer）、文本翻译、QA、NLP（转化为QA）等（输出序列长度不确定，没有明确关系）  也可用于 Multi-label Classification 多标签分类 输">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414014551597.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414020620729.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021014715.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021341139.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023057892.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png">
 <meta property="article:published_time" content="2022-08-06T05:30:00.000Z">
-<meta property="article:modified_time" content="2022-08-29T05:20:25.810Z">
+<meta property="article:modified_time" content="2022-11-12T04:25:08.887Z">
 <meta property="article:author" content="ZhuoRan-TakuZen">
 <meta property="article:tag" content="MachineLearning">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Transformer">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414014551597.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png">
   
   
   
@@ -405,9 +400,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" title="论文阅读02 知识图谱构建技术综述">
+                      <a href="/2022/08/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" title="论文阅读03 知识图谱构建技术综述">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">论文阅读02 知识图谱构建技术综述</span>
+                        <span class="hidden-mobile">论文阅读03 知识图谱构建技术综述</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -427,6 +422,30 @@
             </div>
 
             
+  <article id="comments" lazyload>
+    
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '28a0ae1884826f990f9bc3466525c1dc'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
           </article>
         </div>
       </div>
@@ -470,6 +489,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -663,6 +688,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

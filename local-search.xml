@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>论文阅读04 知识图谱可视化查询技术综述</title>
+    <link href="/2022/11/10/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB04-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%8F%AF%E8%A7%86%E5%8C%96%E6%9F%A5%E8%AF%A2%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/"/>
+    <url>/2022/11/10/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB04-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%8F%AF%E8%A7%86%E5%8C%96%E6%9F%A5%E8%AF%A2%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221110181547061.png" alt="image-20221110181547061"></p><p>当前知识图谱可视化及可视化查询工作可以分为三个方面：</p><ul><li>基于已有可视技术对知识图谱的可视化表示：用于<strong>辅助用户理解</strong>知识图谱</li><li>大规模知识图谱的可视化查询语言及查询系统：针对<strong>大规模数据</strong>的理解、<strong>查询</strong>和分析</li><li>知识图谱间的联合可视化查询分析：<strong>跨数据集</strong>的联合查询</li></ul><h1 id="1-知识图谱可视化"><a href="#1-知识图谱可视化" class="headerlink" title="1 知识图谱可视化"></a>1 知识图谱可视化</h1><h2 id="1-1-数据类型"><a href="#1-1-数据类型" class="headerlink" title="1.1 数据类型"></a>1.1 数据类型</h2><p>多为一般图模型 $ G &#x3D; (V, E)$ 的扩展形式：</p><p><strong>RDF 图：</strong>有限个 $(s, p, o)$ 三元组的集合，$s$ 代表主语，$p$ 代表谓语，$o$ 代表宾语；</p><p><strong>属性图：</strong>相较于一般图模型，为顶点和边增加了属性（键值对形式）；</p><p><strong>有向标签图：</strong>相较于一般图模型，顶点增加标签，属于特殊的 RDF 图；</p><p><strong>异构信息网络图：</strong>相较于一般图模型，为顶点和边增加了一个对象或链接类型，类型总数超过1则可称作异构信息网络。</p><h2 id="1-2-可视表达"><a href="#1-2-可视表达" class="headerlink" title="1.2 可视表达"></a>1.2 可视表达</h2><p>基于<strong>节点-链接</strong>的可视技术：点或圆圈表示节点，边表示节点间链接，可利用颜色、半径等信息表示实体类型。此外还有根据胡克定律及库仑定律提出的力导向布局算法，通过赋予节点引力与斥力的方式让节点处于平衡状态，类似的模型还有 FR 模型、应力模型等。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112101913060.png" alt="节点-链接图示例"></p><p>基于<strong>邻接矩阵</strong>的可视技术：节点-链接的可视技术存在交叉重叠等难以避免的问题，而邻接矩阵可以有效规避此类问题，使数据更具备可读性。邻接矩阵图通过行列向量的交叉反应节点间关系，其可视化效果很大程度上受节点排序影响。邻接矩阵图缺点在于无法直观了解图的拓扑结构以及图中存在的隐含关系，不适用于路径匹配类的查询任务，在此基础上有混合布局邻接矩阵；结合桑基图、柱状图的多视图可视化系统；结合树的多变量图可视化系统等。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112101940632.png" alt="同一个图在不同节点排序下的邻接矩阵图"></p><p><strong>大规模</strong>知识图谱可视化技术：</p><p>目前已经有了大量公开发表的大规模知识图谱，如 <strong>WordNet</strong>、<strong>DBpedia</strong>、<strong>UnitProt</strong>、<strong>SciKG</strong>等，在这些数据集基础上，通过定义抽象层、不同布局模型等方式，可以构建相应的知识图谱可视化系统。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112101630079.png" alt="大规模知识图谱可视化一般步骤"></p><h1 id="2-可视化查询"><a href="#2-可视化查询" class="headerlink" title="2 可视化查询"></a>2 可视化查询</h1><p>由于知识图谱没有统一数据模型，对于不同数据模型的知识图谱需要使用不同的查询语言。</p><p><strong>SPARQL</strong>（SPARQL Protocol and RDF Query Language）是 W3C 制定的 RDF 知识图谱标准查询语言。</p><p><strong>Cypher</strong>（Neo4j）和 <strong>Gremlin</strong>（Apache TinkerPop）是在属性图上的查询语言。</p><p>此外还有按例查询的 <strong>Query By Example</strong>（QBE） 方法，无需用户进行专业学习和训练。</p><h2 id="2-1-知识图谱可视化查询语言"><a href="#2-1-知识图谱可视化查询语言" class="headerlink" title="2.1 知识图谱可视化查询语言"></a>2.1 知识图谱可视化查询语言</h2><h3 id="2-1-1-基于-RDF-图的可视化查询语言"><a href="#2-1-1-基于-RDF-图的可视化查询语言" class="headerlink" title="2.1.1 基于 RDF 图的可视化查询语言"></a>2.1.1 基于 RDF 图的可视化查询语言</h3><p><strong>RDF-GL：</strong>矩形和有向线段的组合构成基本查询模式，使用圆形表示 UNION、OPTIONAL运算符，将 COUNT、LIMIT 等操作符内置于矩形之中。不具备良好可学习性和可读性。</p><p><strong>QueryVOWL：</strong>基于 SPARQL 和 VOWL，通过圆圈和有向线段的组合形成复杂查询模式，用矩形表示 RDF 图中的字面量，圆圈中的数字表示 COUNT 的查询结果。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112103150289.png" alt="QueryVOWL"></p><p><strong>KGVis：</strong>将中检结果存储在查询模式中，实现查询模式与查询结果间的双向转换。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112103306377.png" alt="基于 KGVis 的可视化系统架构"></p><h3 id="2-2-2-基于属性图的可视化查询语言"><a href="#2-2-2-基于属性图的可视化查询语言" class="headerlink" title="2.2.2 基于属性图的可视化查询语言"></a>2.2.2 基于属性图的可视化查询语言</h3><p>属性图相较于 RDF 图在节点和边上内置了属性信息，在工业界广泛采用，但还未形成统一工业标准，近年来 LDBC 正在进行标准化工作。</p><p><strong>V1：</strong>通过矩形和线段组合表示属性图的基本图模式，用颜色区分节点类别。不基于任意一种图查询语言，采用算数与逻辑运算符 &amp;、||、X  而非采用某一特定查询语言中的 “AND” 等运算符。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112104224545.png" alt="V1"></p><h2 id="2-2-知识图谱可视化查询系统"><a href="#2-2-知识图谱可视化查询系统" class="headerlink" title="2.2 知识图谱可视化查询系统"></a>2.2 知识图谱可视化查询系统</h2><h3 id="2-2-1-基于关键字的可视化查询系统"><a href="#2-2-1-基于关键字的可视化查询系统" class="headerlink" title="2.2.1 基于关键字的可视化查询系统"></a>2.2.1 基于关键字的可视化查询系统</h3><p>与搜索引擎的关键字查询类似，只需用户输入关键字即可查询，但由于实体于实体间往往不止一种关系，基于关键字的可视化查询系统使用并不广泛。</p><p><strong>GQBE：</strong>以用户输入的实体元组作为关键字，计算实体元组构成的加权隐藏最大子图，通过计算查询结果与关键字的相似度对结果进行排序。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112105605030.png" alt="GQBE"></p><h3 id="2-2-2-基于过滤的可视化查询系统"><a href="#2-2-2-基于过滤的可视化查询系统" class="headerlink" title="2.2.2 基于过滤的可视化查询系统"></a>2.2.2 基于过滤的可视化查询系统</h3><p>通过不断过滤用户的筛选条件反复细化查询结果，通常以实体或类型作为查询起点，适用于星型查询模式。</p><p><strong>Grafa：</strong>预先查询并存储下一步查询结果，将不为空的关系或属性以选项的形式供用户进行选择。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112105639328.png" alt="Grafa"></p><h3 id="2-2-3-基于模板的可视化查询系统"><a href="#2-2-3-基于模板的可视化查询系统" class="headerlink" title="2.2.3 基于模板的可视化查询系统"></a>2.2.3 基于模板的可视化查询系统</h3><p>从 QBE 发展而来，不需要通过算法预测用户查询意图，也不同于基于过滤的查询方法只能支持简单星型查询。</p><p><strong>VISAGE：</strong>通过子图匹配查询将查询结果可视化给用户。</p><p><strong>VIGOR：</strong>在 VISAGE 基础上提出，在 DBLP 的共同作者知识图谱以及网络安全数据集上进行了实验。</p><p><strong>生物信息可视化查询：</strong>通过矩形和有向线段的组合表示查询模式，QD 代表一直实体，TD 代表希望查询的结果。</p><p><strong>ProvRPQ：</strong>交互式可视化正则路径查询工具。</p><p><strong>SPARQLVis：</strong>交互式可视化查询工具，支持关键字、过滤、正则路径查询。</p><p><strong>KG3D：</strong>运用 3D 可视化技术的交互式 3D 可视化工具。</p><h2 id="2-3-本体的可视化查询"><a href="#2-3-本体的可视化查询" class="headerlink" title="2.3 本体的可视化查询"></a>2.3 本体的可视化查询</h2><h3 id="2-3-1-基于层次结构的可视化查询"><a href="#2-3-1-基于层次结构的可视化查询" class="headerlink" title="2.3.1 基于层次结构的可视化查询"></a>2.3.1 基于层次结构的可视化查询</h3><p><strong>Protégé：</strong>基于 JAVA 语言开发的本体编辑和知识获取软件，针对本体层次结构可视化。属性图和欧拉图是体现层次结构最佳的可视化模型。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112120357879.png" alt="Protégé"></p><h3 id="2-3-1-基于非层次结构的可视化查询"><a href="#2-3-1-基于非层次结构的可视化查询" class="headerlink" title="2.3.1 基于非层次结构的可视化查询"></a>2.3.1 基于非层次结构的可视化查询</h3><p><strong>Onto Plot：</strong>采用并主图为主要可视化方法，在保留本体主要层次机构的同时，对查询结果中涉及不到的节点进行视觉压缩，查询结果基本处于同一层次的高度，从而实现大规模本体数据上单非层次关联查询。</p><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221112120541187.png" alt="Onto Plot"></p><h2 id="可视化查询技术对比总结"><a href="#可视化查询技术对比总结" class="headerlink" title="可视化查询技术对比总结"></a>可视化查询技术对比总结</h2><table><thead><tr><th>数据类型</th><th>可视化查询技术</th><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>知识图谱</td><td>基于 RDF 图的查询语言</td><td>有标准文本查询语言 SPARQL，有一定理论依据</td><td>不支持复杂图模式查询；可读性弱</td></tr><tr><td></td><td>基于属性图的查询语言</td><td>以逻辑运算为根本理论依据，表达力强</td><td>可学习性低</td></tr><tr><td></td><td>基于关键字的查询</td><td>用户无需输入完整问题；满足用户对知识图谱背景知识的需求</td><td>查询准确率低；不支持复杂图模式查询</td></tr><tr><td></td><td>基于过滤的查询</td><td>以关键字和类型进行查询；适用于星型查询和链式查询</td><td>不支持复杂图模式查询</td></tr><tr><td></td><td>基于模板的查询</td><td>有较高可用性和可学习性；满足用户对知识图谱背景知识的需求；可根据需求找到合适的模板，查询准确率高</td><td>需要不断完善模板；不支持其他类型查询</td></tr><tr><td>本体</td><td>基于层次结构的查询</td><td>能够有效展示本体数据中存在的层次关联；支持对多重继承复制概念</td><td>不支持非层次关联问题的查询</td></tr><tr><td></td><td>基于非层次结构的查询</td><td>支持对非层次关联问题的查询</td><td>不能保留本体中完整的层次结构；不能有效表达多重继承关系</td></tr></tbody></table><h1 id="3-领域知识图谱可视化查询"><a href="#3-领域知识图谱可视化查询" class="headerlink" title="3 领域知识图谱可视化查询"></a>3 领域知识图谱可视化查询</h1><p>通用的可视化查询方法不能有效地针对各个领域的特定问题进行描述，因此针对领域的知识图谱可视化查询成为一项重要挑战。</p><p>应用包括：学术知识图谱可视化、社交网络可视化、网络空间安全可视化、生物信息领域可视化、电商领域可视化、社会舆情可视分析、地理空间数据可视分析、电网运行状态可视分析等等</p><h1 id="4-未来研究方向"><a href="#4-未来研究方向" class="headerlink" title="4 未来研究方向"></a>4 未来研究方向</h1><ol><li>对已有的知识图谱数据模型设计统一的知识图谱可视化查询语言</li><li>将可视化前沿技术与知识图谱的数据模型结合，从而更好地展示知识图谱丰富的语义信息</li><li>对已有知识图谱可视化技术优化，以适配领域特定知识图谱可视化查询</li><li>针对大规模知识图谱数据，实现大规模知识图谱的高效可视化查询</li><li>针对知识图谱的领域特性，实现跨领域知识图谱间的联合可视化查询</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>PaperReading</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>KnowledgeGraph</tag>
+      
+      <tag>Summarize</tag>
+      
+      <tag>qurey language</tag>
+      
+      <tag>visualization technology</tag>
+      
+      <tag>visualization query</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数据结构01-并查集</title>
     <link href="/2022/11/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%8401-%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     <url>/2022/11/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%8401-%E5%B9%B6%E6%9F%A5%E9%9B%86/</url>
@@ -143,7 +176,7 @@
   
   
   <entry>
-    <title>论文阅读02 知识图谱构建技术综述</title>
+    <title>论文阅读03 知识图谱构建技术综述</title>
     <link href="/2022/08/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/"/>
     <url>/2022/08/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/</url>
     
@@ -311,7 +344,7 @@
   
   
   <entry>
-    <title>论文阅读01 TransE</title>
+    <title>论文阅读02 TransE</title>
     <link href="/2022/07/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB02-TransE/"/>
     <url>/2022/07/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB02-TransE/</url>
     
@@ -342,7 +375,7 @@
     <link href="/2022/07/22/%E9%87%8D%E5%90%AFGithub%E5%8D%9A%E5%AE%A2/"/>
     <url>/2022/07/22/%E9%87%8D%E5%90%AFGithub%E5%8D%9A%E5%AE%A2/</url>
     
-    <content type="html"><![CDATA[<p>前段时间码云大面积封禁了图床仓库，前面大概几十篇博客的图链都挂了，要逐一去修改这几百张图的链接想想都头大…</p><p>之前用码云还是因为国内用 Github 不是很方便，经常打不开。但考虑到之前码云对 Git page 的整改，以及最近针对图床和仓库的各种操作，还是打算换回 Github 用。</p><p>回头看大学这几年的博客，就是自己这四年的缩影：大一初识编程，博客里除了七零八碎的小知识就是期末复习；大二开始接触各类前后端框架，就开始满是环境配置和框架特性了；再到大三考研备考，博客不怎么写了，但甚至有一篇马原的总结；最后大四了才开始了解机器学习，又是一片新天地。</p><p>初期博客写作质量不够高，大多是知识的简单复述，博客主题也有点过于花里胡哨。这次换了个纯粹简约一些的主题，更多精力放在写作和技术本身上面。</p><p>总之，有幸能继续在天大研习，这三年得进一步充实自己，勤学习，多更新。</p>]]></content>
+    <content type="html"><![CDATA[<p>前段时间码云大面积封禁了图床仓库，前面大概几十篇博客的图链都挂了，要逐一去修改这几百张图的链接想想都头大…</p><p>之前用码云还是因为国内用 Github 不是很方便，经常打不开。但考虑到之前码云对 Git page 的整改，以及最近针对图床和仓库的各种操作，还是打算换回 Github 用。</p><p>回头看大学这几年的博客，就是自己大学四年的缩影：大一初识编程，博客里除了七零八碎的小知识就是期末复习；大二开始接触各类前后端框架，就开始满是环境配置和框架特性了；再到大三考研备考，博客不怎么写了，只有一篇马原的总结；最后大四了才开始了解机器学习，又是一片新天地。</p><p>初期博客写作质量不够高，大多是知识的简单复述，博客主题也有点过于花里胡哨。这次换了个纯粹简约一些的主题，更多精力放在写作和技术本身上面。</p><p>总之，有幸能继续在天大研习，这三年得进一步充实自己，勤学习，多更新。</p>]]></content>
     
     
     <categories>
@@ -365,7 +398,7 @@
   
   
   <entry>
-    <title>论文阅读01-知识表示学习研究进展</title>
+    <title>论文阅读01 知识表示学习研究进展</title>
     <link href="/2022/06/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB01-%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/"/>
     <url>/2022/06/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB01-%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/</url>
     

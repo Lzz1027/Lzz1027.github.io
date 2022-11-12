@@ -18,15 +18,14 @@
   
     <meta name="description" content="前段时间忙家里各种杂事，只看了师兄给的一篇表示学习综述，大概了解了一下知识图谱和表示学习相关的技术，接下来计划将一些重要模型进一步学习，自己尝试实现一下，这里就以 TransE 作为开头，开个新坑。 TransE 原理TransE 模型来源于 Translating embeddings for modeling multi-relational data 这篇论文，从标题上不难看出，TransE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文阅读01 TransE">
+<meta property="og:title" content="论文阅读02 TransE">
 <meta property="og:url" content="https://username.github.io/2022/07/24/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB02-TransE/index.html">
 <meta property="og:site_name" content="TakuZen&#39;s Blog">
 <meta property="og:description" content="前段时间忙家里各种杂事，只看了师兄给的一篇表示学习综述，大概了解了一下知识图谱和表示学习相关的技术，接下来计划将一些重要模型进一步学习，自己尝试实现一下，这里就以 TransE 作为开头，开个新坑。 TransE 原理TransE 模型来源于 Translating embeddings for modeling multi-relational data 这篇论文，从标题上不难看出，TransE">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/v2-c271aad4fc8f9026b19dc31246c3b50c_1440w.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/20190504222759459.png">
 <meta property="article:published_time" content="2022-07-24T05:57:14.839Z">
-<meta property="article:modified_time" content="2022-11-08T05:06:29.404Z">
+<meta property="article:modified_time" content="2022-11-12T04:28:36.116Z">
 <meta property="article:author" content="ZhuoRan-TakuZen">
 <meta property="article:tag" content="RepresentationLearning">
 <meta property="article:tag" content="TransE">
@@ -35,7 +34,7 @@
   
   
   
-  <title>论文阅读01 TransE - TakuZen&#39;s Blog</title>
+  <title>论文阅读02 TransE - TakuZen&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +211,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="论文阅读01 TransE"></span>
+            <span id="subtitle" data-typed-text="论文阅读02 TransE"></span>
           
         </div>
 
@@ -284,7 +283,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">论文阅读01 TransE</h1>
+            <h1 style="display: none">论文阅读02 TransE</h1>
             
             
               <div class="markdown-body">
@@ -344,7 +343,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>论文阅读01 TransE</div>
+      <div>论文阅读02 TransE</div>
       <div>https://username.github.io/2022/07/24/论文阅读02-TransE/</div>
     </div>
     <div class="license-meta">
@@ -411,6 +410,30 @@
             </div>
 
             
+  <article id="comments" lazyload>
+    
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '169a3cb5bc7adbd1f4a6171167e7b1cd'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
           </article>
         </div>
       </div>
@@ -454,6 +477,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -647,6 +676,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
