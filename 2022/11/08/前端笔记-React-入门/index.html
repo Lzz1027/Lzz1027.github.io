@@ -1,0 +1,819 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ZhuoRan-Takuzen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="React 简介React 由 FaceBook 开发，是一个开源的用于构建用户界面的 JavaScript 库。React 还有  React Native 框架，通过它可以直接使用 JS 开发原生应用。 React 的 特点如下：  虚拟 DOM （性能好，操作简单，兼容好） 声明式 基于组件 支持服务器端渲染 快速、简单、易学  React - Hello WorldReact 是用来代替">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端笔记-React-入门">
+<meta property="og:url" content="https://username.github.io/2022/11/08/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0-React-%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Takuzen&#39;s Blog">
+<meta property="og:description" content="React 简介React 由 FaceBook 开发，是一个开源的用于构建用户界面的 JavaScript 库。React 还有  React Native 框架，通过它可以直接使用 JS 开发原生应用。 React 的 特点如下：  虚拟 DOM （性能好，操作简单，兼容好） 声明式 基于组件 支持服务器端渲染 快速、简单、易学  React - Hello WorldReact 是用来代替">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nginx.org/nginx.png">
+<meta property="article:published_time" content="2022-11-08T05:30:00.000Z">
+<meta property="article:modified_time" content="2023-11-05T16:02:00.347Z">
+<meta property="article:author" content="ZhuoRan-Takuzen">
+<meta property="article:tag" content="FrontEnd">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://nginx.org/nginx.png">
+  
+  
+  
+  <title>前端笔记-React-入门 - Takuzen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"username.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Takuzen&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="前端笔记-React-入门"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-08 13:30" pubdate>
+          2022年11月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">前端笔记-React-入门</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="React-简介"><a href="#React-简介" class="headerlink" title="React 简介"></a>React 简介</h1><p>React 由 FaceBook 开发，是一个开源的用于构建用户界面的 JavaScript 库。React 还有  React Native 框架，通过它可以直接使用 JS 开发原生应用。</p>
+<p><strong>React 的 特点如下：</strong></p>
+<ul>
+<li>虚拟 DOM （性能好，操作简单，兼容好）</li>
+<li>声明式</li>
+<li>基于组件</li>
+<li>支持服务器端渲染</li>
+<li>快速、简单、易学</li>
+</ul>
+<h1 id="React-Hello-World"><a href="#React-Hello-World" class="headerlink" title="React - Hello World"></a>React - Hello World</h1><p>React 是用来<strong>代替 DOM 的</strong>，那么首先来看传统的 Dom 操作：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-comment">// 通过 dom 添加 div：</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 创建 div</span></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> div = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);</span><br><span class="language-javascript">    <span class="hljs-comment">// 向 div 中添加内容</span></span><br><span class="language-javascript">    div.<span class="hljs-property">innerText</span> = <span class="hljs-string">&quot;这是div&quot;</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 获取 root</span></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> root = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>);</span><br><span class="language-javascript">    <span class="hljs-comment">// 将 div 添加到 root 下</span></span><br><span class="language-javascript">    root.<span class="hljs-title function_">appendChild</span>(div)</span><br><span class="language-javascript">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>如使用 React：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span> <br>  <span class="hljs-comment">&lt;!-- 引入 react 核心库 和 dom 库 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;script/react.development.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;script/react-dom.development.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;react-root&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-comment">// 通过 react 添加 div:</span></span><br><span class="language-javascript">    <span class="hljs-comment">// React.createElement() 方法，用于创建一个 React 元素</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 参数：</span></span><br><span class="language-javascript">    <span class="hljs-comment">//      1. 元素名（组件名）</span></span><br><span class="language-javascript">    <span class="hljs-comment">//      2. 元素中的属性（如：class、id）</span></span><br><span class="language-javascript">    <span class="hljs-comment">//      3. 元素的子元素（内容）</span></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> reactDiv = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>, &#123;&#125;, <span class="hljs-string">&#x27;react hello world!&#x27;</span>)</span><br><span class="language-javascript">    </span><br><span class="language-javascript">    <span class="hljs-comment">// 获取根元素对应的 React 元素</span></span><br><span class="language-javascript">    <span class="hljs-comment">// ReactDOM.createRoot() 用来创建 React 根元素，需要一个 DOM 元素作为参数</span></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> rooter = <span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;react-root&quot;</span>))</span><br><span class="language-javascript">    </span><br><span class="language-javascript">    <span class="hljs-comment">// 将 div 渲染到 root</span></span><br><span class="language-javascript">    rooter.<span class="hljs-title function_">render</span>(reactDiv)</span><br><span class="language-javascript"></span><br><span class="language-javascript">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里用到了三个方法：<code>React.createElement()</code>、<code>ReactDOM.createRoot()</code>、<code>root.render()</code>，接下来进行一下详细分析：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;btn&quot;</span>&gt;</span>我是按钮<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    </span><br><span class="language-javascript">    <span class="hljs-comment">// React.createElement() 方法</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 参数：</span></span><br><span class="language-javascript">    <span class="hljs-comment">//      1. 元素名（html标签名必须小写，首字母如果大写会被认为是 Root）</span></span><br><span class="language-javascript">    <span class="hljs-comment">//      2. 标签中的属性</span></span><br><span class="language-javascript">    <span class="hljs-comment">//        - 设置事件时 - 属性名要用驼峰命名法，内容不要写成字符串代码，写成函数</span></span><br><span class="language-javascript">    <span class="hljs-comment">//        - class 属性用 className 来设置</span></span><br><span class="language-javascript">    <span class="hljs-comment">//      3. 元素的子元素（内容），之后的参数也被当做子元素加入</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 注意：</span></span><br><span class="language-javascript">    <span class="hljs-comment">//    - createElement 创建的是 React 元素，最终会通过虚拟 DOM 转化为真实 DOM（如果是 React Native，则会转为原生组件）</span></span><br><span class="language-javascript">    <span class="hljs-comment">//    - React 元素一旦创建就无法修改（dom 修改操作极其复杂，如果 React 也支持修改，会导致 API 和 dom 一样臃肿）</span></span><br><span class="language-javascript">    <span class="hljs-comment">//    - 要修改 React 元素，只能创建新元素替换，这样并不会导致过多性能损失，React会对比新旧对象，只替换更新的部分）</span></span><br><span class="language-javascript">    <span class="hljs-comment">//    - 修改 React 元素后，要调用 render 方法重新渲染</span></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> button = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;button&#x27;</span>, &#123;</span><br><span class="language-javascript">      <span class="hljs-attr">className</span>: <span class="hljs-string">&#x27;react-button&#x27;</span>,</span><br><span class="language-javascript">      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;button&#x27;</span>,</span><br><span class="language-javascript">      <span class="hljs-attr">onClick</span>: <span class="hljs-function">()=&gt;</span>&#123;</span><br><span class="language-javascript">        <span class="hljs-title function_">alert</span>(<span class="hljs-number">1233</span>)</span><br><span class="language-javascript">      &#125;</span><br><span class="language-javascript">    &#125;, <span class="hljs-string">&quot;按钮&quot;</span>);</span><br><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> div = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>, &#123;&#125;, <span class="hljs-string">&#x27;我是div&#x27;</span>, button)</span><br><span class="language-javascript">    </span><br><span class="language-javascript">    <span class="hljs-comment">// ReactDOM.createRoot() 方法 </span></span><br><span class="language-javascript">    <span class="hljs-comment">// 获取根元素</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 根元素是 React 元素要插入的位置</span></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> root = <span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>))</span><br><span class="language-javascript">    </span><br><span class="language-javascript">    <span class="hljs-comment">// root.render() 方法</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 将 react 元素 div 渲染到根元素中，根元素中所有内容都会被 React 元素替换</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 重复调用 render() 时，React 会确保以最小的修改方式进行渲染，对 DOM 做最小的变化</span></span><br><span class="language-javascript">    root.<span class="hljs-title function_">render</span>(div)</span><br><span class="language-javascript">	</span><br><span class="language-javascript">      </span><br><span class="language-javascript">    <span class="hljs-comment">// 替换 React 元素示例（并非常规开发过程中使用的，仅作原理展示）：</span></span><br><span class="language-javascript">    <span class="hljs-comment">// 获取按钮</span></span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> btn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;btn&#x27;</span>);</span><br><span class="language-javascript">    <span class="hljs-comment">// 绑定事件</span></span><br><span class="language-javascript">    btn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">()=&gt;</span>&#123;</span><br><span class="language-javascript">      <span class="hljs-keyword">const</span> button = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;button&#x27;</span>, &#123;</span><br><span class="language-javascript">        <span class="hljs-attr">className</span>: <span class="hljs-string">&#x27;react-button&#x27;</span>,</span><br><span class="language-javascript">        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;button&#x27;</span>,</span><br><span class="language-javascript">        <span class="hljs-attr">onClick</span>: <span class="hljs-function">()=&gt;</span>&#123;</span><br><span class="language-javascript">          <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;按钮变了&#x27;</span>)</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">      &#125;, <span class="hljs-string">&quot;按钮2&quot;</span>);</span><br><span class="language-javascript">      </span><br><span class="language-javascript">      <span class="hljs-keyword">const</span> div = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>, &#123;&#125;, <span class="hljs-string">&#x27;我是div&#x27;</span>, button)</span><br><span class="language-javascript">      </span><br><span class="language-javascript">      <span class="hljs-comment">// 根元素中的所有内容被删除，被 react 元素替换</span></span><br><span class="language-javascript">      <span class="hljs-comment">// 重复调用 render() 时，会使用差分算法(diffing algorithm)比较变化，以最小的变化高效地修改 dom</span></span><br><span class="language-javascript">      root.<span class="hljs-title function_">render</span>(div)</span><br><span class="language-javascript">    &#125;)</span><br><span class="language-javascript"></span><br><span class="language-javascript">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="JSX-（JavaScript-Syntax-Extension）"><a href="#JSX-（JavaScript-Syntax-Extension）" class="headerlink" title="JSX （JavaScript Syntax Extension）"></a>JSX （JavaScript Syntax Extension）</h1><p>命令式编程：过程导向，告诉编译器，按照什么流程去执行命令：</p>
+<p>如果使用上文提到的三个 API，只能以命令式编程的方式进行编程，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 命令式编程：</span><br><span class="hljs-comment">// 目的：创建一个 &lt;button&gt;按钮&lt;/button&gt;</span><br><span class="hljs-keyword">const</span> btn = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;button&#x27;</span>, &#123;&#125;, <span class="hljs-string">&#x27;按钮&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>声明式编程：结果导向，告诉编译器，要什么结果，过程交给框架去实现：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// 声明式编程</span><br><span class="hljs-keyword">const</span> div = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>我是按钮<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>在 React 中，可以通过 JSX ，以类似 HTML 的方式来创建 React 元素，JSX 需要使用 babel 编译为 JS 代码，才能被 React 执行</p>
+<h2 id="JSX注意事项"><a href="#JSX注意事项" class="headerlink" title="JSX注意事项"></a>JSX注意事项</h2><ol>
+<li><p>JSX 不是字符串，不加引号</p>
+</li>
+<li><p>JSX 中 html 标签小写，React 组件大写开头</p>
+</li>
+<li><p>JSX 中有且仅有一个根标签</p>
+</li>
+<li><p>JSX 标签必须要正确结束（自结束标签必须写斜杠）</p>
+</li>
+<li><p>JSX 中可以使用 {} 嵌入表达式（有值的就是表达式）</p>
+</li>
+<li><p>如果表达式是空值（布尔、空、undefined） 不会显示、</p>
+</li>
+<li><p>在 JSX 中，属性可以直接在标签中设置（class 需要使用 className 设置； style 必须使用对象设置）</p>
+</li>
+</ol>
+<h2 id="渲染列表"><a href="#渲染列表" class="headerlink" title="渲染列表"></a>渲染列表</h2><p>在 jsx 中，{} 内只能放表达式，而不能放 if 语句</p>
+<p>但可以在 if 语句中操作 jsx</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> name = <span class="hljs-string">&#x27;Takuzen&#x27;</span><br><span class="hljs-keyword">const</span> lang = <span class="hljs-string">&#x27;en&#x27;</span><br><br><span class="hljs-keyword">let</span> div;<br><br><span class="hljs-keyword">if</span> (lang == <span class="hljs-string">&#x27;en&#x27;</span>)&#123;<br>  div = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> hello &#123;name&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (lang == <span class="hljs-string">&#x27;cn&#x27;</span>)&#123;<br>  div = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> 你好 &#123;name&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-keyword">const</span> root = <span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>))<br>root.<span class="hljs-title function_">render</span>(div)<br></code></pre></td></tr></table></figure>
+
+<p>如果要将 array 在网页中渲染，不需要使用循环，jsx会自动将数组进行遍历，然后渲染</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> array = [<span class="hljs-string">&#x27;孙悟空&#x27;</span>, <span class="hljs-string">&#x27;猪八戒&#x27;</span>, <span class="hljs-string">&#x27;沙和尚&#x27;</span>]<br><br><span class="hljs-keyword">const</span> list = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> &#123;array&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>如果要将 array 在网页中渲染为列表，可以将数组中的元素都包上 &lt;li&gt;&lt;&#x2F;li&gt;</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> data = [<span class="hljs-string">&#x27;孙悟空&#x27;</span>, <span class="hljs-string">&#x27;猪八戒&#x27;</span>, <span class="hljs-string">&#x27;沙和尚&#x27;</span>]<br><span class="hljs-keyword">const</span> array = []<br><br><span class="hljs-comment">// 遍历 data，变为列表</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; data.<span class="hljs-property">length</span>; i++) &#123;<br>array.<span class="hljs-title function_">push</span>(<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>&#123;data[i]&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>)<br>&#125;<br><br><span class="hljs-comment">// 或使用 map</span><br><span class="hljs-keyword">const</span> list = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span> &#123;array&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><br><span class="hljs-keyword">const</span> root = <span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>))<br>root.<span class="hljs-title function_">render</span>(list)<br></code></pre></td></tr></table></figure>
+
+<p>对数组遍历生成新数组的过程也可以使用 map() 方法实现：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> data = [<span class="hljs-string">&#x27;孙悟空&#x27;</span>, <span class="hljs-string">&#x27;猪八戒&#x27;</span>, <span class="hljs-string">&#x27;沙和尚&#x27;</span>]<br><br><span class="hljs-comment">// 使用 map 遍历</span><br><span class="hljs-comment">// map 方法返回的是值，在jsx中使用要加 &#123;&#125;</span><br><span class="hljs-comment">// item 是参数，在jsx中使用要加 &#123;&#125;</span><br><span class="hljs-keyword">const</span> list = <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span> &#123;data.map(item =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>&#123;item&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><br><span class="hljs-keyword">const</span> root = <span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>))<br>root.<span class="hljs-title function_">render</span>(list)<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="虚拟-DOM"><a href="#虚拟-DOM" class="headerlink" title="虚拟 DOM"></a>虚拟 DOM</h1><p>在 React 中操作的是 <code>React元素</code>，而非 <code>原生DOM</code> 元素</p>
+<p>React 通过 <code>虚拟DOM</code> 将 <code>React元素</code> 和<code>原生DOM</code>进行映射，虽然操作的是 <code>React元素</code>，但这些操作最终会在 <code>原生DOM</code> 上 体现</p>
+<p><code>虚拟DOM</code> 有以下好处</p>
+<ol>
+<li><p>降低 API 复杂度</p>
+</li>
+<li><p>解决兼容问题</p>
+</li>
+<li><p>提升性能（减少不必要的 DOM 操作）</p>
+</li>
+</ol>
+<p>每当调用 <code>root.render()</code> 时，页面重新渲染：</p>
+<ol>
+<li>React 会通过 diffing 算法，将新的元素和旧的元素进行比较（自上而下逐层对比新旧元素，如果上层就不一样，直接修改，一样再继续往下层比较）</li>
+<li>通过比较，React 找到发生变化的元素，并且只对变化的元素进行修改，没有变化的不予处理</li>
+</ol>
+<p>在 JSX 中显示数组，数组中每个元素都要设置一个唯一的 key，否则会显示警告，这是因为：</p>
+<p>重新渲染页面时，React 会按照顺序依次比较元素，如果不指定 key，也按照顺序比较；</p>
+<p>如果数组元素顺序没有变化，则没有影响，但如果列表顺序变化了，可能会导致性能问题（在最后添加没有影响，在开头添加可能导致全部重新渲染）；</p>
+<p>开发时一般使用 id 作为 key，有些场景可以使用 index 作为 key（性能较差，和没用index 一样，只能消除警告）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learn/" class="category-chain-item">Learn</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/FrontEnd/" class="print-no-link">#FrontEnd</a>
+      
+        <a href="/tags/React/" class="print-no-link">#React</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>前端笔记-React-入门</div>
+      <div>https://username.github.io/2022/11/08/前端笔记-React-入门/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ZhuoRan-Takuzen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/08/Nginx-%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%89%E8%A3%85/" title="Nginx 原理及安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Nginx 原理及安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%8401-%E5%B9%B6%E6%9F%A5%E9%9B%86/" title="数据结构01-并查集">
+                        <span class="hidden-mobile">数据结构01-并查集</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'a447ae6b72fe2f4725bb93e7c3e90187'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

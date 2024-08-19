@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ZhuoRan-Takuzen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="异步编程一、进程与线程进程（工厂）：可以理解为程序运行的环境，程序需要在内存中开辟一部分空间，存储代码、数据等内容 线程（工人）：是实际进行运算的部分， 二、同步问题通常情况下代码都是同步执行的，即自上而下逐行执行。 如以下代码： 123console.log(&quot;哈哈&quot;)console.log(&quot;嘿嘿&quot;)console.log(&quot;嘻嘻&quot;)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端笔记 异步编程">
+<meta property="og:url" content="https://username.github.io/2023/02/15/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0-%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Takuzen&#39;s Blog">
+<meta property="og:description" content="异步编程一、进程与线程进程（工厂）：可以理解为程序运行的环境，程序需要在内存中开辟一部分空间，存储代码、数据等内容 线程（工人）：是实际进行运算的部分， 二、同步问题通常情况下代码都是同步执行的，即自上而下逐行执行。 如以下代码： 123console.log(&quot;哈哈&quot;)console.log(&quot;嘿嘿&quot;)console.log(&quot;嘻嘻&quot;)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nginx.org/nginx.png">
+<meta property="article:published_time" content="2023-02-15T05:30:00.000Z">
+<meta property="article:modified_time" content="2023-02-16T16:58:38.748Z">
+<meta property="article:author" content="ZhuoRan-Takuzen">
+<meta property="article:tag" content="Node.js">
+<meta property="article:tag" content="Sync">
+<meta property="article:tag" content="Promise">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://nginx.org/nginx.png">
+  
+  
+  
+  <title>前端笔记 异步编程 - Takuzen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"username.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Takuzen&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="前端笔记 异步编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-15 13:30" pubdate>
+          2023年2月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">前端笔记 异步编程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h1><h2 id="一、进程与线程"><a href="#一、进程与线程" class="headerlink" title="一、进程与线程"></a>一、进程与线程</h2><p>进程（工厂）：可以理解为程序运行的环境，程序需要在内存中开辟一部分空间，存储代码、数据等内容</p>
+<p>线程（工人）：是实际进行运算的部分，</p>
+<h2 id="二、同步问题"><a href="#二、同步问题" class="headerlink" title="二、同步问题"></a>二、同步问题</h2><p>通常情况下代码都是<strong>同步执行</strong>的，即<strong>自上而下逐行执行</strong>。</p>
+<p>如以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;哈哈&quot;</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;嘿嘿&quot;</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;嘻嘻&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>输出应该为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">哈哈<br>嘿嘿<br>嘻嘻<br></code></pre></td></tr></table></figure>
+
+<p>同步情况下，如果<strong>前一条代码没有执行完，后面的代码也不会执行</strong></p>
+<p>如果该条代码非常耗时（设计网络请求、IO等内容的操作），会导致后续代码被<strong>阻塞</strong></p>
+<p>即<strong>“一行代码执行缓慢”</strong>会影响整个程序的执行</p>
+<h2 id="三、其他语言的解决办法（Java、Python）——-多线程"><a href="#三、其他语言的解决办法（Java、Python）——-多线程" class="headerlink" title="三、其他语言的解决办法（Java、Python）—— 多线程"></a>三、其他语言的解决办法（Java、Python）—— 多线程</h2><p>同步问题在 Java、Python 中是通过多线程的方式来解决的；</p>
+<p>将高耗时的任务放在单独的线程中执行，其他任务不受影响；</p>
+<p>但多线程会带来更高的性能开销，对服务器性能要求更高；</p>
+<p>同时，对编写程序的要求也更高，程序需要针对多线程进行优化。</p>
+<h2 id="四、Node-js-的解决方法-——-异步"><a href="#四、Node-js-的解决方法-——-异步" class="headerlink" title="四、Node.js 的解决方法 —— 异步"></a>四、Node.js 的解决方法 —— 异步</h2><p><strong>异步</strong>是指，<strong>一段代码的执行不会影响其他代码的执行</strong></p>
+<p>这样就能让高耗时的任务不阻塞后续代码</p>
+<p>如 setTimeout() 函数就是异步代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">a, b</span>)&#123;<br>	<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>		<span class="hljs-keyword">return</span> a + b;<br>	&#125;, <span class="hljs-number">10000</span>)<br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;111&quot;</span>)<br><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">sum</span>(<span class="hljs-number">111</span>, <span class="hljs-number">222</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;222&quot;</span>)<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 输出：</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* 111</span><br><span class="hljs-comment">* undefined</span><br><span class="hljs-comment">* 222</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到 “222” 的输出并未被阻塞，但 result 也变为了 undefined，这是因为在输出 result 时，函数还未能返回值</p>
+<p>这也就引出了异步的一个问题，<strong>异步函数无法通过 return 的方式来直接返回结果</strong></p>
+<h2 id="五、通过回调函数返回结果"><a href="#五、通过回调函数返回结果" class="headerlink" title="五、通过回调函数返回结果"></a>五、通过回调函数返回结果</h2><p>为了解决这一问题，可以采用<strong>回调函数</strong>的方法，在使用需要异步代码的结果时，在获取到结果后调用回调函数来获取：</p>
+<p>如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">a, b, callback</span>)&#123;<br>	<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-title function_">callback</span>(a + b);<br>	&#125;, <span class="hljs-number">10000</span>)<br>&#125;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;111&quot;</span>)<br><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">sum</span>(<span class="hljs-number">111</span>, <span class="hljs-number">222</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result)<br>&#125;)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;222&quot;</span>)<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 输出：</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* 111</span><br><span class="hljs-comment">* 222</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* 十秒后</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* 333 </span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>回调函数的方法看似解决了异步问题，但如果这一函数被反复使用，会形成如下情况：</p>
+<p>如在执行 111 +  222 后，还需将结果再加上 333</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">sum</span>(<span class="hljs-number">111</span>, <span class="hljs-number">222</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>    <span class="hljs-title function_">sum</span>(result, <span class="hljs-number">333</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result)<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>就会形成如上图所示的回调函数嵌套的情况，如果需要继续使用，就会不断嵌套：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">sum</span>(<span class="hljs-number">111</span>, <span class="hljs-number">222</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>    <span class="hljs-title function_">sum</span>(result, <span class="hljs-number">333</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>        <span class="hljs-title function_">sum</span>(result, <span class="hljs-number">444</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>        	<span class="hljs-title function_">sum</span>(result, <span class="hljs-number">555</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>        		<span class="hljs-title function_">sum</span>(result, <span class="hljs-number">666</span>, <span class="hljs-function">(<span class="hljs-params">result</span>)=&gt;</span>&#123;<br>        			......<br>    			&#125;<br>    		&#125;<br>    	&#125;<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>由于每次执行新的异步代码，都需要在之前的异步代码的回调函数中书写</p>
+<p>导致<strong>代码书写非常繁杂</strong>，<strong>代码可读性非常差</strong>，<strong>代码难以调试</strong>，被称之为<strong>“回调地狱”</strong></p>
+<h2 id="六、Promise-解决异步问题"><a href="#六、Promise-解决异步问题" class="headerlink" title="六、Promise 解决异步问题"></a>六、Promise 解决异步问题</h2><p>Promise 是一个用于存储数据的容器，存取数据的方式比较特殊，使得 Promise 可以存储异步调用的数据</p>
+<p>创建 Promise：</p>
+<p>可以使用构造函数来创建，且构造函数中需要一个函数作为参数</p>
+<p>这个函数会在<strong>创建 Promise 时调用，调用时会传入两个参数，分别为 resolve 和 reject</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>)=&gt;</span>&#123;<br>    <span class="hljs-comment">// resolve 和 reject 也是函数，通过这两个函数向 Promise 中存储数据</span><br>    <span class="hljs-comment">// resolve 在执行正常时存储数据，reject 在执行错误时存储数据</span><br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>        <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;成功&quot;</span>)<br>    &#125;,<span class="hljs-number">2000</span>)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在读取数据时，可以<strong>通过 Promise 的实例方法 then() 来读取</strong></p>
+<p>也需要两个回调函数作为参数，来获取 Promise 中的数据</p>
+<p><strong>第一个函数获取 resolve 返回的数据（正常数据）</strong>，<strong>第二个获取 reject 返回的数据（异常数据）</strong></p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs moonscript">promise.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">(result)</span>=&gt;</span>&#123;<br>	console.log(result)<br>&#125;, <span class="hljs-function"><span class="hljs-params">(<span class="hljs-built_in">error</span>)</span>=&gt;</span>&#123;<br>	console.log(result)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="七、Promise-原理"><a href="#七、Promise-原理" class="headerlink" title="七、Promise 原理"></a>七、Promise 原理</h2><p><strong>异步的真正难点不在于获取异步数据，而在于获取异步数据的时机</strong>，因为我们难以预测异步代码执行需要多久</p>
+<p>为了解决这一问题，Promise中维护了两个隐藏属性：</p>
+<p><strong>PromiseResult</strong> - 用于存储数据</p>
+<p><strong>PromiseState</strong> - 用于记录 Promise 状态，分为三种：</p>
+<pre><code class="hljs">- **fulfilled** 完成 - 通过 resolve 存储数据时，切换为这个状态
+- **rejected** 拒绝\出错 - 通过 reject 存储数据 ，切换为这个状态
+- **pending** 进行中 - 初始状态
+</code></pre>
+<p><strong>PromiseState 只能修改一次</strong>，<strong>且修改后永远不会改变</strong></p>
+<p>这两个属性设置为私有属性，也是为了保证数据不被篡改</p>
+<p>Promise 的详细流程如下：</p>
+<ul>
+<li>Promise 创建时，PromiseState 初始值为 pending<ul>
+<li>当通过 resolve 存储时，PromiseState 切换为 fulfilled，PromiseResult 变为存储的数据</li>
+<li>当通过 reject 存储或出错时，PromiseState 切换为 rejected，PromiseResult 变为存储的数据或异常信息</li>
+</ul>
+</li>
+<li>当通过 then 读取数据时，相当于为 Promise 设置了回调函数<ul>
+<li>当 PromiseState 为 fulfilled 时，调用 then 的第一个回调函数来返回</li>
+<li>当 PromiseState 为 rejected 时，调用 then 的第二个回调函数来返回</li>
+</ul>
+</li>
+</ul>
+<p>Promise还设置了 <strong>catch() 方法</strong>，用于异常处理</p>
+<p>catch() 与 then 类似，但只需要一个回调函数，这个回调函数只会在 rejected 时才会调用</p>
+<p>catch() 相当于 then(null, reason &#x3D;&gt;{ })</p>
+<p>Promise 还设置了 <strong>finally() 方法</strong>，无论是正常获取还是异常，都会执行</p>
+<p>但 finally 的回调函数是无参的，不会接收到数据，用于执行无论成功与否都要执行的代码</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Technology/" class="category-chain-item">Technology</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Node-js/" class="print-no-link">#Node.js</a>
+      
+        <a href="/tags/Sync/" class="print-no-link">#Sync</a>
+      
+        <a href="/tags/Promise/" class="print-no-link">#Promise</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>前端笔记 异步编程</div>
+      <div>https://username.github.io/2023/02/15/前端笔记-异步编程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ZhuoRan-Takuzen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/23/Apache-Jena%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Apache-Jena 学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Apache-Jena 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-RDF-Explorer/" title="论文阅读06 RDF Explorer">
+                        <span class="hidden-mobile">论文阅读06 RDF Explorer</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '849298dd6d9ff31ea8df54d394df1d4b'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

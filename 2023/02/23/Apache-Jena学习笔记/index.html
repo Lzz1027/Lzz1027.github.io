@@ -7,35 +7,39 @@
 
 <head>
   <meta charset="UTF-8">
+
   <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
   <link rel="icon" href="/img/fluid.png">
+  
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="ZhuoRan-TakuZen">
+  <meta name="author" content="ZhuoRan-Takuzen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TransformerTransformer 是什么？本质上是一种 Sequence to sequence (Seq2seq) 的转换 输入是序列，输出也是序列（输出长度不确定） 适合用于语音识别（现在多使用 RNN-Transducer）、文本翻译、QA、NLP（转化为QA）等（输出序列长度不确定，没有明确关系）  也可用于 Multi-label Classification 多标签分类 输">
+    <meta name="description" content="前言：这是一个 W3C 的资源描述框架（RDF）和Jena （RDF的Java API）的教程。可以通过原型（Prototyping）快速学习，并快速转向实现。以下内容已经假定你已经对XML和Java都有一定的了解。 RDF 采用 XML 语法，许多熟悉 XML 的人会根据这种语法来理解 RDF。这是错误的，应该从数据模型的角度来理解 RDF。RDF 数据可以用 XML 表示，但是理解 XML 的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习05 Transformer">
-<meta property="og:url" content="https://username.github.io/2022/08/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A005-Transformer/index.html">
-<meta property="og:site_name" content="TakuZen&#39;s Blog">
-<meta property="og:description" content="TransformerTransformer 是什么？本质上是一种 Sequence to sequence (Seq2seq) 的转换 输入是序列，输出也是序列（输出长度不确定） 适合用于语音识别（现在多使用 RNN-Transducer）、文本翻译、QA、NLP（转化为QA）等（输出序列长度不确定，没有明确关系）  也可用于 Multi-label Classification 多标签分类 输">
+<meta property="og:title" content="Apache-Jena 学习笔记">
+<meta property="og:url" content="https://username.github.io/2023/02/23/Apache-Jena%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Takuzen&#39;s Blog">
+<meta property="og:description" content="前言：这是一个 W3C 的资源描述框架（RDF）和Jena （RDF的Java API）的教程。可以通过原型（Prototyping）快速学习，并快速转向实现。以下内容已经假定你已经对XML和Java都有一定的了解。 RDF 采用 XML 语法，许多熟悉 XML 的人会根据这种语法来理解 RDF。这是错误的，应该从数据模型的角度来理解 RDF。RDF 数据可以用 XML 表示，但是理解 XML 的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png">
-<meta property="article:published_time" content="2022-08-06T05:30:00.000Z">
-<meta property="article:modified_time" content="2022-11-12T04:25:08.887Z">
-<meta property="article:author" content="ZhuoRan-TakuZen">
-<meta property="article:tag" content="MachineLearning">
-<meta property="article:tag" content="DeepLearning">
-<meta property="article:tag" content="Transformer">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/jena-logo-notext-small.png">
+<meta property="article:published_time" content="2023-02-23T02:08:00.000Z">
+<meta property="article:modified_time" content="2023-03-08T07:46:12.005Z">
+<meta property="article:author" content="ZhuoRan-Takuzen">
+<meta property="article:tag" content="Apache">
+<meta property="article:tag" content="Jena">
+<meta property="article:tag" content="RDF">
+<meta property="article:tag" content="Sparql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/jena-logo-notext-small.png">
   
   
   
-  <title>机器学习05 Transformer - TakuZen&#39;s Blog</title>
+  <title>Apache-Jena 学习笔记 - Takuzen&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -52,7 +56,7 @@
 <!-- 主题依赖的图标库，不要自行修改 -->
 <!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
 
 
 
@@ -73,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"username.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"username.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -117,9 +121,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -129,9 +133,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -141,9 +145,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -153,9 +157,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -165,9 +169,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -177,9 +181,9 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/links/">
+              <a class="nav-link" href="/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                友链
+                <span>友链</span>
               </a>
             </li>
           
@@ -187,15 +191,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -212,7 +217,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="机器学习05 Transformer"></span>
+            <span id="subtitle" data-typed-text="Apache-Jena 学习笔记"></span>
           
         </div>
 
@@ -223,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-06 13:30" pubdate>
-          2022年8月6日 下午
+        <time datetime="2023-02-23 10:08" pubdate>
+          2023年2月23日 上午
         </time>
       </span>
     
@@ -235,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          641 字
+          1.2k 字
         
       </span>
     
@@ -246,7 +251,7 @@
         
         
         
-          6 分钟
+          11 分钟
         
       </span>
     
@@ -283,29 +288,47 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">机器学习05 Transformer</h1>
+            <h1 id="seo-header">Apache-Jena 学习笔记</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><h2 id="Transformer-是什么？"><a href="#Transformer-是什么？" class="headerlink" title="Transformer 是什么？"></a>Transformer 是什么？</h2><p>本质上是一种 Sequence to sequence (Seq2seq) 的转换</p>
-<p>输入是序列，输出也是序列（输出长度不确定）</p>
-<p>适合用于语音识别（现在多使用 RNN-Transducer）、文本翻译、QA、NLP（转化为QA）等（输出序列长度不确定，没有明确关系）</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414014551597.png" srcset="/img/loading.gif" lazyload alt="image-20220414014551597"></p>
-<p>也可用于 Multi-label Classification 多标签分类</p>
-<p>输入符合输出结果中的多种标签，是一对多的分类问题，比如输入是一篇文章，输出既有语言，又有体裁，又有正负面评价等等标签。</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414020620729.png" srcset="/img/loading.gif" lazyload alt="image-20220414020620729"></p>
-<p>Multi-class Classification 多类别分类（传统分类问题，与前者区分）</p>
-<p>输入属于输出结果中的某一个类，是一对一的分类问题，比如输入是一段语音，输出分类为中文或英文（看似与多标签分类问题相似，实际两者很难用同一类模型解决）</p>
-<h2 id="Seq2seq-基本结构"><a href="#Seq2seq-基本结构" class="headerlink" title="Seq2seq 基本结构"></a>Seq2seq 基本结构</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021014715.png" srcset="/img/loading.gif" lazyload alt="image-20220414021014715"></p>
-<p>基本结构：输入序列经过 **编码器 Encoder **部分处理，交由 **解码器 Decoder **处理为输出序列</p>
-<h3 id="Encoder-编码器"><a href="#Encoder-编码器" class="headerlink" title="Encoder 编码器"></a>Encoder 编码器</h3><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414021341139.png" srcset="/img/loading.gif" lazyload alt="image-20220414021341139"></p>
-<p>Encoder 的任务是将一个向量输入转化为另一个向量输出，可以使用 RNN、CNN 等各种模型。</p>
-<h3 id="Decoder-解码器"><a href="#Decoder-解码器" class="headerlink" title="Decoder 解码器"></a>Decoder 解码器</h3><h4 id="Autoregressive-Decoder-自回归解码器"><a href="#Autoregressive-Decoder-自回归解码器" class="headerlink" title="Autoregressive Decoder 自回归解码器"></a>Autoregressive Decoder 自回归解码器</h4><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023057892.png" srcset="/img/loading.gif" lazyload alt="image-20220414023057892"></p>
-<p>以语音识别为例，Decoder 将 Encoder 的输出作为输入，在得到开始信号（BEGIN）之后，计算得到第一个输出结果，并将这一结果连同 Encoder 输出作为新的输入，计算得到下一个输出结果，如此反复直到输出结束</p>
-<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20220414023356616.png" srcset="/img/loading.gif" lazyload alt="image-20220414023356616"></p>
-<p>事实上，编解码器结构是比较相似的。</p>
+                <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>这是一个 W3C 的资源描述框架（RDF）和Jena （RDF的Java API）的教程。可以通过原型（Prototyping）快速学习，并快速转向实现。以下内容已经假定你已经对XML和Java都有一定的了解。</p>
+<p>RDF 采用 XML 语法，许多熟悉 XML 的人会根据这种语法来理解 RDF。这是错误的，应该从数据模型的角度来理解 RDF。RDF 数据可以用 XML 表示，但是理解 XML 的语法比理解数据模型更重要。</p>
+<p>可以从 <a href="jena.apache.org/download/index.cgi">Apache-jena</a> 下载 Jena API 的实现，包括本教程中使用的所有示例的工作源代码。</p>
+<h1 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h1><p>资源描述框架（Resource Description Framework, RDF）是描述资源的标准（W3C推荐标准）</p>
+<p>什么是资源？这是一个相当深刻的问题，且确切的定义仍有争议。</p>
+<p>在这里，我们可以把它看作<strong>我们可以识别的任何东西</strong>。你可以是一个资源，就像你的主页，本教程，数字一和小说《Moby Dick》中的大白鲸一样。</p>
+<p>本教程中的例子是关于人的。它们使用 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/vcard-rdf/">VCARDS 的 RDF 表示</a>。RDF的最佳思维表现模式是由节点和弧组成的图。在 RDF 中，一个简单的 vcard 可能看起来像这样:</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20230224103802980.png" srcset="/img/loading.gif" lazyload alt="image-20230224103802980"></p>
+<p><strong>资源 John Smith 显示为一个椭圆</strong>，由**统一资源标识符 (URI) **标识，在本例中为 <strong>“http:&#x2F;&#x2F;…&#x2F;JohnSmith”</strong>。如果你不熟悉URI，可以简单地认为它们是看起来很奇怪的名称。</p>
+<p>资源是有<strong>属性</strong>的。在这些例子中，我们感兴趣的是出现在 John Smith 的名片上的属性类型。图中只显示了一个属性，John Smith 的全名。</p>
+<p><strong>属性由一个弧表示，用属性的名称标记</strong>。属性的名称也是一个URI。由于URI相当长且笨重，因此<strong>图中以 XML qname 形式</strong>显示了它。**<code>: </code>之前的部分 （vcard）<strong>称为</strong>命名空间前缀<strong>，表示命名空间。</strong><code>: </code>后面的部分（FN）<strong>称为</strong>本地名称**，表示该命名空间中的名称。当写成 RDF XML 时，属性通常以这种 qname 形式表示，这是在图表和文本中表示它们的方便快捷方式。但是严格来说，属性是通过URI标识的。nsprefix:localname 形式是命名空间的 URI 与 localname 连接的缩写。在浏览器访问属性时，并不要求将其 URI 解析为任何值。</p>
+<p>每个属性都有一个值。在这个例子中，这个值是一个<strong>字面量</strong>，可以认为它是一个由<strong>字符</strong>组成的字符串。字面量以<strong>矩形</strong>表示。</p>
+<p>Jena是一个Java API，可以用来创建和操作类似于这个的RDF图。Jena有对象类来表示图、资源、属性和字面量。表示资源、属性和字面量的接口分别称为资源（Resource）、属性（Property ）和字面量（Literal ）。在Jena中，图称为模型，由模型接口表示。</p>
+<p>创建这个图或模型的代码很简单:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// some definitions</span><br><span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">personURI</span>    <span class="hljs-operator">=</span> <span class="hljs-string">&quot;http://somewhere/JohnSmith&quot;</span>;<br><span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">fullName</span>     <span class="hljs-operator">=</span> <span class="hljs-string">&quot;John Smith&quot;</span>;<br><br><span class="hljs-comment">// create an empty Model</span><br><span class="hljs-type">Model</span> <span class="hljs-variable">model</span> <span class="hljs-operator">=</span> ModelFactory.createDefaultModel();<br><br><span class="hljs-comment">// create the resource</span><br><span class="hljs-type">Resource</span> <span class="hljs-variable">johnSmith</span> <span class="hljs-operator">=</span> model.createResource(personURI);<br><br><span class="hljs-comment">// add the property</span><br>johnSmith.addProperty(VCARD.FN, fullName);<br></code></pre></td></tr></table></figure>
+
+<p>上述代码从常量定义开始，然后使用 <code>ModelFactory</code> 的方法 <code>createDefaultModel()</code> 在内存中创建一个空模型。Jena 包含 Model 接口的其他实现，例如使用关系数据库的实现：这些类型的模型也可以从 ModelFactory 中获得。</p>
+<p>然后创建 John Smith 资源并向其添加属性。该属性由一个“常量（constant）”类 VCARD 提供，该类持有表示 VCARD 模式中所有定义的对象。Jena 为其他著名的模式提供了常量类，例如 RDF 和 RDF 模式本身、Dublin Core和OWL。</p>
+<p>这个示例的代码可以在教程1中Jena发行版的&#x2F;src-examples目录中找到。作为练习，获取并修改这段代码，为自己创建一个简单的VCARD。</p>
+<p>创建资源和添加属性的代码可以用层叠样式编写得更简洁:</p>
+<h2 id="韩老师意见总结："><a href="#韩老师意见总结：" class="headerlink" title="韩老师意见总结："></a>韩老师意见总结：</h2><ol>
+<li><strong>整体页面：</strong>大量的白色背景可能造成视觉疲劳，可以选择一些中性灰色作为背景，也能提升其他颜色的识别度；</li>
+<li><strong>左侧查询输入框：</strong>下拉提示栏应该更宽，让提示词显示完整；</li>
+<li><strong>Schema 图：</strong><ul>
+<li>节点的双线高亮样式可能过于明显，影响了节点中间的文字，样式有待进一步修改；</li>
+<li>展开节点时，一次性产生大量节点可能造成识别的困难。可以进一步做出区分（透明度等形式，展现强弱次序），加快用户认知速度；</li>
+</ul>
+</li>
+<li><strong>右侧树形列表：</strong>可以与 Schema 图的节点颜色进行匹配，提升用户识别效率，辅助用户认知；</li>
+</ol>
+<p>数据：</p>
+<p>交互：左侧搜索栏，节点下拉详情</p>
+<p>样式：背景板样式、右侧搜索栏样式</p>
+<p>，节点样式、</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Resource</span> <span class="hljs-variable">johnSmith</span> <span class="hljs-operator">=</span><br>      model.createResource(personURI)<br>           .addProperty(VCARD.FN, fullName);<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -339,11 +362,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/MachineLearning/">#MachineLearning</a>
+        <a href="/tags/Apache/" class="print-no-link">#Apache</a>
       
-        <a href="/tags/DeepLearning/">#DeepLearning</a>
+        <a href="/tags/Jena/" class="print-no-link">#Jena</a>
       
-        <a href="/tags/Transformer/">#Transformer</a>
+        <a href="/tags/RDF/" class="print-no-link">#RDF</a>
+      
+        <a href="/tags/Sparql/" class="print-no-link">#Sparql</a>
       
     </div>
   
@@ -355,20 +380,20 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>机器学习05 Transformer</div>
-      <div>https://username.github.io/2022/08/06/机器学习05-Transformer/</div>
+      <div>Apache-Jena 学习笔记</div>
+      <div>https://username.github.io/2023/02/23/Apache-Jena学习笔记/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>ZhuoRan-TakuZen</div>
+          <div>ZhuoRan-Takuzen</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月6日</div>
+          <div>2023年2月23日</div>
         </div>
       
       
@@ -379,9 +404,9 @@
             
               
               
-                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
+                    <i class="iconfont icon-cc-by"></i>
                   </span>
                 </a>
               
@@ -400,9 +425,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB03-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%9E%84%E5%BB%BA%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" title="论文阅读03 知识图谱构建技术综述">
+                      <a href="/2023/11/01/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0-HTML-CSS%E5%9F%BA%E7%A1%80/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">论文阅读03 知识图谱构建技术综述</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -410,8 +435,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A004-%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" title="机器学习04 自监督学习">
-                        <span class="hidden-mobile">机器学习04 自监督学习</span>
+                      <a href="/2023/02/15/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0-%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" title="前端笔记 异步编程">
+                        <span class="hidden-mobile">前端笔记 异步编程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -422,8 +447,10 @@
             </div>
 
             
-  <article id="comments" lazyload>
-    
+  
+  
+    <article id="comments" lazyload>
+      
   <div id="gitalk-container"></div>
   <script type="text/javascript">
     Fluid.utils.loadComments('#gitalk-container', function() {
@@ -432,7 +459,7 @@
         var options = Object.assign(
           {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '28a0ae1884826f990f9bc3466525c1dc'
+            id: 'd8e68c58207c87c9127343b51c81ac7e'
           }
         )
         var gitalk = new Gitalk(options);
@@ -443,7 +470,8 @@
   <noscript>Please enable JavaScript to view the comments</noscript>
 
 
-  </article>
+    </article>
+  
 
 
           </article>
@@ -455,7 +483,10 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -543,7 +574,6 @@
     <div class="footer-content">
        <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-  
   
   
   

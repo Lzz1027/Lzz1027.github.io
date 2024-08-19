@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ZhuoRan-Takuzen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="介绍随着知识图谱技术的发展，设计能够支持高效查询的查询语言成为了一个至关重要的研究课题，主要面临如下挑战：  易用性：像 SPARQL 和 Cypher 这类查询语言，虽然有丰富的语义，但由于其为专业人员设计，语法较为复杂。因此可能对不具备KG或查询语言专业知识的最终用户不友好 普遍性：文本查询语言对于一般用户难以使用，而现有的许多交互可视化查询语言都与某一类型的知识图谱绑定。对于不同种类的知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文阅读05 KGVQL">
+<meta property="og:url" content="https://username.github.io/2022/11/17/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB05-KGVQL/index.html">
+<meta property="og:site_name" content="Takuzen&#39;s Blog">
+<meta property="og:description" content="介绍随着知识图谱技术的发展，设计能够支持高效查询的查询语言成为了一个至关重要的研究课题，主要面临如下挑战：  易用性：像 SPARQL 和 Cypher 这类查询语言，虽然有丰富的语义，但由于其为专业人员设计，语法较为复杂。因此可能对不具备KG或查询语言专业知识的最终用户不友好 普遍性：文本查询语言对于一般用户难以使用，而现有的许多交互可视化查询语言都与某一类型的知识图谱绑定。对于不同种类的知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221117192419468.png">
+<meta property="article:published_time" content="2022-11-17T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-19T03:52:10.891Z">
+<meta property="article:author" content="ZhuoRan-Takuzen">
+<meta property="article:tag" content="KnowledgeGraph">
+<meta property="article:tag" content="Visual query language">
+<meta property="article:tag" content="Bidirectional transformation">
+<meta property="article:tag" content="Query graph pattern">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221117192419468.png">
+  
+  
+  
+  <title>论文阅读05 KGVQL - Takuzen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"username.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Takuzen&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="论文阅读05 KGVQL"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-17 13:00" pubdate>
+          2022年11月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">论文阅读05 KGVQL</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221117192419468.png" srcset="/img/loading.gif" lazyload alt="image-20221117192419468"></p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>随着知识图谱技术的发展，设计能够支持高效查询的查询语言成为了一个至关重要的研究课题，主要面临如下挑战：</p>
+<ul>
+<li><strong>易用性：</strong>像 SPARQL 和 Cypher 这类查询语言，虽然有丰富的语义，但由于其为专业人员设计，语法较为复杂。因此可能对不具备KG或查询语言专业知识的最终用户不友好</li>
+<li><strong>普遍性：</strong>文本查询语言对于一般用户难以使用，而现有的许多交互可视化查询语言都与某一类型的知识图谱绑定。对于不同种类的知识图谱，用户需要学习不同的查询方法，增加了学习成本</li>
+<li><strong>导航支持：</strong>现有查询语言无法在用户查询知识图谱时获得从查询结果到查询图的导航，更无法提供查询图到相应查询结果的双向转换轨迹。从问题到相应查询结果的过程示例如下图所示。视觉语言中的黑色箭头对应文本语言，而视觉语言中的红色箭头对应探索过程。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221117195950043.png" srcset="/img/loading.gif" lazyload alt="从查询到结果的过程"></p>
+<p>​				</p>
+<p>综上所述，现有的知识图查询语言，无论是 SPARQL 还是 Cypher，都需要用户具备专业知识，因此使用起来有一定困难。因此，有必要提出一种交互式可视化知识图查询系统来解决上述问题，该系统应独立于任何特定的知识图或查询语言，并可适应于诸如 RDF 图的 SPARQL 和属性图的 Cypher 或 Gremlin 等。</p>
+<p>为此，本文提出了一种知识图可视化查询语言KGVQL，本文工作可以总结如下：</p>
+<ul>
+<li>提出了一种支持多运算符（如UNION, OPT, FILTER和LIMIT）的知识图交互式可视化查询语言 KGVQL，并且独立于特定的底层图查询语言</li>
+<li>KGVQL 首次实现了查询图和查询结果之间双向转换的工作。它可以在用户探索知识图时提供查询结果的中间结果和轨迹，有效指导最终用户逐级构建查询图。</li>
+<li>开发了一个交互式可视化查询界面 KGVQL，并通过实验证明其在帮助终端用户在速度和准确性方面查询和理解知识图方面的有用性。</li>
+</ul>
+<h1 id="KGVQL-语言"><a href="#KGVQL-语言" class="headerlink" title="KGVQL 语言"></a>KGVQL 语言</h1><p>在本节中给出了与常见知识图查询意图相对应的五个用例。描述了KGVQL的可视化语法、到SPARQL语法片段的映射、构成查询和结果之间的轨迹的一般图以及双向转换的过程。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119111530679.png" srcset="/img/loading.gif" lazyload alt="Common use cases"></p>
+<p>如上表所示，KGVQL 从相关工作和 DBpedia 基准中确定了五个常见用例（U1–U5），这些用例被视为 KGVQL 设计的实际背景。</p>
+<p>U1–U5的组合涵盖各种知识图查询：U1 和 U2 分别按关键字和类型查询实体；U3 查询实体之间的关系；U4 限制从查询中获得的结果，即 FILTER 和 LIMIT；U5 涉及对各种运算符（即 UNION 和 OPT）的复杂查询。</p>
+<p>可以确定交互式可视化查询语言和系统的设计需求如下：</p>
+<p>（1） 查询结果应该被可视化地显示，且由于对大规模知识图谱的查询可能产生相当大的查询结果，因此需要最大限度地利用用户界面上的可用空间；</p>
+<p>（2） 为了支持对大型知识图谱中包含的信息的访问，用户应该能够自由浏览知识图谱并轻松找到他们需要的信息；</p>
+<p>（3） 此外，并非所有查询结果都直接满足用户的查询意图。在图谱浏览过程中，可能有一些用户感兴趣的节点。为了将查询结果与这些节点区分开来，KGVQL 突出显示了从表达用户查询意图的查询图中直接获得的查询结果。</p>
+<h2 id="KGVQL-基础元素"><a href="#KGVQL-基础元素" class="headerlink" title="KGVQL 基础元素"></a>KGVQL 基础元素</h2><p>在不缺失通用性的前提下，KGVQL 可视化语法的设计基于 SPARQL 查询模式。</p>
+<p>KGVQL 可视化查询的<strong>基本单元是由有向边连接的圆</strong>组成的查询图模式，用于表示知识图上的一般图匹配查询。</p>
+<p>在此基础上，KGVQL通过使用<strong>具有不同操作符类型的双圆</strong>来支持各种操作符，从而将基本的查询图模式扩展为复杂的查询图模式。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119110709161.png" srcset="/img/loading.gif" lazyload alt="The basic elements of KGVQL"></p>
+<p>如上表所示，几个基本元素被用来表示 KGVQL 的可视化语法：</p>
+<p>(1) 实体元素 (E)，实心圆表示知识图中的实体 (常量或变量);</p>
+<p>(2) 关系元素 (R)，有向实箭头表示实体之间的关系 (常量’p’或变量’?p’);</p>
+<p>(3) 操作符元素 (OP)，双圆表示操作符 (操作’C’，例如UNION, LIMIT);</p>
+<p>(4) 参数值元 (PV)，表示参数的矩形;</p>
+<p>(5) 投影实体和投影关系元素 (PE 和 PR)，虚线和箭头分别表示在查询结果中要投影的实体或关系。</p>
+<p>知识图谱以实体和关系元素组成的有向图的形式给出。</p>
+<p><strong>定义1(知识图谱)：</strong>知识图谱 G &#x3D; (E, R) 是一个有向图，其中 E 是实体元素的有限集，R 是连接实体元素的关系元素的有限集。</p>
+<h2 id="KGVQL-可视化语法"><a href="#KGVQL-可视化语法" class="headerlink" title="KGVQL 可视化语法"></a>KGVQL 可视化语法</h2><p>KGVQL 的可视化语法是由基本元素组成的图模式表示的，也称为查询图模式，可以由基本元素递归地构造。</p>
+<p><strong>定义2：</strong>KGVQL查询图模式P的递归定义及可视化构造如下</p>
+<ol>
+<li><p>**(单元查询图模式)**：由元素 $s,o \in S_E$ 和 $ p \in Sp$ 组成的图模式，p 在图形上与 s 和 o相连，这是一种查询图模式，其中 $ S_E$ 是实体元素 (E) 和投影实体元素 (PE) 的有限集， $S_P$ 是关系元素 (R) 和投影关系元素 (PR) 的有限集。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119113124401.png" srcset="/img/loading.gif" lazyload alt="image-20221119113124401"></p>
+</li>
+<li><p>**(基本查询图模式)**：由多个查询图模式组成的图模式，这些查询图模式包含共同的实体，并由这些实体连接起来，这就是基本查询图模式。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119113144300.png" srcset="/img/loading.gif" lazyload alt="image-20221119113144300"></p>
+</li>
+<li><p>**(受限查询图模式)**：如果 P 是一个查询图模式，那么带有操作符元素 $c \in S_C$ 和参数值元素 $v \in S_V$ 的 P 也是一个查询图模式，其中 $S_C$ 是操作符元素的有限集(OP，即 LIMIT 或 FILTER)， $ S_V$ 是参数值元素(PV)的有限集。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119113158542.png" srcset="/img/loading.gif" lazyload alt="image-20221119113158542"></p>
+</li>
+<li><p>**(组合图查询模式)**：由查询图模式 $P_1$ 组成的图模式，通过操作符元素 $c \in S_C$ 连接到查询图模式 $P_2$，是一个查询图模式，其中 $S_C$ 是操作符元素的有限集(OP，即 UNION 或 OPT)。 $P_1$ 的投影实体和投影关系集，应与 $P_2$ 的投影实体和投影关系集一致</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119113209812.png" srcset="/img/loading.gif" lazyload alt="image-20221119113209812"></p>
+</li>
+</ol>
+<p><strong>单元查询图模式</strong>是 KGVQL 最基本的查询图模式，它相当于知识图中的三元模式</p>
+<p><strong>基本查询图模式</strong>可根据其共同的实体元素递归分解为多个单元查询图模式</p>
+<p><strong>受限查询图模式</strong>通过操作符元素(即LIMIT或FILTER)和参数值元素限制查询结果</p>
+<p><strong>组合查询图模式</strong>中，操作符元素UNION或OPT组合P1和P2，即(P1 UNION P2)和(P1 OPT P2)。</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119113319692.png" srcset="/img/loading.gif" lazyload alt="Examples of visual syntax in KGVQL"></p>
+<p>KGVQL 基于由图模式表示的查询，上表显示了使用KGVQL语法表示的查询图模式的各种情况。</p>
+<p>给定查询图模式 P 和知识图谱 G，将 P 对 G 的结果记为查询结果 [P]c。操作符元素 (OP) 用于组合查询图模式或限制查询结果。参数值元素 (PV) 用作操作的参数，例如 FILTER 或 LIMIT。对于 FILTER，参数值是边和节点属性的约束，它们是由不等式符号 (&lt;，&gt;，&lt;，&gt;) 和方程符号 (&#x3D;) 组成的术语的布尔组合。对于 LIMIT，参数值是一个常数。</p>
+<h2 id="作为-SPARQL-片段的-KGVQL"><a href="#作为-SPARQL-片段的-KGVQL" class="headerlink" title="作为 SPARQL 片段的 KGVQL"></a>作为 SPARQL 片段的 KGVQL</h2><p>在 KGVQL 中，最终用户不需要学习特定的文本查询语言。通过 QBE，用户只需要在给定的界面上使用必要的图形元素并填写一些必填字段，就可以执行查询并获得相应的结果。</p>
+<p>为了说明KGVQL语法的通用性，本节将介绍一个与 KGVQL 支持的查询特性等价的 SPARQL 语法片段，并通过示例展示 KGVQL 与 SPARQL 之间的映射，即KGVQL在SPARQL中的实现。</p>
+<p>值得注意的是，SPARQL 使用<strong>词查询模式</strong>，而 KGVQL 使用<strong>词查询图模式</strong>。</p>
+<p>让无限的成对不相交集合 $I$ 和 $L$ 表示知识图谱 RDF 数据模型中的 $URIs$ 和字面量。$T&#x3D;(I \cup L)$是 RDF 术语的集合，RDF 图是 RDF 三元组 $(s, p, o) \in I \times I \times T$ 的有限集合，其中s、p、o分别表示知识图谱中事实的主语、谓语和对象。</p>
+<p>关于 KGVQL与 SPARQL 之间映射部分不进一步详细记录。</p>
+<h2 id="一般图模式"><a href="#一般图模式" class="headerlink" title="一般图模式"></a>一般图模式</h2><p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20221119114904521.png" srcset="/img/loading.gif" lazyload alt="The transformation process from a query result to a query graph."></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/KnowledgeGraph/" class="print-no-link">#KnowledgeGraph</a>
+      
+        <a href="/tags/Visual-query-language/" class="print-no-link">#Visual query language</a>
+      
+        <a href="/tags/Bidirectional-transformation/" class="print-no-link">#Bidirectional transformation</a>
+      
+        <a href="/tags/Query-graph-pattern/" class="print-no-link">#Query graph pattern</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>论文阅读05 KGVQL</div>
+      <div>https://username.github.io/2022/11/17/论文阅读05-KGVQL/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ZhuoRan-Takuzen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-RDF-Shape/" title="论文阅读07 RDF Shape Induction using Konwledge Base">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">论文阅读07 RDF Shape Induction using Konwledge Base</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/10/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB04-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%8F%AF%E8%A7%86%E5%8C%96%E6%9F%A5%E8%AF%A2%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" title="论文阅读04 知识图谱可视化查询技术综述">
+                        <span class="hidden-mobile">论文阅读04 知识图谱可视化查询技术综述</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '5e3c22a86d6178aea6ac7f33a107a434'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
