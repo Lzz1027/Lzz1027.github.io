@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/20210614201246512.png">
 <meta property="article:published_time" content="2024-07-01T12:30:00.000Z">
-<meta property="article:modified_time" content="2024-08-19T08:57:36.633Z">
+<meta property="article:modified_time" content="2024-08-31T12:35:27.744Z">
 <meta property="article:author" content="ZhuoRan-Takuzen">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="Array">
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          2.8k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          11 分钟
+          24 分钟
         
       </span>
     
@@ -342,9 +342,46 @@
 </ol>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-string">&quot;Banana&quot;</span>, <span class="hljs-string">&quot;Orange&quot;</span>, <span class="hljs-string">&quot;Lemon&quot;</span>, <span class="hljs-string">&quot;Apple&quot;</span>, <span class="hljs-string">&quot;Mango&quot;</span>];<br><span class="hljs-keyword">var</span> citrus = fruits.<span class="hljs-built_in">slice</span>(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>); <br></code></pre></td></tr></table></figure>
 
+<h2 id="JavaScript-数组排序"><a href="#JavaScript-数组排序" class="headerlink" title="JavaScript 数组排序"></a>JavaScript 数组排序</h2><ol>
+<li><p><code>sort()</code>方法，最强大的数组方法之一</p>
+<p>默认情况下，按照字符串顺序排序</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-string">&quot;Banana&quot;</span>, <span class="hljs-string">&quot;Orange&quot;</span>, <span class="hljs-string">&quot;Apple&quot;</span>, <span class="hljs-string">&quot;Mango&quot;</span>];<br>fruits.<span class="hljs-title function_">sort</span>(); <br><span class="hljs-comment">// Apple,Banana,Mango,Orange</span><br></code></pre></td></tr></table></figure>
 
+<p>​	 而对于数值类型，需要添加比较函数，比较函数传入两个参数，并根据返回值的正负，判断顺序</p>
+<p>​	 如 40 和 100，传入后，100-40&#x3D;60 &gt; 0，所以40 比 100 更大</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> points = [<span class="hljs-number">40</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">25</span>, <span class="hljs-number">10</span>];<br>points.<span class="hljs-title function_">sort</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>)&#123;<span class="hljs-keyword">return</span> b - a&#125;); <br><span class="hljs-comment">// 100,40,25,10,5,1</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="LeetCode-704-二分查找"><a href="#LeetCode-704-二分查找" class="headerlink" title="LeetCode 704 二分查找"></a>LeetCode 704 二分查找</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">力扣题目链接</a></p>
+<p>​	 同样的，也可以利用<code>Math.random()</code>进行随机排序，该方法返回0（包含）到1（不包含）的为随机数，这样就能获得一半概率a&gt;b，一半概率a&lt;b的情况，进行随机打乱</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> points = [<span class="hljs-number">40</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">25</span>, <span class="hljs-number">10</span>];<br>points.<span class="hljs-title function_">sort</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>)&#123;<span class="hljs-keyword">return</span> <span class="hljs-number">0.5</span> - <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>()&#125;); <br></code></pre></td></tr></table></figure>
+
+<p>​	 尽管对象有多种不同类型数据，也可以使用<code>sort()</code>方法的比较函数排序</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> cars = [<br>&#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&quot;Volvo&quot;</span>, <span class="hljs-attr">year</span>:<span class="hljs-number">2016</span>&#125;,<br>&#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&quot;Saab&quot;</span>, <span class="hljs-attr">year</span>:<span class="hljs-number">2001</span>&#125;,<br>&#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&quot;BMW&quot;</span>, <span class="hljs-attr">year</span>:<span class="hljs-number">2010</span>&#125;];<br>cars.<span class="hljs-title function_">sort</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>)&#123;<span class="hljs-keyword">return</span> a.<span class="hljs-property">year</span> - b.<span class="hljs-property">year</span>&#125;);<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>reverse()</code>方法，将数组倒序</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> fruits = [<span class="hljs-string">&quot;Banana&quot;</span>, <span class="hljs-string">&quot;Orange&quot;</span>, <span class="hljs-string">&quot;Apple&quot;</span>, <span class="hljs-string">&quot;Mango&quot;</span>];<br>fruits.<span class="hljs-title function_">sort</span>();            <span class="hljs-comment">// 对 fruits 中的元素进行排序</span><br>fruits.<span class="hljs-title function_">reverse</span>();         <span class="hljs-comment">// Orange,Mango,Banana,Apple</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>如果只是要找到最大&#x2F;最小值，无需对整个数组排序，可以使用<code>Math.max()</code>或<code>Math.min()</code>方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Math.max.apply([1, 2, 3]) 等于 Math.max(1, 2, 3)。</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">myArrayMax</span>(<span class="hljs-params">arr</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-property">max</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-literal">null</span>, arr);<br>&#125;<br><br><span class="hljs-comment">// Math.min.apply([1, 2, 3]) 等于 Math.min(1, 2, 3)。</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">myArrayMin</span>(<span class="hljs-params">arr</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-property">min</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-literal">null</span>, arr);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="JavaScript-数组迭代"><a href="#JavaScript-数组迭代" class="headerlink" title="JavaScript 数组迭代"></a>JavaScript 数组迭代</h2><ol>
+<li><code>Array.forEach()</code>对每个数组元素调用一次回调，接受 3 个参数：项目值、项目索引、数组本身</li>
+<li><code>Array.map()</code>方法通过对每个数组元素执行函数来创建<strong>新数组</strong>，不会对没有值的数组元素执行函数，也不会更改原始数组</li>
+<li><code>Array.filter()</code>方法创建一个包含通过测试的数组元素的<strong>新数组</strong></li>
+<li><code>Array.reduce()</code>方法在每个数组元素上运行函数，以生成（减少它）单个值,在数组中从左到右工作(<code>reduceRight()</code>方法则从右到左工作) ，不会减少原始数组。</li>
+</ol>
+<p>​	 <code>reduce()</code>方法的回调函数接受四个参数，一个初始值（初始值也可以放在回调函数后，作为第二个大参数传入），和项目值、项目索引、数组本身</p>
+<ol start="5">
+<li><code>Array.every()</code>检验数组中的所有值是否均满足函数要求，<code>Array.some()</code>则只检验是否有值满足（至少一个）</li>
+<li><code>Array.find()</code>找到第一个满足要求的数组元素的值，<code>Array.findIndex()</code>则返回索引</li>
+<li><code>Array.indexOf()</code>从头部开始搜索元素位置，<code>Array.lastIndexOf()</code>从尾部开始搜索</li>
+</ol>
+<h1 id="数组题目"><a href="#数组题目" class="headerlink" title="数组题目"></a>数组题目</h1><h2 id="LeetCode-704-二分查找-（二分法）"><a href="#LeetCode-704-二分查找-（二分法）" class="headerlink" title="LeetCode 704 二分查找 （二分法）"></a>LeetCode 704 二分查找 （二分法）</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">力扣题目链接</a></p>
 <p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。</p>
 <p>示例 1:</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">输入: nums = [-1,0,3,5,9,12], target = 9     <br>输出: 4       <br>解释: 9 出现在 nums 中并且下标为 4     <br></code></pre></td></tr></table></figure>
@@ -365,6 +402,52 @@
 <p>如果相等，直接返回，</p>
 <p>到最后，left, mid, right 三个值相等，再找就会使得left &gt; right，跳出循环，返回 -1</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">number[]</span>&#125; <span class="hljs-variable">nums</span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">number</span>&#125; <span class="hljs-variable">target</span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> &#123;<span class="hljs-type">number</span>&#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">var</span> search = <span class="hljs-keyword">function</span>(<span class="hljs-params">nums, target</span>) &#123;<br>    <span class="hljs-comment">// right是数组最后一个数的下标，num[right]在查找范围内，是左闭右闭区间</span><br>    <span class="hljs-keyword">let</span> mid, left = <span class="hljs-number">0</span>, right = nums.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>;<br>    <span class="hljs-comment">// 当left=right时，由于nums[right]在查找范围内，所以要包括此情况</span><br>    <span class="hljs-keyword">while</span> (left &lt;= right) &#123;<br>        <span class="hljs-comment">// 位运算 + 防止大数溢出</span><br>        mid = left + ((right - left) &gt;&gt; <span class="hljs-number">1</span>);<br>        <span class="hljs-comment">// 如果中间数大于目标值，要把中间数排除查找范围，所以右边界更新为mid-1；如果右边界更新为mid，那中间数还在下次查找范围内</span><br>        <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;<br>            right = mid - <span class="hljs-number">1</span>;  <span class="hljs-comment">// 去左面闭区间寻找</span><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target) &#123;<br>            left = mid + <span class="hljs-number">1</span>;   <span class="hljs-comment">// 去右面闭区间寻找</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> mid;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="LeetCode-27-移除元素"><a href="#LeetCode-27-移除元素" class="headerlink" title="LeetCode 27 移除元素"></a>LeetCode 27 移除元素</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-element/">力扣题目链接</a></p>
+<p>给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并<strong>原地</strong>修改输入数组。</p>
+<p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p>示例 1: 给定 nums &#x3D; [3,2,2,3], val &#x3D; 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。 你不需要考虑数组中超出新长度后面的元素。</p>
+<p>示例 2: 给定 nums &#x3D; [0,1,2,2,3,0,4,2], val &#x3D; 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。</p>
+<p><strong>你不需要考虑数组中超出新长度后面的元素。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> removeElement = <span class="hljs-keyword">function</span>(<span class="hljs-params">nums, val</span>) &#123;<br>    <span class="hljs-keyword">let</span> k = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-property">length</span>; i++)&#123;<br>        <span class="hljs-keyword">if</span> (nums[i] != val) &#123;<br>            nums[k++] = nums[i]<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> k<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="LeetCode-977-有序数组的平方-（双指针）"><a href="#LeetCode-977-有序数组的平方-（双指针）" class="headerlink" title="LeetCode 977 有序数组的平方 （双指针）"></a>LeetCode 977 有序数组的平方 （双指针）</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/squares-of-a-sorted-array/">力扣题目链接</a></p>
+<p>给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。</p>
+<p>示例 1：</p>
+<ul>
+<li>输入：nums &#x3D; [-4,-1,0,3,10]</li>
+<li>输出：[0,1,9,16,100]</li>
+<li>解释：平方后，数组变为 [16,1,0,9,100]，排序后，数组变为 [0,1,9,16,100]</li>
+</ul>
+<p>示例 2：</p>
+<ul>
+<li>输入：nums &#x3D; [-7,-3,2,3,11]</li>
+<li>输出：[4,9,9,49,121]</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> sortedSquares = <span class="hljs-keyword">function</span> (<span class="hljs-params">nums</span>) &#123;<br>    nums.<span class="hljs-title function_">map</span>( <span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item*item)<br>    <span class="hljs-keyword">let</span> start = <span class="hljs-number">0</span>, end = nums.<span class="hljs-property">length</span>-<span class="hljs-number">1</span><br>    <span class="hljs-keyword">let</span> result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(nums.<span class="hljs-property">length</span>).<span class="hljs-title function_">fill</span>(<span class="hljs-number">0</span>)<br>    <br>    <span class="hljs-keyword">let</span> left = nums[start] * nums[start]<br>    <span class="hljs-keyword">let</span> right = nums[end] * nums[end]<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = nums.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> ; i--) &#123;<br>        <span class="hljs-keyword">if</span> (left &gt;= right) &#123;<br>            result[i] = left<br>            start++<br>            left =  nums[start] * nums[start]<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            result[i] = right<br>            end--<br>            right =  nums[end] * nums[end]<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Leetcode-209-长度最小的子数组-（滑动窗口）"><a href="#Leetcode-209-长度最小的子数组-（滑动窗口）" class="headerlink" title="Leetcode 209 长度最小的子数组 （滑动窗口）"></a>Leetcode 209 长度最小的子数组 （滑动窗口）</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-size-subarray-sum/">力扣题目链接(opens new window)</a></p>
+<p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。</p>
+<p>示例：</p>
+<ul>
+<li>输入：s &#x3D; 7, nums &#x3D; [2,3,1,2,4,3]</li>
+<li>输出：2</li>
+<li>解释：子数组 [4,3] 是该条件下的长度最小的子数组。</li>
+</ul>
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; target &lt;&#x3D; 10^9</li>
+<li>1 &lt;&#x3D; nums.length &lt;&#x3D; 10^5</li>
+<li>1 &lt;&#x3D; nums[i] &lt;&#x3D; 10^5</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> minSubArrayLen = <span class="hljs-keyword">function</span> (<span class="hljs-params">target, nums</span>) &#123;<br>    <span class="hljs-keyword">let</span> start = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> result = nums.<span class="hljs-property">length</span>+<span class="hljs-number">1</span>;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = start; i &lt; nums.<span class="hljs-property">length</span>; i++)&#123;<br>        sum+=nums[i]<br>        <span class="hljs-keyword">while</span> (sum &gt;= target) &#123;<br>            <span class="hljs-keyword">if</span> (i - start + <span class="hljs-number">1</span> &lt; result)<br>            result = i - start + <span class="hljs-number">1</span><br>            sum -= nums[start]<br>            start++<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (result == nums.<span class="hljs-property">length</span> + <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> result<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Leetcode-59-螺旋矩阵II"><a href="#Leetcode-59-螺旋矩阵II" class="headerlink" title="Leetcode 59 螺旋矩阵II"></a>Leetcode 59 螺旋矩阵II</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/spiral-matrix-ii/">力扣题目链接(opens new window)</a></p>
+<p>给定一个正整数 n，生成一个包含 1 到 n^2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。</p>
+<p>示例:</p>
+<p>输入: 3 输出: [ [ 1, 2, 3 ], [ 8, 9, 4 ], [ 7, 6, 5 ] ]</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> generateMatrix = <span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) &#123;<br>    <span class="hljs-keyword">let</span> item = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">let</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(n).<span class="hljs-title function_">fill</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function">()=&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(n).<span class="hljs-title function_">fill</span>(<span class="hljs-number">0</span>))<br><br>    <span class="hljs-comment">// 画几圈？</span><br>    <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(n/<span class="hljs-number">2</span>); i++ ) &#123;<br>        <span class="hljs-keyword">if</span> (i == <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(n/<span class="hljs-number">2</span>) &amp;&amp; n % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>            a[i][i] = n*n<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <br>        <span class="hljs-comment">// 画四条边</span><br><br>        <span class="hljs-comment">// 上边</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> t = i; t &lt; n - <span class="hljs-number">1</span> - i; t++) &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(item)<br>            a[i][t] = item<br>            a[t][n-<span class="hljs-number">1</span>-i] = item + (n - <span class="hljs-number">1</span> - <span class="hljs-number">2</span>*i)<br>            a[n-<span class="hljs-number">1</span>-i][n-<span class="hljs-number">1</span>-t] = item + <span class="hljs-number">2</span>*(n - <span class="hljs-number">1</span> - <span class="hljs-number">2</span>*i)<br>            a[n-<span class="hljs-number">1</span>-t][i] = item + <span class="hljs-number">3</span>*(n - <span class="hljs-number">1</span> - <span class="hljs-number">2</span>*i)<br>            item++<br>        &#125;<br>        <br>        <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span>+i &lt; n-<span class="hljs-number">1</span>)&#123;<br>            <br>        item = a[<span class="hljs-number">1</span>+i][i]<br>        item++<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> a<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -468,8 +551,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/01/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0-HTML-CSS%E5%9F%BA%E7%A1%80/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2023/02/23/Apache-Jena%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Apache-Jena 学习笔记">
+                        <span class="hidden-mobile">Apache-Jena 学习笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
