@@ -19,26 +19,28 @@
   <meta name="author" content="ZhuoRan-Takuzen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="摘要：可视化推荐或自动化的可视化生成可以显著地减低一般人快速制作高效数据可视化的障碍，特别是对那些没有数据可视化背景的人来说。然而，现有的基于规则的方法需要可视化专家对可视化规则进行繁杂的手动说明，而其他的基于机器学习的方法通常像黑盒一样并且很难理解为什么要推荐某种特定的可视化方法，这限制了这些方法的进一步推广。这篇论文通过推出“KG4Vis”填补了这一领域的空缺，一个基于知识图谱（KG）的可视">
+    <meta name="description" content="XSSXSS(Cross Site Scripting)跨站脚本攻击  简称本应为css，但是为了防止与CSS(Cascading Style Sheets，层叠样式表)搞混，就取为xss  跨站脚本攻击就是用 JS 脚本攻击，案例如下： 情景模拟假设有一个前后端不分离的网站，后端用express搭建，文件 app.js 内容如下 12345678910111213141516const expr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文阅读08 KG4Vis A Knowledge Graph-Based Approach for Visualization Recommendation">
-<meta property="og:url" content="https://username.github.io/2022/12/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB08-KG4Vis/index.html">
+<meta property="og:title" content="查漏补缺-前端安全之XSS与CSRF">
+<meta property="og:url" content="https://username.github.io/2024/09/06/%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E4%B9%8BXSS%E4%B8%8ECSRF/index.html">
 <meta property="og:site_name" content="Takuzen&#39;s Blog">
-<meta property="og:description" content="摘要：可视化推荐或自动化的可视化生成可以显著地减低一般人快速制作高效数据可视化的障碍，特别是对那些没有数据可视化背景的人来说。然而，现有的基于规则的方法需要可视化专家对可视化规则进行繁杂的手动说明，而其他的基于机器学习的方法通常像黑盒一样并且很难理解为什么要推荐某种特定的可视化方法，这限制了这些方法的进一步推广。这篇论文通过推出“KG4Vis”填补了这一领域的空缺，一个基于知识图谱（KG）的可视">
+<meta property="og:description" content="XSSXSS(Cross Site Scripting)跨站脚本攻击  简称本应为css，但是为了防止与CSS(Cascading Style Sheets，层叠样式表)搞混，就取为xss  跨站脚本攻击就是用 JS 脚本攻击，案例如下： 情景模拟假设有一个前后端不分离的网站，后端用express搭建，文件 app.js 内容如下 12345678910111213141516const expr">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20230402211956139.png">
-<meta property="article:published_time" content="2022-12-31T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-08-19T06:30:36.265Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409102147975.webp">
+<meta property="article:published_time" content="2024-09-06T12:30:00.000Z">
+<meta property="article:modified_time" content="2024-09-18T05:44:15.438Z">
 <meta property="article:author" content="ZhuoRan-Takuzen">
-<meta property="article:tag" content="Knowledge Graph">
-<meta property="article:tag" content="Data Visualization">
-<meta property="article:tag" content="Visualization recommendation">
+<meta property="article:tag" content="front end">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="safe">
+<meta property="article:tag" content="xss">
+<meta property="article:tag" content="csrf">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20230402211956139.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409102147975.webp">
   
   
   
-  <title>论文阅读08 KG4Vis A Knowledge Graph-Based Approach for Visualization Recommendation - Takuzen&#39;s Blog</title>
+  <title>查漏补缺-前端安全之XSS与CSRF - Takuzen&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +218,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="论文阅读08 KG4Vis A Knowledge Graph-Based Approach for Visualization Recommendation"></span>
+            <span id="subtitle" data-typed-text="查漏补缺-前端安全之XSS与CSRF"></span>
           
         </div>
 
@@ -227,8 +229,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-31 20:00" pubdate>
-          2022年12月31日 晚上
+        <time datetime="2024-09-06 20:30" pubdate>
+          2024年9月6日 晚上
         </time>
       </span>
     
@@ -239,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          428 字
+          1.4k 字
         
       </span>
     
@@ -250,7 +252,7 @@
         
         
         
-          4 分钟
+          12 分钟
         
       </span>
     
@@ -287,13 +289,75 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">论文阅读08 KG4Vis A Knowledge Graph-Based Approach for Visualization Recommendation</h1>
+            <h1 id="seo-header">查漏补缺-前端安全之XSS与CSRF</h1>
             
             
               <div class="markdown-body">
                 
-                <p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/image-20230402211923363.png" srcset="/img/loading.gif" lazyload alt="image-20230402211923363"></p>
-<p>摘要：可视化推荐或自动化的可视化生成可以显著地减低一般人快速制作高效数据可视化的障碍，特别是对那些没有数据可视化背景的人来说。然而，现有的基于规则的方法需要可视化专家对可视化规则进行繁杂的手动说明，而其他的基于机器学习的方法通常像黑盒一样并且很难理解为什么要推荐某种特定的可视化方法，这限制了这些方法的进一步推广。这篇论文通过推出“KG4Vis”填补了这一领域的空缺，一个基于知识图谱（KG）的可视化推荐方法。他不需要对可视化规则进行手动说明，也能保证很好的可解释性。特别地，我们推出了一个用于构建知识图谱的框架，由三类实体和他们之间的关系组成（如：数据特征，数据列，可视化设计选择），以建立数据和有效的可视化之间的映射法则。一个基于 TransE 的嵌入技术被部署用于从现有 数据-可视化对 中学习知识图谱中实体和关系的嵌入，这种嵌入本质上建模了可取的可视化规则。之后，对于给定的新数据集，可以带有语义上有意义的规则的知识图谱中推断出高效的可视化方法。我们对所提出的方法进行了广泛的评估，包括定量比较、案例研究和专家访谈。实验结果证明了该方法的有效性。</p>
+                <h1 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h1><p>XSS(<code>Cross</code> <code>Site</code> <code>Scripting</code>)跨站脚本攻击</p>
+<blockquote>
+<p>简称本应为<code>css</code>，但是为了防止与CSS(Cascading Style Sheets，层叠样式表)搞混，就取为<code>xss</code></p>
+</blockquote>
+<p>跨站脚本攻击就是用 JS 脚本攻击，案例如下：</p>
+<h2 id="情景模拟"><a href="#情景模拟" class="headerlink" title="情景模拟"></a>情景模拟</h2><p>假设有一个前后端不分离的网站，后端用<code>express</code>搭建，文件 <code>app.js</code> 内容如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>) <span class="hljs-comment">// npm i express</span><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>)<br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>()<br><span class="hljs-keyword">const</span> ejs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;ejs&#x27;</span>); <span class="hljs-comment">// npm i ejs</span><br><br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;views&#x27;</span>, path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;views&#x27;</span>)); <span class="hljs-comment">// views的文件都会被当作模板被读到</span><br>app.<span class="hljs-title function_">engine</span>(<span class="hljs-string">&#x27;html&#x27;</span>, ejs.<span class="hljs-property">__express</span>);<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;view engine&#x27;</span>, <span class="hljs-string">&#x27;html&#x27;</span>); <span class="hljs-comment">// 让模板引擎生效</span><br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) &#123; <span class="hljs-comment">// 定义一个跟路径</span><br>  res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;index&#x27;</span>, &#123;<span class="hljs-attr">title</span>:<span class="hljs-string">&#x27;express&#x27;</span>, <span class="hljs-attr">xss</span>: req.<span class="hljs-property">query</span>.<span class="hljs-property">xss</span>&#125;) <span class="hljs-comment">// res.render向前端输出</span><br>&#125;)<br><br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;listening on 3000&#x27;</span>);<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>而其返回的 <code>HTML</code> 页面 <code>index.html</code> 内容如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>&lt;%= title %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&lt;%= title %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>hello &lt;%= title %&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>    &lt;%- xss %&gt;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>现在在浏览器中输入URL：<a target="_blank" rel="noopener" href="http://localhost:3000/?xss=123">http://localhost:3000/?xss=123</a> ，title已经被默认赋值为 <code>express</code>，<code>xss</code>则被赋值为 123，可以得到如下页面</p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409181311486.webp" srcset="/img/loading.gif" lazyload alt="1.png"></p>
+<p>如果这时，我们把参数换成一个<code>script</code>标签，并且在<code>script</code>里面写个<code>alert</code>，用来模拟脚本攻击，具体URL为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">http://localhost:3000/?xss=<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"><span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;你被攻击了&#x27;</span>)</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409181314619.webp" srcset="/img/loading.gif" lazyload alt="1.gif"></p>
+<p>URL里可以设置任何类型的参数，所以理论上可以写一个输入框，这样用户可能在访问网址时弹出输入框，并误以为这是银行网站自己弹出的内容，从而在输入框中输入如密码等重要信息，而黑客已经在后台获取了这些资料</p>
+<h3 id="XSS的危害"><a href="#XSS的危害" class="headerlink" title="XSS的危害"></a><strong>XSS的危害</strong></h3><ol>
+<li>窃取<code>cookie</code>信息：黑客可以在其他电脑上模拟登录状态</li>
+<li>可以监听用户行为：可以监听用户点击键盘的行为，得到用户信息</li>
+<li>伪造登录窗口</li>
+<li>在你的页面生成浮窗广告</li>
+</ol>
+<p>浮窗广告例子：在body中添加一个 <code>div</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">http://localhost:3000/?xss=<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"><span class="hljs-keyword">let</span> div = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(div);div.<span class="hljs-property">style</span>.<span class="hljs-property">width</span> = <span class="hljs-string">&#x27;300px&#x27;</span>;div.<span class="hljs-property">style</span>.<span class="hljs-property">height</span> = <span class="hljs-string">&#x27;200px&#x27;</span>;div.<span class="hljs-property">style</span>.<span class="hljs-property">border</span> = <span class="hljs-string">&#x27;1px solid black&#x27;</span>;div.<span class="hljs-property">style</span>.<span class="hljs-property">position</span> = <span class="hljs-string">&#x27;fixed&#x27;</span>;div.<span class="hljs-property">style</span>.<span class="hljs-property">top</span> = <span class="hljs-string">&#x27;300px&#x27;</span>;div.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = <span class="hljs-string">&#x27;300px&#x27;</span>;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409181339587.webp" srcset="/img/loading.gif" lazyload alt="2.gif"></p>
+<h2 id="如何注入？"><a href="#如何注入？" class="headerlink" title="如何注入？"></a><strong>如何注入？</strong></h2><p>那么问题来了，XSS是在URL中写入参数，用户又不会自己入侵自己，如何将脚本放到别人的客户端上运行呢？</p>
+<ol>
+<li>反射型攻击：在<code>url</code>中写入参数，也就是上面的例子，比如攻击者发送的钓鱼短信等等，如果受害者点击并且执行，就会执行恶意脚本</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409181320389.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="2">
+<li>存储型攻击：这种情况更加复杂一些，比如某网站存在一个评论区，我在评论区输入脚本，那么连带脚本的这部分内容就会被存入到数据库中，其他受害者点击这些评论时（可能模拟为某些按钮或文本），就有可能触发这类内容</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409181322257.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="3">
+<li><p>DOM型攻击：一种基于 HTML 解析 DOM 过程中的安全漏洞进行的跨站攻击,攻击的过程与反射型XSS攻击极其类似，差异在于反射型XSS会把攻击脚本传递给服务器，而DOM型XSS不需要，从而可以绕过WAF、躲避服务端的检测。</p>
+<p>DOM型XSS攻击通常也是攻击者诱导用户访问一个恶意网站，用户在输入数据后，js脚本将这些内容组合成被篡改的DOM片段，并在其中注入恶意脚本，而浏览器只要解析这些DOM片段，就会执行这些恶意脚本，从而窃取用户信息。</p>
+</li>
+</ol>
+<h2 id="如何防范XSS"><a href="#如何防范XSS" class="headerlink" title="如何防范XSS"></a>如何防范XSS</h2><ol>
+<li>对输入参数进行强校验，把不安全字符（如 &lt;, &gt;, &#x2F; 等) 过滤，从而避免浏览器执行这些内容</li>
+<li>将用户输入的内容返回到页面上时，同样进行校验，防止被解析为HTML标签</li>
+<li>使用 <code>HTTPOnly</code> cookie，这样 js 脚本不能读取到 cookie 信息</li>
+<li>使用如验证码等安全控件来应对一些特殊页面（登录、支付页面）</li>
+<li>设置 <code>CSP</code>（<code>Content Security Policy</code>），通过白名单和黑名单限制加载的资源类型和来源，从而防止恶意脚本的加载和执行</li>
+<li>使用 <code>innerText</code> 或 <code>textContent</code> 等更安全的 API 取代 <code>innerHTML</code></li>
+<li>限制用户输入</li>
+<li>提示用户小心恶意链接</li>
+</ol>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p><code>CSRF</code> (<code>Cross</code> <code>Site</code> <code>Request</code> <code>Forgery</code>) 跨站请求伪造</p>
+<p>是指指恶意攻击者利用<strong>用户已经登录其他网站的“身份”</strong>来<strong>伪造用户的请求</strong></p>
+<p><img src="https://raw.githubusercontent.com/Lzz1027/markdownImage/main/img/202409181339657.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>受害者正常访问 aa.com ，其登录状态保存在浏览器中</p>
+<p>而如果其访问 bb.com（恶意网站），网站会利用同一个浏览器中 aa.com 的登录状态，直接向 aa.com 发送其他恶意请求</p>
+<h2 id="如何防范"><a href="#如何防范" class="headerlink" title="如何防范"></a>如何防范</h2><ol>
+<li>利用好<code>Cookie</code>的<code>SameSite</code>属性，防止跨站点使用 <code>cookie</code></li>
+<li>服务端验证请求来源，比如<code>Origin</code>字段记录了请求来源地址，杜绝第三方站点请求源</li>
+<li>在用户进行敏感操作前进行用户身份验证</li>
+<li>使用 <code>CSRF Token</code>，在提交请求时一并提交，由服务端进行验证</li>
+<li>设置 <code>CSP</code>（<code>Content Security Policy</code>），通过白名单和黑名单限制加载的资源类型和来源，从而防止恶意脚本的加载和执行</li>
+</ol>
 
                 
               </div>
@@ -302,15 +366,40 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Leak-Filling/" class="category-chain-item">Leak Filling</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Knowledge-Graph/" class="print-no-link">#Knowledge Graph</a>
+        <a href="/tags/front-end/" class="print-no-link">#front end</a>
       
-        <a href="/tags/Data-Visualization/" class="print-no-link">#Data Visualization</a>
+        <a href="/tags/http/" class="print-no-link">#http</a>
       
-        <a href="/tags/Visualization-recommendation/" class="print-no-link">#Visualization recommendation</a>
+        <a href="/tags/safe/" class="print-no-link">#safe</a>
+      
+        <a href="/tags/xss/" class="print-no-link">#xss</a>
+      
+        <a href="/tags/csrf/" class="print-no-link">#csrf</a>
       
     </div>
   
@@ -322,8 +411,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>论文阅读08 KG4Vis A Knowledge Graph-Based Approach for Visualization Recommendation</div>
-      <div>https://username.github.io/2022/12/31/论文阅读08-KG4Vis/</div>
+      <div>查漏补缺-前端安全之XSS与CSRF</div>
+      <div>https://username.github.io/2024/09/06/查漏补缺-前端安全之XSS与CSRF/</div>
     </div>
     <div class="license-meta">
       
@@ -335,7 +424,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月31日</div>
+          <div>2024年9月6日</div>
         </div>
       
       
@@ -367,9 +456,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB06-RDF-Explorer/" title="论文阅读06 RDF Explorer">
+                      <a href="/2024/09/06/%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA-Http%E7%BC%93%E5%AD%98/" title="查漏补缺-本地缓存与HTTP缓存">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">论文阅读06 RDF Explorer</span>
+                        <span class="hidden-mobile">查漏补缺-本地缓存与HTTP缓存</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -377,8 +466,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB07-RDF-Shape/" title="论文阅读07 RDF Shape Induction using Konwledge Base">
-                        <span class="hidden-mobile">论文阅读07 RDF Shape Induction using Konwledge Base</span>
+                      <a href="/2024/08/22/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80/" title="">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -401,7 +490,7 @@
         var options = Object.assign(
           {"clientID":"f936d646e57050e33f0d","clientSecret":"d5cc34972e908dcb830272a75d78459c31472e9f","repo":"gitalk","owner":"Lzz1027","admin":["Lzz1027"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '581264a8be4a5523311cc9a564d10525'
+            id: '5d2148d5cc216145a3329a9c4b99ff5f'
           }
         )
         var gitalk = new Gitalk(options);
